@@ -4,7 +4,12 @@
 double root_prec(double a, double n, double precision, int *iters)
 {
     double y = a;
-    for (int i = 0;; i++)
+    if (y < precision)
+    {
+        *iters = 0;
+        return y;
+    }
+    for (int i = 1;; i++)
     {
         double new_y = ((n - 1) * y + a / pow(y, n - 1)) / n;
         if ((y - new_y) < precision)
