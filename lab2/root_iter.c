@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 double root_iter(double a, double n, int num_of_iter) {
@@ -10,17 +11,27 @@ double root_iter(double a, double n, int num_of_iter) {
 }
 
 int guard(int scanf_result) {
+    if (scanf_result == EOF)
+        return -1;
+    //printf("%d", scanf_result);
 	int result = (scanf_result <= 0);
 	char c;
-	while ((c = getchar()) != '\n' && (c != EOF))
+	while (((c = getchar()) != '\n') && (c != EOF)) {
+		if (c == EOF)
+		    return -1;
 		result = 1;
+	}
 	return result;
 }
 
-#define SCAN(...) if (guard(scanf(__VA_ARGS__))) { printf("Faulty input. Try again!\n\n"); continue; }
+#define SCAN(...) if ((guard_res = guard(scanf(__VA_ARGS__))) == 1) \
+                    { printf("Faulty input. Try again!\n\n"); continue; } \
+                  else if (guard_res == -1) \
+                    { printf("Fatal error: EOF\n\n"); return -1; }
 
 int main() {
     while (1) {
+        int guard_res = 0;
 	    printf("Hello! Input two integers: base of the root and number\n");
 	    double a = 0, n = 0;
 	    SCAN("%lf %lf", &n, &a);
@@ -29,6 +40,7 @@ int main() {
 	    SCAN("%d", &third);
 	    printf("Root [base %.17lf] of %.17lf ", n, a);
 	    printf("after %d iterations  = %.17lf\n", third, root_iter(a, n, third));
+        printf("Same calucation with standard root = %.17lf", pow(a, 1/n));
 	    return 0;
     }
 }
