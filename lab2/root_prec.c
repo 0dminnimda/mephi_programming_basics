@@ -61,8 +61,8 @@ int main()
         SCAN("%lf", &third);
         printf("Root [base %.17lf] of %.17lf ", n, a);
         int iters = 0;
-        printf("with precision %.17lf = %.17lf ", third, root_prec(a, n, third, &iters));
-        printf("and it took %d iterations\n", iters);
+        printf("with precision %.17lf = %.17lf\n", third, root_prec(a, n, third, &iters));
+        printf("It took %d iterations\n", iters);
         printf("Same calculation with standard root = %.17lf", pow(a, 1 / n));
         return 0;
     }
