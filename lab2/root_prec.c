@@ -31,6 +31,7 @@ int main() {
 	    SCAN("%lf", &third);
 	    printf("Root [base %.17lf] of %.17lf ", n, a);
 	    printf("with precision %.17lf = %.17lf\n", third, root_prec(a, n, third));
+	    printf("Same calculation with standard root = %.17lf", pow(a, 1/n));
 	    return 0;
     }
 }
