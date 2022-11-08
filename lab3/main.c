@@ -15,12 +15,11 @@ void print_commands(const char *command_names[], size_t count) {
 }
 
 void partition(char *string, char *delim, char **first, char **second) {
-    char *rest;
+    char *rest = NULL;
 
-    *first = strtok_s(string, delim, &rest);
+    if (string != NULL) *first = strtok_s(string, delim, &rest);
     if (*first == NULL) *first = "";
 
-    // *second = strtok(NULL, "\n");
     *second = rest;
     if (*second == NULL) *second = "";
 }
@@ -47,7 +46,6 @@ int main() {
     command *commands[COMMAND_COUNT] = {
         init, insert, remove_at, process_data, print, exit_command,
     };
-
     const char *command_names[COMMAND_COUNT] = {
         "init", "insert", "remove_at", "process_data", "print", "exit",
     };
