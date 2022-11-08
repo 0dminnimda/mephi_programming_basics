@@ -52,15 +52,13 @@ int main() {
         "init", "insert", "remove_at", "process_data", "print", "exit",
     };
 
-    printf("Hello world!\n");
+    printf("Hello, fellow user!\n");
     print_commands(command_names, COMMAND_COUNT);
 
     while (1) {
-        char string[STRMAX];
-        char *command_name, *command_input;
+        printf(">>> ");
+        char string[STRMAX], *command_name, *command_input;
         read_command(string, &command_name, &command_input);
-        printf("'%s' '%s'\n", command_name, command_input);
-
 
         size_t command_index =
             match_command(command_names, COMMAND_COUNT, command_name);
@@ -69,8 +67,7 @@ int main() {
             printf("Wrong input, try again!\n");
             print_commands(command_names, COMMAND_COUNT);
         } else {
-            if (commands[command_index](command_input))
-                break;
+            if (commands[command_index](command_input)) break;
         }
     }
 }
