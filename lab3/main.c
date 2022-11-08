@@ -1,14 +1,11 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "commands.h"
 
-#define COMMAND_COUNT 5
-
-void greet() {
-    printf("Hello world!\n");
-}
+#define COMMAND_COUNT 6
+#define STRMAX 256
 
 void print_commands(const char *command_names[], size_t count) {
     printf("Available commands:\n");
@@ -17,29 +14,24 @@ void print_commands(const char *command_names[], size_t count) {
     }
 }
 
-void incorrect_input(const char *command_names[], size_t count) {
-    printf("Wrong input, try again!\n");
-    print_commands(command_names, count);
+void partition(char *string, char *delim, char **first, char **second) {
+    char *rest;
+
+    *first = strtok_s(string, delim, &rest);
+    if (*first == NULL) *first = "";
+
+    // *second = strtok(NULL, "\n");
+    *second = rest;
+    if (*second == NULL) *second = "";
 }
 
-void partition(char *string, char **first, char **second) {
-    *first = strtok(string, " \n");
-    if (*first == NULL)
-        *first = "";
-    *second = strtok(NULL, "\n");
-    if (*second == NULL)
-        *second = "";
+void read_command(char *string, char **first, char **second) {
+    fgets(string, STRMAX, stdin);
+    partition(string, " \n", first, second);
 }
 
-char *read() {
-    size_t len = 0;
-    char *result = NULL;
-    getline(&result, &len, stdin);
-    return result;
-}
-
-ssize_t match_command(const char *command_names[], size_t count,
-                  const char *command_name) {
+size_t match_command(const char *command_names[], size_t count,
+                     const char *command_name) {
     for (size_t i = 0; i < count; i++)
         if (strcmp(command_name, command_names[i]) == 0) return i;
 
@@ -50,28 +42,35 @@ int main() {
     command *commands[COMMAND_COUNT] = {
         init, insert, remove_at, process_data, print,
     };
-    const char *command_names[COMMAND_COUNT] = {
-        "init", "insert", "remove_at", "process_data", "print",
-    };
 
     char *exit_command_name = "exit";
 
-    greet();
+    const char *command_names[COMMAND_COUNT] = {
+        "init",         "insert", "remove_at",
+        "process_data", "print",  exit_command_name,
+    };
+
+    printf("Hello world!\n");
     print_commands(command_names, COMMAND_COUNT);
 
     while (1) {
+        char string[STRMAX];
         char *command_name, *command_input;
-        partition(read(), &command_name, &command_input);
+        read_command(string, &command_name, &command_input);
         printf("'%s' '%s'\n", command_name, command_input);
 
-        if (strcmp(command_name, exit_command_name) == 0) break;
+        if (strcmp(command_name, exit_command_name) == 0) {
+            printf("Exiting ...");
+            break;
+        }
 
-        ssize_t command_index =
+        size_t command_index =
             match_command(command_names, COMMAND_COUNT, command_name);
 
-        if (command_index == -1)
-            incorrect_input(command_names, COMMAND_COUNT);
-        else
+        if (command_index == -1) {
+            printf("Wrong input, try again!\n");
+            print_commands(command_names, COMMAND_COUNT);
+        } else
             commands[command_index](command_input);
     }
 }
