@@ -2,12 +2,22 @@
 
 #include <stdio.h>
 
-void init(char *s) {}
+int init(char *s) {
+    return 0;
+}
 
-void insert(char *s) {}
+int insert(char *s) {
+    return 0;
+}
 
-void remove_at(char *s) {}
+int remove_at(char *s) {
+    return 0;
+}
 
-void process_data(char *s) {}
+int process_data(char *s) {
+    return 0;
+}
 
-void print(char *s) {}
+int print(char *s) {
+    return 0;
+}

@@ -70,7 +70,9 @@ int main() {
         if (command_index == -1) {
             printf("Wrong input, try again!\n");
             print_commands(command_names, COMMAND_COUNT);
-        } else
-            commands[command_index](command_input);
+        } else {
+            if (commands[command_index](command_input))
+                break;
+        }
     }
 }

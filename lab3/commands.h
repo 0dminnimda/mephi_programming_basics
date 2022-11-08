@@ -1,4 +1,4 @@
-typedef void command(char*);
+typedef int command(char*);
 
 command init;
 command insert;
