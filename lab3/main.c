@@ -38,16 +38,18 @@ size_t match_command(const char *command_names[], size_t count,
     return -1;
 }
 
+int exit_command(char *s) {
+    printf("Exiting ...\n");
+    return 1;
+}
+
 int main() {
     command *commands[COMMAND_COUNT] = {
-        init, insert, remove_at, process_data, print,
+        init, insert, remove_at, process_data, print, exit_command,
     };
 
-    char *exit_command_name = "exit";
-
     const char *command_names[COMMAND_COUNT] = {
-        "init",         "insert", "remove_at",
-        "process_data", "print",  exit_command_name,
+        "init", "insert", "remove_at", "process_data", "print", "exit",
     };
 
     printf("Hello world!\n");
@@ -59,10 +61,6 @@ int main() {
         read_command(string, &command_name, &command_input);
         printf("'%s' '%s'\n", command_name, command_input);
 
-        if (strcmp(command_name, exit_command_name) == 0) {
-            printf("Exiting ...");
-            break;
-        }
 
         size_t command_index =
             match_command(command_names, COMMAND_COUNT, command_name);
