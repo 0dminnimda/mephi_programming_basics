@@ -1,5 +1,3 @@
-#include <stdlib.h>
-
 typedef float vector_item_t;
 
 typedef struct VectorNode* Vector;
