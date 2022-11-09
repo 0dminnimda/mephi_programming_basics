@@ -67,21 +67,13 @@ int insert(Vector vec, size_t index, vector_item_t value) {
         capacity = capacity * 2 + 1;
     }
     if (reserve(vec, capacity)) return -1;
+    vec->length = max(vec->length, index + 1);
 
-    vector_item_t prev_value = vec->data[index];
-    if (prev_value == 0) {
-        set_item(vec, index, value);
-        return 0;
-    }
+    if (push_back(vec, 0)) return -1;
 
-    if (vec->length + 1 > vec->capacity) {
-        if (reserve(vec, vec->capacity * 2 + 1)) return -1;
-    }
+    for (size_t i = vec->length; i > index; i--)
+        vec->data[i] = vec->data[i - 1];
 
-    for (size_t i = vec->length; i >= index; i--) {
-        vec->data[i + 1] = vec->data[i];
-    }
-    vec->length += 1;
     set_item(vec, index, value);
     return 0;
 }
