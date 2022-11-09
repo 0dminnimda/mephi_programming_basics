@@ -34,7 +34,6 @@ int create(Vector *vec, size_t capacity) {
 }
 
 void destroy(Vector vec) {
-    printf("destroy\n");
     free(vec->data);
     free(vec);
 }

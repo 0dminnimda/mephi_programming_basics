@@ -76,6 +76,7 @@ int main() {
         }
     }
 
+    printf("destroy\n");
     destroy(vec);
 
     return 0;
