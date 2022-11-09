@@ -27,6 +27,6 @@ int process_data_command(char *str, Vector vec) { return 0; }
 int print_command(char *str, Vector vec) {
     for (size_t i = 0; i < get_length(vec); i++)
         printf("%f ", get_item(vec, i));
-    printf("\n");
+    if (get_length(vec)) printf("\n");
     return 0;
 }
