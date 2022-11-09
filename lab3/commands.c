@@ -47,7 +47,7 @@ int insert_command(char *str, Vector vec) {
     return 0;
 }
 
-int remove_at_command(char *str, Vector vec) { return 0; }
+int remove_command(char *str, Vector vec) { return 0; }
 
 int process_data_command(char *str, Vector vec) { return 0; }
 
