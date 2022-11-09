@@ -14,4 +14,3 @@ void destroy(Vector vec);
 int reserve(Vector vec, size_t capacity);
 
 int push_back(Vector vec, vector_item_t value);
-int insert(Vector vec, size_t index, vector_item_t value);

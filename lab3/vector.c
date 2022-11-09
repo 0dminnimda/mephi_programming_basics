@@ -60,20 +60,3 @@ int push_back(Vector vec, vector_item_t value) {
 
     return 0;
 }
-
-int insert(Vector vec, size_t index, vector_item_t value) {
-    size_t capacity = vec->capacity;
-    while (index >= capacity) {
-        capacity = capacity * 2 + 1;
-    }
-    if (reserve(vec, capacity)) return -1;
-    vec->length = max(vec->length, index + 1);
-
-    if (push_back(vec, 0)) return -1;
-
-    for (size_t i = vec->length; i > index; i--)
-        vec->data[i] = vec->data[i - 1];
-
-    set_item(vec, index, value);
-    return 0;
-}
