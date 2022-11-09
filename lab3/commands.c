@@ -47,7 +47,25 @@ int insert_command(char *str, Vector vec) {
     return 0;
 }
 
-int remove_command(char *str, Vector vec) { return 0; }
+int remove_command(char *str, Vector vec) {
+    size_t index = 0;
+    if (sscanf_s(str, "%zu", &index) != 1) {
+        printf("Incorrect input, expected index (size_t)\n");
+        return 0;
+    }
+
+    if (index >= get_length(vec)) {
+        printf("Invalid index (%zu), expected to be less than length (%zu)\n",
+               index, get_length(vec));
+        return 0;
+    }
+
+    for (size_t i = index; i < get_length(vec) - 1; i++)
+        set_item(vec, i, get_item(vec, i + 1));
+
+    pop_back(vec);
+    return 0;
+}
 
 int process_data_command(char *str, Vector vec) { return 0; }
 
