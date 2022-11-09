@@ -1,7 +1,9 @@
-typedef int command(char*);
+#include "vector.h"
 
-command init;
-command insert;
-command remove_at;
-command process_data;
-command print;
+typedef int command_t(char *str, Vector vec);
+
+command_t init_command;
+command_t insert_command;
+command_t remove_at_command;
+command_t process_data_command;
+command_t print_command;

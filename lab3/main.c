@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "commands.h"
+#include "vector.h"
 
 #define COMMAND_COUNT 6
 #define STRMAX 256
@@ -37,7 +38,7 @@ size_t match_command(const char *command_names[], size_t count,
     return -1;
 }
 
-int exit_command(char *s) {
+int exit_command(char *str, Vector vec) {
     printf("Exiting ...\n");
     return 1;
 }
@@ -53,6 +54,12 @@ int main() {
     printf("Hello, fellow user!\n");
     print_commands(command_names, COMMAND_COUNT);
 
+    Vector vec;
+    if (create(&vec, 0)) {
+        printf("Could not create a Vector\n");
+        return -1;
+    }
+
     while (1) {
         printf(">>> ");
         char string[STRMAX], *command_name, *command_input;
@@ -65,7 +72,11 @@ int main() {
             printf("Wrong input, try again!\n");
             print_commands(command_names, COMMAND_COUNT);
         } else {
-            if (commands[command_index](command_input)) break;
+            if (commands[index](input, vec)) break;
         }
     }
+
+    destroy(vec);
+
+    return 0;
 }
