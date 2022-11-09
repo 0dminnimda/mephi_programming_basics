@@ -1,11 +1,6 @@
 #include <stdlib.h>
 
 typedef float vector_item_t;
-// #ifndef CUSTOM_VECTOR_ITEM_TYPE
-// typedef int vector_item_t;
-// #else
-// CUSTOM_VECTOR_ITEM_TYPE_DEF
-// #endif
 
 typedef struct VectorNode* Vector;
 
