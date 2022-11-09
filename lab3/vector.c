@@ -45,7 +45,6 @@ int reserve(Vector vec, size_t capacity) {
     vector_item_t *data = realloc(vec->data, capacity * sizeof(vector_item_t));
     if (data == NULL) return -1;
 
-    free(vec->data);
     vec->data = data;
     vec->capacity = capacity;
 
