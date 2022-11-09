@@ -19,6 +19,8 @@ size_t get_capacity(Vector vec) { return vec->capacity; }
 
 size_t get_length(Vector vec) { return vec->length; }
 
+void reset_length(Vector vec) { vec->length = 0; }
+
 int create(Vector *vec, size_t capacity) {
     *vec = malloc(sizeof(VectorNode));
     if (*vec == NULL) return -1;

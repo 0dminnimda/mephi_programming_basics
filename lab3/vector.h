@@ -9,6 +9,7 @@ void set_item(Vector vec, size_t index, vector_item_t value);
 
 size_t get_capacity(Vector vec);
 size_t get_length(Vector vec);
+void reset_length(Vector vec);
 
 int create(Vector *vec, size_t capacity);
 void destroy(Vector vec);
