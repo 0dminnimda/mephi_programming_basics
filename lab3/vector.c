@@ -60,3 +60,7 @@ int push_back(Vector vec, vector_item_t value) {
 
     return 0;
 }
+
+void pop_back(Vector vec) {
+    if (vec->length) vec->length--;
+}
