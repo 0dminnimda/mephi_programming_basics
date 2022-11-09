@@ -85,21 +85,3 @@ int insert(Vector vec, size_t index, vector_item_t value) {
     set_item(vec, index, value);
     return 0;
 }
-
-// int main() {
-//     Vector vec;
-//     if (create(&vec, 1)) return -1;
-
-//     while (1) {
-//         size_t i = 0;
-//         vector_item_t val = 0;
-//         scanf("%d %d", &i, &val);
-//         if (val == 0) break;
-//         insert(&vec, i, val);
-//     }
-
-//     for (size_t i = 0; i < vec.length; i++) {
-//         if (i > 0) printf(" ");
-//         printf("%d", vec.data[i]);
-//     }
-// }
