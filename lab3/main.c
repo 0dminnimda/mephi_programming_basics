@@ -44,8 +44,9 @@ int exit_command(char *str, Vector vec) {
 }
 
 int main() {
-    command *commands[COMMAND_COUNT] = {
-        init, insert, remove_at, process_data, print, exit_command,
+    command_t *commands[COMMAND_COUNT] = {
+        init_command,         insert_command, remove_at_command,
+        process_data_command, print_command,  exit_command,
     };
     const char *command_names[COMMAND_COUNT] = {
         "init", "insert", "remove_at", "process_data", "print", "exit",
@@ -62,13 +63,12 @@ int main() {
 
     while (1) {
         printf(">>> ");
-        char string[STRMAX], *command_name, *command_input;
-        read_command(string, &command_name, &command_input);
+        char string[STRMAX], *command, *input;
+        read_command(string, &command, &input);
 
-        size_t command_index =
-            match_command(command_names, COMMAND_COUNT, command_name);
+        size_t index = match_command(command_names, COMMAND_COUNT, command);
 
-        if (command_index == -1) {
+        if (index == -1) {
             printf("Wrong input, try again!\n");
             print_commands(command_names, COMMAND_COUNT);
         } else {
