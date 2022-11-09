@@ -19,7 +19,33 @@ int init_command(char *str, Vector vec) {
     return 0;
 }
 
-int insert_command(char *str, Vector vec) { return 0; }
+int insert_command(char *str, Vector vec) {
+    size_t index = 0;
+    float value = 0;
+    if (sscanf_s(str, "%zu%f", &index, &value) != 2) {
+        printf("Incorrect input, expected index (size_t) and value (float)\n");
+        return 0;
+    }
+
+    if (index > get_length(vec)) {
+        printf(
+            "Invalid index (%zu), expected to be less than or equal to length "
+            "(%zu)\n",
+            index, get_length(vec));
+        return 0;
+    }
+
+    if (push_back(vec, .0)) {
+        printf("Could not push_back %f into Vector\n", .0);
+        return 0;
+    }
+
+    for (size_t i = get_length(vec); i > index; i--)
+        set_item(vec, i, get_item(vec, i - 1));
+
+    set_item(vec, index, value);
+    return 0;
+}
 
 int remove_at_command(char *str, Vector vec) { return 0; }
 
