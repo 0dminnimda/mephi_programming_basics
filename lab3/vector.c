@@ -12,7 +12,6 @@ vector_item_t get_item(Vector vec, size_t index) { return vec->data[index]; }
 
 void set_item(Vector vec, size_t index, vector_item_t value) {
     vec->data[index] = value;
-    vec->length = max(vec->length, index + 1);
 }
 
 size_t get_capacity(Vector vec) { return vec->capacity; }
@@ -57,6 +56,7 @@ int push_back(Vector vec, vector_item_t value) {
         if (reserve(vec, vec->capacity * 2 + 1)) return -1;
 
     set_item(vec, vec->length, value);
+    vec->length++;
 
     return 0;
 }
