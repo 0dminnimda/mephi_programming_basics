@@ -11,6 +11,7 @@ int init_command(char *str, Vector vec) {
     while (sscanf_s(ptr, "%f%n", &value, &offset) == 1) {
         ptr += offset;
         if (push_back(vec, value)) {
+            reset_length(vec);
             printf("Could not push_back %f into Vector\n", value);
             return 0;
         }
