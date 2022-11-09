@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-cc -c commands.c && cc commands.o main.c -o main.o -lm -O3 && ./main.o
+cc vector.c commands.c main.c -o main.o -O3 && ./main.o
