@@ -15,21 +15,6 @@ void print_commands(const char *command_names[], size_t count) {
     }
 }
 
-void partition(char *string, char *delim, char **first, char **second) {
-    char *rest = NULL;
-
-    if (string != NULL) *first = strtok_s(string, delim, &rest);
-    if (*first == NULL) *first = "";
-
-    *second = rest;
-    if (*second == NULL) *second = "";
-}
-
-void read_command(char *string, char **first, char **second) {
-    fgets(string, STRMAX, stdin);
-    partition(string, " \n", first, second);
-}
-
 size_t match_command(const char *command_names[], size_t count,
                      const char *command_name) {
     for (size_t i = 0; i < count; i++)
@@ -63,8 +48,9 @@ int main() {
 
     while (1) {
         printf(">>> ");
-        char string[STRMAX], *command, *input;
-        read_command(string, &command, &input);
+        char command[STRMAX], input[STRMAX];
+        scanf_s("%[^ \n]", command, STRMAX);
+        fgets(input, STRMAX, stdin);  // consume the rest of the line
 
         size_t index = match_command(command_names, COMMAND_COUNT, command);
 
