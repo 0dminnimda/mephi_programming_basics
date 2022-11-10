@@ -68,6 +68,24 @@ int remove_command(char *str, Vector vec) {
 }
 
 int process_data_command(char *str, Vector vec) { return 0; }
+void as_ratio(float rational) {//}, long *integer, long *power) {
+    unsigned long long integer = rational;
+    unsigned long long power = 1;
+    long double long_rational = rational;
+    for (int i = 0; i < 20; i++) {
+        long double im = ((long double)integer / power);
+        if (rational == (float)im)
+            break;
+        long double diff = long_rational - im;
+        unsigned long long digit = diff * power;
+        // printf("%Lf %lf %Lf %Lf %lld %lld\n", diff, rational - (float)im, diff * power, im, integer, digit);
+        integer += digit;
+        integer *= 10;
+        power *= 10;
+    }
+    printf("%lld %lld", integer, power);
+}
+
 
 int print_command(char *str, Vector vec) {
     for (size_t i = 0; i < get_length(vec); i++)
