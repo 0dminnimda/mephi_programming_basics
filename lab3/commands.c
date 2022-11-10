@@ -84,6 +84,44 @@ void as_ratio(float rational) {//}, long *integer, long *power) {
         power *= 10;
     }
     printf("%lld %lld", integer, power);
+void count_digits(float rational) {
+    unsigned long long integer = rational;
+    unsigned int whole = 0;
+    while (integer) {
+        whole++;
+        printf("%lld %d\n", integer, whole);
+        integer /= 10;
+    }
+    if (whole < 1)
+        whole = 1;
+
+    unsigned int decimal = 0;
+    unsigned long long power = 1;
+    integer = rational;
+    long double long_rational = rational;
+    for (int i = 0; i < 20; i++) {
+        long double im = ((long double)integer / power);
+        if (rational == (float)im) break;
+        integer += (long_rational - im) * power;
+        integer *= 10;
+        power *= 10;
+        decimal++;
+        printf("%d", integer);
+    }
+    // while ()
+    printf("%lld %lld\n", integer, power);
+
+    // float power = 10;
+    // float prev = rational - 1;
+    // while (prev != rational) {
+    //     prev = rational;
+    //     rational -= (float)floor(rational * power) / power;
+    //     decimal++;
+    //     power *= 10;
+    //     printf("%lf %d %lf %d\n", rational, decimal, (float)floor(rational * power) / power, ((float)floor(rational * power) / power) == 0);
+    // }
+
+    printf("%d %d", whole, decimal);
 }
 
 
