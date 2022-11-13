@@ -1,4 +1,4 @@
-#define VECTOR_ITEM_TYPE float
+#define VECTOR_ITEM float
 
 #include "vector.h"
 
