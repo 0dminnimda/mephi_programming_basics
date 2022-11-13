@@ -101,7 +101,7 @@ int print_command(char *str, Vector vec) {
     printf("[");
     if (get_length(vec)) print_rational(get_item(vec, 0));
     for (size_t i = 1; i < get_length(vec); i++) {
-        printf(", ");
+        printf(" ");
         print_rational(get_item(vec, i));
     }
     printf("]\n");
