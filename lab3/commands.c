@@ -8,11 +8,7 @@ int init_command(char *str, Vector vec) {
     int offset = 0;
     Rational value;
     while (!sscan_rational(str, &value, &offset)) {
-        // printf("Chars: %d\n", offset);
         str += offset;
-        // printf("Read: ");
-        // print_rational(value);
-        // printf("! Rest: %s!\n", str);
         if (push_back(vec, value)) {
             reset_length(vec);
             printf("Could not push_back ");
@@ -21,9 +17,6 @@ int init_command(char *str, Vector vec) {
             return 0;
         }
     }
-    // printf("len %zu it ", get_length(vec));
-    // print_rational(get_item(vec, 0));
-    // printf("\n");
     return 0;
 }
 
