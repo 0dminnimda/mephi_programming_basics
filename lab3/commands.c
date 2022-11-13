@@ -5,25 +5,39 @@
 
 int init_command(char *str, Vector vec) {
     reset_length(vec);
-    float value;
-    int offset;
-    char *ptr = str;
-    while (sscanf_s(ptr, "%f%n", &value, &offset) == 1) {
-        ptr += offset;
+    int offset = 0;
+    Rational value;
+    while (!sscan_rational(str, &value, &offset)) {
+        // printf("Chars: %d\n", offset);
+        str += offset;
+        // printf("Read: ");
+        // print_rational(value);
+        // printf("! Rest: %s!\n", str);
         if (push_back(vec, value)) {
             reset_length(vec);
-            printf("Could not push_back %f into Vector\n", value);
+            printf("Could not push_back ");
+            print_rational(value);
+            printf(" into Vector\n");
             return 0;
         }
     }
+    // printf("len %zu it ", get_length(vec));
+    // print_rational(get_item(vec, 0));
+    // printf("\n");
     return 0;
 }
 
 int insert_command(char *str, Vector vec) {
+    int offset;
     size_t index = 0;
-    float value = 0;
-    if (sscanf_s(str, "%zu%f", &index, &value) != 2) {
-        printf("Incorrect input, expected index (size_t) and value (float)\n");
+    if (sscanf_s(str, "%zu%n", &index, &offset) != 1) {
+        printf("Incorrect input, expected index (size_t) and value (Rational)\n");
+        return 0;
+    }
+
+    Rational value;
+    if (sscan_rational(str + offset, &value, &offset)) {
+        printf("Incorrect input, expected index (size_t) and value (Rational)\n");
         return 0;
     }
 
@@ -35,8 +49,8 @@ int insert_command(char *str, Vector vec) {
         return 0;
     }
 
-    if (push_back(vec, .0)) {
-        printf("Could not push_back %f into Vector\n", .0);
+    if (push_back(vec, NULL)) {
+        printf("Could not push_back NULL into Vector\n");
         return 0;
     }
 
@@ -79,9 +93,11 @@ int process_data_command(char *str, Vector vec) {
 
 int print_command(char *str, Vector vec) {
     printf("[");
-    if (get_length(vec)) printf("%f", get_item(vec, 0));
-    for (size_t i = 1; i < get_length(vec); i++)
-        printf(", %f", get_item(vec, i));
+    if (get_length(vec)) print_rational(get_item(vec, 0));
+    for (size_t i = 1; i < get_length(vec); i++) {
+        printf(", ");
+        print_rational(get_item(vec, i));
+    }
     printf("]\n");
     return 0;
 }
