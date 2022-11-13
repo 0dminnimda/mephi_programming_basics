@@ -78,8 +78,10 @@ int process_data_command(char *str, Vector vec) {
 }
 
 int print_command(char *str, Vector vec) {
-    for (size_t i = 0; i < get_length(vec); i++)
-        printf("%f ", get_item(vec, i));
-    if (get_length(vec)) printf("\n");
+    printf("[");
+    if (get_length(vec)) printf("%f", get_item(vec, 0));
+    for (size_t i = 1; i < get_length(vec); i++)
+        printf(", %f", get_item(vec, i));
+    printf("]\n");
     return 0;
 }
