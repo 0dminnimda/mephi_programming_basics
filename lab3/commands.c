@@ -24,13 +24,13 @@ int insert_command(char *str, Vector vec) {
     int offset;
     size_t index = 0;
     if (sscanf_s(str, "%zu%n", &index, &offset) != 1) {
-        printf("Incorrect input, expected index (size_t) and value (Rational)\n");
+        printf("Incorrect input, expected index (size_t)\n");
         return 0;
     }
 
     Rational value;
     if (sscan_rational(str + offset, &value, &offset)) {
-        printf("Incorrect input, expected index (size_t) and value (Rational)\n");
+        printf("Incorrect input, expected value (Rational)\n");
         return 0;
     }
 
