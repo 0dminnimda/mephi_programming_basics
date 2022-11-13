@@ -75,11 +75,24 @@ int remove_command(char *str, Vector vec) {
 }
 
 int process_command(char *str, Vector vec) {
-    float value = 0;
-    if (sscanf_s(str, "%f", &value) != 1) {
-        printf("Incorrect input, expected value (float)\n");
+    Vector vec2;
+    if (create(&vec2, 0)) {
+        printf("Could not create a Vector\n");
         return 0;
     }
+
+    size_t length = get_length(vec);
+    reset_length(vec);
+
+    for (size_t i = 0; i < length; i++) {
+        Rational item = get_item(vec, i);
+        if (get_fractional(item) > get_decimal(item))
+            push_back(vec2, item);
+        else
+            push_back(vec, item);
+    }
+
+    print_command(str, vec2);
 
     return 0;
 }
