@@ -5,6 +5,10 @@
 #error You should define 'VECTOR_ITEM' for Vector to work
 #endif  // VECTOR_ITEM
 
+#ifndef VECTOR_ITEM_DESTRUCTOR
+#define VECTOR_ITEM_DESTRUCTOR(item)
+#endif  // VECTOR_ITEM_DESTRUCTOR
+
 typedef struct VectorNode_ *Vector;
 
 #include <stdlib.h>
@@ -44,6 +48,8 @@ inline int create(Vector *vec, size_t capacity) {
 }
 
 inline void destroy(Vector vec) {
+    for (size_t i = 0; i < vec->length; i++)
+        VECTOR_ITEM_DESTRUCTOR(get_item(vec, i));
     free(vec->data);
     free(vec);
 }
