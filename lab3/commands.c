@@ -23,7 +23,7 @@ int init_command(char *str, Vector vec) {
 int insert_command(char *str, Vector vec) {
     int offset;
     size_t index = 0;
-    if (sscanf_s(str, "%zu%n", &index, &offset) != 1) {
+    if (sscanf(str, "%zu%n", &index, &offset) != 1) {
         printf("Incorrect input, expected index (size_t)\n");
         return 0;
     }
@@ -56,7 +56,7 @@ int insert_command(char *str, Vector vec) {
 
 int remove_command(char *str, Vector vec) {
     size_t index = 0;
-    if (sscanf_s(str, "%zu", &index) != 1) {
+    if (sscanf(str, "%zu", &index) != 1) {
         printf("Incorrect input, expected index (size_t)\n");
         return 0;
     }
