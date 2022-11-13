@@ -76,7 +76,7 @@ int remove_command(char *str, Vector vec) {
 
 int process_command(char *str, Vector vec) {
     Vector vec2;
-    if (create(&vec2, 0)) {
+    if (create(&vec2, get_capacity(vec))) {
         printf("Could not create a Vector\n");
         return 0;
     }
