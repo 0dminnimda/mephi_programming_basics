@@ -1,3 +1,5 @@
+#define VECTOR_ITEM_TYPE float
+
 #include "vector.h"
 
 typedef int command_t(char *str, Vector vec);
