@@ -47,7 +47,7 @@ inline int create(Vector *vec, size_t capacity) {
     return 0;
 }
 
-inline void destroy(Vector vec) {
+inline void destroy_vector(Vector vec) {
     for (size_t i = 0; i < vec->length; i++)
         VECTOR_ITEM_DESTRUCTOR(get_item(vec, i));
     free(vec->data);

@@ -63,7 +63,7 @@ int main() {
     }
 
     printf("destroy\n");
-    destroy(vec);
+    destroy_vector(vec);
 
     return 0;
 }
