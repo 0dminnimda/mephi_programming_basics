@@ -20,10 +20,13 @@ int sscan_rational(char *str_ptr, Rational *rat, int *offset) {
     str_ptr += offset1;
     int frac = sscanf_s(str_ptr, ".%18llu%n", &(*rat)->fractional, &offset2);
     if (dec == 1) {
+        // xxx. or xxx.xxx
         if (frac != 0 && frac != 1) return -1;
     } else if (dec == 0) {
+        // .xxx
         if (frac != 1) return -1;
     } else {
+        // invalid
         return -1;
     }
 
