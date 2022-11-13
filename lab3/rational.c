@@ -22,8 +22,17 @@ int sscan_rational(char *str_ptr, Rational *rat, int *offset) {
     int dec = sscanf_s(str_ptr, "%18lld%n", &(*rat)->decimal, &offset1);
     str_ptr += offset1;
     int frac = sscanf_s(str_ptr, ".%18llu%n", &(*rat)->fractional, &offset2);
+
+    if (dec == 1 && frac == 0 && (*str_ptr == '.')) {
+        // so "xxx." will not leave "."
+        frac = 1;
+        offset2 = 1;
+    } else if (dec == 0 && frac == 0)
+        // handle "  .xxx"
+        frac = sscanf_s(str_ptr, " .%18llu%n", &(*rat)->fractional, &offset2);
+
     if (dec == 1) {
-        // xxx. or xxx.xxx
+        // xxx or xxx. or xxx.xxx
         if (frac != 0 && frac != 1) return -1;
     } else if (dec == 0) {
         // .xxx
