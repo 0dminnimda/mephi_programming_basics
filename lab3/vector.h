@@ -1,23 +1,25 @@
 #ifndef VECTOR_H_
 #define VECTOR_H_
 
-#ifndef VEC_ITEM_T
-#error You should define 'VEC_ITEM_T' for Vector to work
-#endif // VEC_ITEM_T
+#ifndef VECTOR_ITEM_TYPE
+#error You should define 'VECTOR_ITEM_TYPE' for Vector to work
+#endif  // VECTOR_ITEM_TYPE
 
 typedef struct VectorNode_ *Vector;
 
 #include <stdlib.h>
 
 typedef struct VectorNode_ {
-    VEC_ITEM_T *data;
+    VECTOR_ITEM_TYPE *data;
     size_t capacity;
     size_t length;
 } VectorNode_;
 
-inline VEC_ITEM_T get_item(Vector vec, size_t index) { return vec->data[index]; }
+inline VECTOR_ITEM_TYPE get_item(Vector vec, size_t index) {
+    return vec->data[index];
+}
 
-inline void set_item(Vector vec, size_t index, VEC_ITEM_T value) {
+inline void set_item(Vector vec, size_t index, VECTOR_ITEM_TYPE value) {
     vec->data[index] = value;
 }
 
@@ -31,7 +33,7 @@ inline int create(Vector *vec, size_t capacity) {
     *vec = malloc(sizeof(VectorNode_));
     if (*vec == NULL) return -1;
 
-    VEC_ITEM_T *data = malloc(capacity * sizeof(VEC_ITEM_T));
+    VECTOR_ITEM_TYPE *data = malloc(capacity * sizeof(VECTOR_ITEM_TYPE));
     if (data == NULL) return -1;
 
     (*vec)->data = data;
@@ -49,7 +51,8 @@ inline void destroy(Vector vec) {
 inline int reserve(Vector vec, size_t capacity) {
     if (capacity <= vec->capacity) return 0;
 
-    VEC_ITEM_T *data = realloc(vec->data, capacity * sizeof(VEC_ITEM_T));
+    VECTOR_ITEM_TYPE *data =
+        realloc(vec->data, capacity * sizeof(VECTOR_ITEM_TYPE));
     if (data == NULL) return -1;
 
     vec->data = data;
@@ -58,7 +61,7 @@ inline int reserve(Vector vec, size_t capacity) {
     return 0;
 }
 
-inline int push_back(Vector vec, VEC_ITEM_T value) {
+inline int push_back(Vector vec, VECTOR_ITEM_TYPE value) {
     if (vec->capacity == vec->length)
         if (reserve(vec, vec->capacity * 2 + 1)) return -1;
 
