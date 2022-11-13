@@ -1,4 +1,7 @@
-#define VECTOR_ITEM float
+#include "rational.h"
+
+#define VECTOR_ITEM Rational
+#define VECTOR_ITEM_DESTRUCTOR(item) destroy_rational(item)
 
 #include "vector.h"
 
