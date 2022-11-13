@@ -49,7 +49,7 @@ int main() {
     while (1) {
         printf(">>> ");
         char command[STRMAX], input[STRMAX];
-        scanf("%[^ \n]", command, STRMAX);
+        scanf("%[^ \n]", command);
         fgets(input, STRMAX, stdin);  // consume the rest of the line
 
         size_t index = match_command(command_names, COMMAND_COUNT, command);
@@ -62,7 +62,6 @@ int main() {
         }
     }
 
-    printf("destroy\n");
     destroy_vector(vec);
 
     return 0;
