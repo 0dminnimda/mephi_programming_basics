@@ -4,13 +4,13 @@
 #include <string.h>
 
 int init_command(char *str, Vector vec) {
-    reset_length(vec);
+    clear_vector(vec);
     int offset = 0;
     Rational value;
     while (!sscan_rational(str, &value, &offset)) {
         str += offset;
         if (push_back(vec, value)) {
-            reset_length(vec);
+            clear_vector(vec);
             printf("Could not push_back ");
             print_rational(value);
             printf(" into Vector\n");
@@ -93,6 +93,7 @@ int process_command(char *str, Vector vec) {
     }
 
     print_command(str, vec2);
+    destroy_vector(vec2);
 
     return 0;
 }
