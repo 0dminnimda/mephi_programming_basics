@@ -8,6 +8,9 @@ typedef struct RationalNode_ {
     unsigned long long fractional;
 } RationalNode_;
 
+long long get_decimal(Rational rat) { return rat->decimal; }
+unsigned long long get_fractional(Rational rat) { return rat->fractional; }
+
 int sscan_rational(char *str_ptr, Rational *rat, int *offset) {
     *rat = malloc(sizeof(RationalNode_));
     if (*rat == NULL) return -1;
