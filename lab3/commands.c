@@ -74,10 +74,6 @@ int process_data_command(char *str, Vector vec) {
         return 0;
     }
 
-    as_ratio(value);
-    count_digits(value);
-    printf("\n");
-
     return 0;
 }
 
