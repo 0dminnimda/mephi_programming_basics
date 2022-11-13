@@ -1,6 +1,8 @@
 /.ssh/
 /.config/
+/.vscode/
 /.bash_history
 /.gitconfig
 *.o
-/.vscode/
+*.pdb
+*.ilk
