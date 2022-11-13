@@ -74,7 +74,7 @@ int remove_command(char *str, Vector vec) {
     return 0;
 }
 
-int process_data_command(char *str, Vector vec) {
+int process_command(char *str, Vector vec) {
     float value = 0;
     if (sscanf_s(str, "%f", &value) != 1) {
         printf("Incorrect input, expected value (float)\n");

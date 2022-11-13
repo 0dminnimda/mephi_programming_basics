@@ -30,11 +30,11 @@ int exit_command(char *str, Vector vec) {
 
 int main() {
     command_t *commands[COMMAND_COUNT] = {
-        init_command,         insert_command, remove_command,
-        process_data_command, print_command,  exit_command,
+        init_command,    insert_command, remove_command,
+        process_command, print_command,  exit_command,
     };
     const char *command_names[COMMAND_COUNT] = {
-        "init", "insert", "remove", "process_data", "print", "exit",
+        "init", "insert", "remove", "process", "print", "exit",
     };
 
     printf("Hello, fellow user!\n");
