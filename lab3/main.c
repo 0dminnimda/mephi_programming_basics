@@ -5,7 +5,7 @@
 #include "commands.h"
 #include "vector.h"
 
-#define COMMAND_COUNT 6
+#define COMMAND_COUNT 7
 #define STRMAX 256
 
 void print_commands(const char *command_names[], size_t count) {
@@ -34,13 +34,23 @@ int exit_command(char *str, Vector vec, int help) {
     return 1;
 }
 
+int help_command(char *str, Vector vec, int help) {
+    if (help) {
+        printf("Prints information about commands\n");
+        printf("%sUse: help [command]\n", str);
+        printf("%sExample: help print\n", str);
+        return 0;
+    }
+    return 0;
+}
+
 int main() {
     command_t *commands[COMMAND_COUNT] = {
-        init_command,    insert_command, remove_command,
-        process_command, print_command,  exit_command,
+        init_command,  insert_command, remove_command, process_command,
+        print_command, exit_command,   help_command,
     };
     const char *command_names[COMMAND_COUNT] = {
-        "init", "insert", "remove", "process", "print", "exit",
+        "init", "insert", "remove", "process", "print", "exit", "help",
     };
 
     printf("Hello, fellow user!\n");
