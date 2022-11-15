@@ -63,10 +63,14 @@ inline void clear_vector(Vector vec) {
     clear_vector_starting_from(vec, 0);
 }
 
-inline void destroy_vector(Vector vec) {
-    clear_vector(vec);
+inline void destroy_reference(Vector vec) {
     free(vec->data);
     free(vec);
+}
+
+inline void destroy_vector(Vector vec) {
+    clear_vector(vec);
+    destroy_reference(vec);
 }
 
 inline int resize(Vector vec, size_t capacity) {
