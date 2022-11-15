@@ -134,8 +134,6 @@ int print_command(char *str, Vector vec) {
     int offset = 0;
     sscanf(str, " less%n", &offset);
     if (offset == 0 && get_capacity(vec) - get_length(vec)) {
-        // for (size_t i = get_length(vec); i < get_capacity(vec); i++)
-        //     printf(" empty");
         printf(" + (%zu) empty items", get_capacity(vec) - get_length(vec));
     }
 
