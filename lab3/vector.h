@@ -97,7 +97,7 @@ inline int push_back(Vector vec, VECTOR_ITEM value) {
 }
 
 inline void pop_back(Vector vec) {
-    if (vec->length) vec->length--;
+    clear_vector_starting_from(vec, vec->length - 1);
 }
 
 #endif  // VECTOR_H_
