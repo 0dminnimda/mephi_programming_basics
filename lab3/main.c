@@ -8,14 +8,14 @@
 #define COMMAND_COUNT 7
 #define STRMAX 256
 
-void print_commands(const char *command_names[], size_t count) {
+void print_commands(char *command_names[], size_t count) {
     printf("Available commands:\n");
     for (size_t i = 0; i < count; i++) {
         printf("- '%s'\n", command_names[i]);
     }
 }
 
-size_t match_command(const char *command_names[], size_t count,
+size_t match_command(char *command_names[], size_t count,
                      const char *command_name) {
     for (size_t i = 0; i < count; i++)
         if (strcmp(command_name, command_names[i]) == 0) return i;
@@ -49,7 +49,7 @@ int main() {
         init_command,  insert_command, remove_command, process_command,
         print_command, exit_command,   help_command,
     };
-    const char *command_names[COMMAND_COUNT] = {
+    char *command_names[COMMAND_COUNT] = {
         "init", "insert", "remove", "process", "print", "exit", "help",
     };
 
