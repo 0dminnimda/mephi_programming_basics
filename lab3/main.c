@@ -60,20 +60,15 @@ void help(char *str, command_t *commands[], char *command_names[],
     char command_name[STRMAX] = "";
     int found = sscanf(str, " %[^ \n]", command_name);
 
-    if (found == 1) {
-        size_t i = match_command(command_names, count, command_name);
+    if (found != 1) return print_commands(commands, command_names, count, 1);
 
-        if (i == -1) {
-            printf("Nothing matches '%s', try again!\n", command_name);
-        } else {
-            print_one_command(commands[i], command_name, 1);
-        }
-    } else {  // if (found == 0) {
-        print_commands(commands, command_names, count, 1);
+    size_t i = match_command(command_names, count, command_name);
+
+    if (i == -1) {
+        printf("Nothing matches '%s', try again!\n", command_name);
+    } else {
+        print_one_command(commands[i], command_name, 1);
     }
-    // else {
-    //     printf("Incorrect input, expected command (string) or nothing\n");
-    // }
 }
 
 int main() {
