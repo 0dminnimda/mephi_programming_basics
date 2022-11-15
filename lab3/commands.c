@@ -52,7 +52,7 @@ int insert_command(char *str, Vector vec) {
         return 0;
     }
 
-    if (get_capacity(vec) != get_length(vec))
+    if (get_capacity(vec) != get_length(vec)) {
         if (push_back(vec, NULL)) {
             printf("Could not push_back into Vector\n");
             destroy_rational(value);
