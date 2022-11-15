@@ -97,8 +97,10 @@ int main() {
         scanf("%[^ \n]", command_name);
         fgets(input, STRMAX, stdin);  // consume the rest of the line
 
-        if (strcmp(command_name, "help") == 0)
+        if (strcmp(command_name, "help") == 0) {
             help(input, commands, command_names, COMMAND_COUNT);
+            continue;
+        }
 
         size_t i = match_command(command_names, COMMAND_COUNT, command_name);
 
