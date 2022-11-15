@@ -113,7 +113,7 @@ int process_command(char *str, Vector vec, int help) {
     }
 
     printf("Removed ");
-    print_command(" less", vec_trash, 0);
+    print_command(" --less", vec_trash, 0);
     destroy_vector(vec_trash);
 
     swap_vectors(vec, vec_rest);
@@ -132,7 +132,7 @@ int print_command(char *str, Vector vec, int help) {
     printf("]");
 
     int offset = 0;
-    sscanf(str, " less%n", &offset);
+    sscanf(str, " --less%n", &offset);
     if (offset == 0 && get_capacity(vec) - get_length(vec)) {
         printf(" + (%zu) empty items", get_capacity(vec) - get_length(vec));
     }
