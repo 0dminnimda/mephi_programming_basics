@@ -35,6 +35,27 @@ int init_command(char *str, Vector vec, int help) {
     return 0;
 }
 
+int resize_command(char *str, Vector vec, int help) {
+    if (help) {
+        printf("Resizes the data\n");
+        printf("%sUse: resize capacity\n", str);
+        printf("%sExample: resize 10\n", str);
+        return 0;
+    }
+
+    size_t capacity = 0;
+    if (sscanf(str, "%zu", &capacity) != 1) {
+        printf("Incorrect input, expected capacity (size_t)\n");
+        return 0;
+    }
+
+    if (resize(vec, capacity)) {
+        printf("Could not resize the Vector to %zu\n", capacity);
+        return 0;
+    }
+    return 0;
+}
+
 int insert_command(char *str, Vector vec, int help) {
     if (help) {
         printf("Inserts the given value at the given index\n");

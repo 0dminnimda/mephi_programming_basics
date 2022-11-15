@@ -8,6 +8,7 @@
 typedef int command_t(char *str, Vector vec, int help);
 
 command_t init_command;
+command_t resize_command;
 command_t insert_command;
 command_t remove_command;
 command_t process_command;

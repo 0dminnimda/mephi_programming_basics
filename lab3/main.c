@@ -5,7 +5,7 @@
 #include "commands.h"
 #include "vector.h"
 
-#define COMMAND_COUNT 7
+#define COMMAND_COUNT 8
 #define STRMAX 256
 
 void print_one_command(command_t *command, char *command_name, int verbose) {
@@ -73,11 +73,12 @@ void help(char *str, command_t *commands[], char *command_names[],
 
 int main() {
     command_t *commands[COMMAND_COUNT] = {
-        init_command,  insert_command, remove_command, process_command,
-        print_command, exit_command,   help_command,
+        init_command,    resize_command, insert_command, remove_command,
+        process_command, print_command,  exit_command,   help_command,
     };
     char *command_names[COMMAND_COUNT] = {
-        "init", "insert", "remove", "process", "print", "exit", "help",
+        "init",    "resize", "insert", "remove",
+        "process", "print",  "exit",   "help",
     };
 
     printf("\nHello, fellow user, I am MEPhI-Lab3-Bot!\n");
