@@ -82,11 +82,11 @@ int remove_command(char *str, Vector vec) {
         return 0;
     }
 
-    destroy_rational(get_item(vec, index));
-
+    Rational removed_item = get_item(vec, index);
     for (size_t i = index; i < get_length(vec) - 1; i++)
         set_item(vec, i, get_item(vec, i + 1));
 
+    set_item(vec, get_length(vec) - 1, removed_item);
     pop_back(vec);
     return 0;
 }
