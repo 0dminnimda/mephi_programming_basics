@@ -6,7 +6,7 @@
 int init_command(char *str, Vector vec, int help) {
     if (help) {
         printf("Initializes the data\n");
-        printf("%sUse: init [item(Rational) ...]\n", str);
+        printf("%sUse: init [item ...]\n", str);
         printf("%sExample: init 3.1415 2.7182 .42 0\n", str);
         return 0;
     }
@@ -38,7 +38,7 @@ int init_command(char *str, Vector vec, int help) {
 int insert_command(char *str, Vector vec, int help) {
     if (help) {
         printf("Inserts the given value at the given index\n");
-        printf("%sUse: insert index(size_t) value(Rational)\n", str);
+        printf("%sUse: insert index value\n", str);
         printf("%sExample: insert 2 34.35\n", str);
         return 0;
     }
@@ -86,7 +86,7 @@ int insert_command(char *str, Vector vec, int help) {
 int remove_command(char *str, Vector vec, int help) {
     if (help) {
         printf("Removes an item at the given index\n");
-        printf("%sUse: remove index(size_t)\n", str);
+        printf("%sUse: remove index\n", str);
         printf("%sExample: remove 1\n", str);
         return 0;
     }
