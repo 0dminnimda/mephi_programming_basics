@@ -54,17 +54,17 @@ int main() {
 
     while (1) {
         printf(">>> ");
-        char command[STRMAX], input[STRMAX];
-        scanf("%[^ \n]", command);
+        char command_name[STRMAX], input[STRMAX];
+        scanf("%[^ \n]", command_name);
         fgets(input, STRMAX, stdin);  // consume the rest of the line
 
-        size_t index = match_command(command_names, COMMAND_COUNT, command);
+        size_t i = match_command(command_names, COMMAND_COUNT, command_name);
 
-        if (index == -1) {
+        if (i == -1) {
             printf("Wrong input, try again!\n");
-            print_commands(command_names, COMMAND_COUNT);
+            print_commands(commands, command_names, COMMAND_COUNT, 0);
         } else {
-            if (commands[index](input, vec, 0)) break;
+            if (commands[i](input, vec, 0)) break;
         }
     }
 
