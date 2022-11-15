@@ -63,8 +63,6 @@ int insert_command(char *str, Vector vec) {
         set_item(vec, i, get_item(vec, i - 1));
 
     set_item(vec, index, value);
-
-    destroy_rational(value);
     return 0;
 }
 
