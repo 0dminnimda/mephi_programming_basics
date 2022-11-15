@@ -24,6 +24,12 @@ size_t match_command(const char *command_names[], size_t count,
 }
 
 int exit_command(char *str, Vector vec, int help) {
+    if (help) {
+        printf("Cleans up and stops the program\n");
+        printf("%sUse: exit\n", str);
+        return 0;
+    }
+
     printf("Exiting ...\n");
     return 1;
 }
