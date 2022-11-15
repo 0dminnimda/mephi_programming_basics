@@ -47,10 +47,11 @@ int insert_command(char *str, Vector vec) {
         return 0;
     }
 
-    if (push_back(vec, NULL)) {
-        printf("Could not push_back NULL into Vector\n");
-        return 0;
-    }
+    if (get_capacity(vec) != get_length(vec))
+        if (push_back(vec, get_item(vec, get_length(vec) - 1))) {
+            printf("Could not push_back into Vector\n");
+            return 0;
+        }
 
     for (size_t i = get_length(vec); i > index; i--)
         set_item(vec, i, get_item(vec, i - 1));
