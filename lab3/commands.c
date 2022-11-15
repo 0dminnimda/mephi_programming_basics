@@ -112,7 +112,7 @@ int process_command(char *str, Vector vec) {
             push_back(vec_rest, item);
     }
 
-    printf("Deleted: ");
+    printf("Removed ");
     print_command(" less", vec_trash);
     destroy_vector(vec_trash);
 
