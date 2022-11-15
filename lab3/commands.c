@@ -111,6 +111,8 @@ int print_command(char *str, Vector vec) {
         printf(" ");
         print_rational(get_item(vec, i));
     }
-    printf("]\n");
+    printf("]");
+
+    printf(" + (%zu) empty items\n", get_capacity(vec) - get_length(vec));
     return 0;
 }
