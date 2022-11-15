@@ -4,6 +4,13 @@
 #include <string.h>
 
 int init_command(char *str, Vector vec, int help) {
+    if (help) {
+        printf("Initializes the data\n");
+        printf("%sUse: init [item(Rational) ...]\n", str);
+        printf("%sExample: init 3.1415 2.7182 .42 0\n", str);
+        return 0;
+    }
+
     clear_vector(vec);
     int offset = 0;
     Rational value;
@@ -29,6 +36,13 @@ int init_command(char *str, Vector vec, int help) {
 }
 
 int insert_command(char *str, Vector vec, int help) {
+    if (help) {
+        printf("Inserts the given value at the given index\n");
+        printf("%sUse: insert index(size_t) value(Rational)\n", str);
+        printf("%sExample: insert 2 34.35\n", str);
+        return 0;
+    }
+
     int offset;
     size_t index = 0;
     if (sscanf(str, "%zu%n", &index, &offset) != 1) {
@@ -70,6 +84,13 @@ int insert_command(char *str, Vector vec, int help) {
 }
 
 int remove_command(char *str, Vector vec, int help) {
+    if (help) {
+        printf("Removes an item at the given index\n");
+        printf("%sUse: remove index(size_t)\n", str);
+        printf("%sExample: remove 1\n", str);
+        return 0;
+    }
+
     size_t index = 0;
     if (sscanf(str, "%zu", &index) != 1) {
         printf("Incorrect input, expected index (size_t)\n");
@@ -92,6 +113,12 @@ int remove_command(char *str, Vector vec, int help) {
 }
 
 int process_command(char *str, Vector vec, int help) {
+    if (help) {
+        printf("Prints and removes items which fractional part is bigger than decimal\n");
+        printf("%sUse: process\n", str);
+        return 0;
+    }
+
     Vector vec_trash;
     if (create(&vec_trash, get_capacity(vec))) {
         printf("Could not create a Vector\n");
@@ -123,6 +150,13 @@ int process_command(char *str, Vector vec, int help) {
 }
 
 int print_command(char *str, Vector vec, int help) {
+    if (help) {
+        printf("Prints the state of the data\n");
+        printf("%sUse: print [--less]\n", str);
+        printf("%sExample: print\n", str);
+        return 0;
+    }
+
     printf("[");
     if (get_length(vec)) print_rational(get_item(vec, 0));
     for (size_t i = 1; i < get_length(vec); i++) {
