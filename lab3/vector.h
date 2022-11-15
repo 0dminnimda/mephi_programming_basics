@@ -54,13 +54,10 @@ inline int create(Vector *vec, size_t capacity) {
 inline void clear_vector_starting_from(Vector vec, size_t index) {
     for (size_t i = index; i < vec->length; i++)
         VECTOR_ITEM_DESTRUCTOR(get_item(vec, i));
-    if (vec->length > index)
-        vec->length = index;
+    if (vec->length > index) vec->length = index;
 }
 
-inline void clear_vector(Vector vec) {
-    clear_vector_starting_from(vec, 0);
-}
+inline void clear_vector(Vector vec) { clear_vector_starting_from(vec, 0); }
 
 inline void destroy_reference(Vector vec) {
     free(vec->data);
