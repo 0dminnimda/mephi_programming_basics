@@ -37,8 +37,6 @@ inline size_t get_capacity(Vector vec) { return vec->capacity; }
 
 inline size_t get_length(Vector vec) { return vec->length; }
 
-inline void reset_length(Vector vec) { vec->length = 0; }
-
 inline int create(Vector *vec, size_t capacity) {
     *vec = malloc(sizeof(VectorNode_));
     if (*vec == NULL) return -1;
