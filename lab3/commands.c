@@ -27,7 +27,7 @@ int init_command(char *str, Vector vec, int help) {
     }
     if (resize(vec, get_length(vec))) {
         clear_vector(vec);
-        printf("Could not resize the Vector\n");
+        printf("Could not resize the Vector to %zu\n", get_length(vec));
         destroy_rational(value);
         return 0;
     }
