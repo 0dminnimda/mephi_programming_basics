@@ -69,16 +69,21 @@ inline void destroy_vector(Vector vec) {
     free(vec);
 }
 
-inline int reserve(Vector vec, size_t capacity) {
-    if (capacity <= vec->capacity) return 0;
-
+inline int resize(Vector vec, size_t capacity) {
     VECTOR_ITEM *data = realloc(vec->data, capacity * sizeof(VECTOR_ITEM));
     if (data == NULL) return -1;
 
     vec->data = data;
     vec->capacity = capacity;
+    clear_vector_starting_from(vec, capacity);
 
     return 0;
+}
+
+inline int reserve(Vector vec, size_t capacity) {
+    if (capacity <= vec->capacity) return 0;
+
+    return resize(vec, capacity);
 }
 
 inline int push_back(Vector vec, VECTOR_ITEM value) {
