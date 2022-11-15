@@ -5,7 +5,7 @@
 
 #include "vector.h"
 
-typedef int command_t(char *str, Vector vec);
+typedef int command_t(char *str, Vector vec, int help);
 
 command_t init_command;
 command_t insert_command;

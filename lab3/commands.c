@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-int init_command(char *str, Vector vec) {
+int init_command(char *str, Vector vec, int help) {
     clear_vector(vec);
     int offset = 0;
     Rational value;
@@ -28,7 +28,7 @@ int init_command(char *str, Vector vec) {
     return 0;
 }
 
-int insert_command(char *str, Vector vec) {
+int insert_command(char *str, Vector vec, int help) {
     int offset;
     size_t index = 0;
     if (sscanf(str, "%zu%n", &index, &offset) != 1) {
@@ -69,7 +69,7 @@ int insert_command(char *str, Vector vec) {
     return 0;
 }
 
-int remove_command(char *str, Vector vec) {
+int remove_command(char *str, Vector vec, int help) {
     size_t index = 0;
     if (sscanf(str, "%zu", &index) != 1) {
         printf("Incorrect input, expected index (size_t)\n");
@@ -91,7 +91,7 @@ int remove_command(char *str, Vector vec) {
     return 0;
 }
 
-int process_command(char *str, Vector vec) {
+int process_command(char *str, Vector vec, int help) {
     Vector vec_trash;
     if (create(&vec_trash, get_capacity(vec))) {
         printf("Could not create a Vector\n");
@@ -113,7 +113,7 @@ int process_command(char *str, Vector vec) {
     }
 
     printf("Removed ");
-    print_command(" less", vec_trash);
+    print_command(" less", vec_trash, 0);
     destroy_vector(vec_trash);
 
     swap_vectors(vec, vec_rest);
@@ -122,7 +122,7 @@ int process_command(char *str, Vector vec) {
     return 0;
 }
 
-int print_command(char *str, Vector vec) {
+int print_command(char *str, Vector vec, int help) {
     printf("[");
     if (get_length(vec)) print_rational(get_item(vec, 0));
     for (size_t i = 1; i < get_length(vec); i++) {

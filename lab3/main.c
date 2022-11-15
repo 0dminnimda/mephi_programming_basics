@@ -23,7 +23,7 @@ size_t match_command(const char *command_names[], size_t count,
     return -1;
 }
 
-int exit_command(char *str, Vector vec) {
+int exit_command(char *str, Vector vec, int help) {
     printf("Exiting ...\n");
     return 1;
 }
@@ -58,7 +58,7 @@ int main() {
             printf("Wrong input, try again!\n");
             print_commands(command_names, COMMAND_COUNT);
         } else {
-            if (commands[index](input, vec)) break;
+            if (commands[index](input, vec, 0)) break;
         }
     }
 
