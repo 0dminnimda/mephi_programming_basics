@@ -39,6 +39,7 @@ int insert_command(char *str, Vector vec) {
     Rational value;
     if (sscan_rational(str + offset, &value, &offset)) {
         printf("Incorrect input, expected value (Rational)\n");
+        destroy_rational(value);
         return 0;
     }
 
@@ -47,12 +48,14 @@ int insert_command(char *str, Vector vec) {
             "Invalid index (%zu), expected to be less than or equal to length "
             "(%zu)\n",
             index, get_length(vec));
+        destroy_rational(value);
         return 0;
     }
 
     if (get_capacity(vec) != get_length(vec))
         if (push_back(vec, get_item(vec, get_length(vec) - 1))) {
             printf("Could not push_back into Vector\n");
+            destroy_rational(value);
             return 0;
         }
 
@@ -60,6 +63,8 @@ int insert_command(char *str, Vector vec) {
         set_item(vec, i, get_item(vec, i - 1));
 
     set_item(vec, index, value);
+
+    destroy_rational(value);
     return 0;
 }
 
