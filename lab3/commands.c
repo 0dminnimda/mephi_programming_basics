@@ -59,7 +59,7 @@ int insert_command(char *str, Vector vec) {
             return 0;
         }
 
-    for (size_t i = get_length(vec); i > index; i--)
+    for (size_t i = get_length(vec) - 1; i > index; i--)
         set_item(vec, i, get_item(vec, i - 1));
 
     set_item(vec, index, value);
