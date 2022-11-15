@@ -19,6 +19,12 @@ typedef struct VectorNode_ {
     size_t length;
 } VectorNode_;
 
+inline void swap_vectors(Vector a, Vector b) {
+    VectorNode_ tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
 inline VECTOR_ITEM get_item(Vector vec, size_t index) {
     return vec->data[index];
 }
