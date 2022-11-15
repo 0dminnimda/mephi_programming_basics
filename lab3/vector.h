@@ -42,7 +42,7 @@ inline int create(Vector *vec, size_t capacity) {
     if (*vec == NULL) return -1;
 
     VECTOR_ITEM *data = malloc(capacity * sizeof(VECTOR_ITEM));
-    if (data == NULL) return -1;
+    if (capacity && data == NULL) return -1;
 
     (*vec)->data = data;
     (*vec)->capacity = capacity;
@@ -74,7 +74,7 @@ inline void destroy_vector(Vector vec) {
 
 inline int resize(Vector vec, size_t capacity) {
     VECTOR_ITEM *data = realloc(vec->data, capacity * sizeof(VECTOR_ITEM));
-    if (data == NULL) return -1;
+    if (capacity && data == NULL) return -1;
 
     vec->data = data;
     vec->capacity = capacity;
