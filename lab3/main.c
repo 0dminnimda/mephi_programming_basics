@@ -8,10 +8,21 @@
 #define COMMAND_COUNT 7
 #define STRMAX 256
 
-void print_commands(char *command_names[], size_t count) {
+void print_one_command(command_t *command, char *command_name, int verbose) {
+    printf("- '%s'", command_name);
+    if (verbose) {
+        printf(": ");
+        command("   ", NULL, 1);
+    }
+}
+
+void print_commands(command_t *commands[], char *command_names[], size_t count,
+                    int verbose) {
     printf("Available commands:\n");
+    if (verbose) printf("\n");
     for (size_t i = 0; i < count; i++) {
-        printf("- '%s'\n", command_names[i]);
+        print_one_command(commands[i], command_names[i], verbose);
+        printf("\n");
     }
 }
 
@@ -44,6 +55,27 @@ int help_command(char *str, Vector vec, int help) {
     return 0;
 }
 
+void help(char *str, command_t *commands[], char *command_names[],
+          size_t count) {
+    char command_name[STRMAX] = "";
+    int found = sscanf(str, " %[^ \n]", command_name);
+
+    if (found == 1) {
+        size_t i = match_command(command_names, count, command_name);
+
+        if (i == -1) {
+            printf("Nothing matches '%s', try again!\n", command_name);
+        } else {
+            print_one_command(commands[i], command_name, 1);
+        }
+    } else {  // if (found == 0) {
+        print_commands(commands, command_names, count, 1);
+    }
+    // else {
+    //     printf("Incorrect input, expected command (string) or nothing\n");
+    // }
+}
+
 int main() {
     command_t *commands[COMMAND_COUNT] = {
         init_command,  insert_command, remove_command, process_command,
@@ -54,7 +86,7 @@ int main() {
     };
 
     printf("Hello, fellow user!\n");
-    print_commands(command_names, COMMAND_COUNT);
+    help("\n", commands, command_names, COMMAND_COUNT);
 
     Vector vec;
     if (create(&vec, 0)) {
@@ -67,6 +99,9 @@ int main() {
         char command_name[STRMAX], input[STRMAX];
         scanf("%[^ \n]", command_name);
         fgets(input, STRMAX, stdin);  // consume the rest of the line
+
+        if (strcmp(command_name, "help") == 0)
+            help(input, commands, command_names, COMMAND_COUNT);
 
         size_t i = match_command(command_names, COMMAND_COUNT, command_name);
 
