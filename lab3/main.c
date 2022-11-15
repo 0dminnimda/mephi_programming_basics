@@ -85,7 +85,8 @@ int main() {
         "init", "insert", "remove", "process", "print", "exit", "help",
     };
 
-    printf("Hello, fellow user!\n");
+    printf("\nHello, fellow user, I am MEPhI-Lab3-Bot!\n");
+    printf("And those are my ");
     help("\n", commands, command_names, COMMAND_COUNT);
 
     Vector vec;
