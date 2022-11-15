@@ -58,6 +58,9 @@ int insert_command(char *str, Vector vec) {
             destroy_rational(value);
             return 0;
         }
+    } else {
+        destroy_rational(get_item(vec, get_length(vec) - 1));
+    }
 
     for (size_t i = get_length(vec) - 1; i > index; i--)
         set_item(vec, i, get_item(vec, i - 1));
