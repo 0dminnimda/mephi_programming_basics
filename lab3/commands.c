@@ -82,6 +82,8 @@ int remove_command(char *str, Vector vec) {
         return 0;
     }
 
+    destroy_rational(get_item(vec, index));
+
     for (size_t i = index; i < get_length(vec) - 1; i++)
         set_item(vec, i, get_item(vec, i + 1));
 
