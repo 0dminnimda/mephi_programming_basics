@@ -81,25 +81,32 @@ int remove_command(char *str, Vector vec) {
 }
 
 int process_command(char *str, Vector vec) {
-    Vector vec2;
-    if (create(&vec2, get_capacity(vec))) {
+    Vector vec_trash;
+    if (create(&vec_trash, get_capacity(vec))) {
         printf("Could not create a Vector\n");
         return 0;
     }
 
-    size_t length = get_length(vec);
-    reset_length(vec);
-
-    for (size_t i = 0; i < length; i++) {
-        Rational item = get_item(vec, i);
-        if (get_fractional(item) > get_decimal(item))
-            push_back(vec2, item);
-        else
-            push_back(vec, item);
+    Vector vec_rest;
+    if (create(&vec_rest, get_capacity(vec))) {
+        printf("Could not create a Vector\n");
+        return 0;
     }
 
-    print_command(str, vec2);
-    destroy_vector(vec2);
+    for (size_t i = 0; i < get_length(vec); i++) {
+        Rational item = get_item(vec, i);
+        if (get_fractional(item) > get_decimal(item))
+            push_back(vec_trash, item);
+        else
+            push_back(vec_rest, item);
+    }
+
+    printf("Deleted: ");
+    print_command(" less", vec_trash);
+    destroy_vector(vec_trash);
+
+    swap_vectors(vec, vec_rest);
+    destroy_reference(vec_rest);
 
     return 0;
 }
