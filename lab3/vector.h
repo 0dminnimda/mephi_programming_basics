@@ -70,12 +70,13 @@ inline void destroy_vector(Vector vec) {
 }
 
 inline int resize(Vector vec, size_t capacity) {
+    clear_vector_starting_from(vec, capacity);
+    vec->capacity = capacity;
+
     VECTOR_ITEM *data = realloc(vec->data, capacity * sizeof(VECTOR_ITEM));
     if (capacity && data == NULL) return -1;
 
     vec->data = data;
-    vec->capacity = capacity;
-    clear_vector_starting_from(vec, capacity);
 
     return 0;
 }
