@@ -87,19 +87,17 @@ int insert_command(char *str, Vector vec, int help) {
         return 0;
     }
 
-    if (index == get_capacity(vec)) {
+    if (get_capacity(vec) == get_length(vec)) {
+        printf("Invalid operation, there are no empty items left\n");
+        printf("Try to resize the data or remove some elements\n");
         destroy_rational(value);
         return 0;
-    }
+    } 
 
-    if (get_capacity(vec) != get_length(vec)) {
-        if (push_back(vec, NULL)) {
-            printf("Could not push_back into Vector\n");
-            destroy_rational(value);
-            return 0;
-        }
-    } else {
-        destroy_rational(get_item(vec, get_length(vec) - 1));
+    if (push_back(vec, NULL)) {
+        printf("Could not push_back into Vector\n");
+        destroy_rational(value);
+        return 0;
     }
 
     for (size_t i = get_length(vec) - 1; i > index; i--)
