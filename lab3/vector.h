@@ -60,7 +60,8 @@ inline void clear_vector_starting_from(Vector vec, size_t index) {
 inline void clear_vector(Vector vec) { clear_vector_starting_from(vec, 0); }
 
 inline void destroy_reference(Vector vec) {
-    free(vec->data);
+    if (vec)
+        free(vec->data);
     free(vec);
 }
 
