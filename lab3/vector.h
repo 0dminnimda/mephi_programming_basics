@@ -19,25 +19,25 @@ typedef struct VectorNode_ {
     size_t length;
 } VectorNode_;
 
-inline void swap_vectors(Vector a, Vector b) {
+static inline void swap_vectors(Vector a, Vector b) {
     VectorNode_ tmp = *a;
     *a = *b;
     *b = tmp;
 }
 
-inline VECTOR_ITEM get_item(Vector vec, size_t index) {
+static inline VECTOR_ITEM get_item(Vector vec, size_t index) {
     return vec->data[index];
 }
 
-inline void set_item(Vector vec, size_t index, VECTOR_ITEM value) {
+static inline void set_item(Vector vec, size_t index, VECTOR_ITEM value) {
     vec->data[index] = value;
 }
 
-inline size_t get_capacity(Vector vec) { return vec->capacity; }
+static inline size_t get_capacity(Vector vec) { return vec->capacity; }
 
-inline size_t get_length(Vector vec) { return vec->length; }
+static inline size_t get_length(Vector vec) { return vec->length; }
 
-inline int create(Vector *vec, size_t capacity) {
+static inline int create(Vector *vec, size_t capacity) {
     *vec = malloc(sizeof(VectorNode_));
     if (*vec == NULL) return -1;
 
@@ -51,26 +51,26 @@ inline int create(Vector *vec, size_t capacity) {
     return 0;
 }
 
-inline void clear_vector_starting_from(Vector vec, size_t index) {
+static inline void clear_vector_starting_from(Vector vec, size_t index) {
     for (size_t i = index; i < vec->length; i++)
         VECTOR_ITEM_DESTRUCTOR(get_item(vec, i));
     if (vec->length > index) vec->length = index;
 }
 
-inline void clear_vector(Vector vec) { clear_vector_starting_from(vec, 0); }
+static inline void clear_vector(Vector vec) { clear_vector_starting_from(vec, 0); }
 
-inline void destroy_reference(Vector vec) {
+static inline void destroy_reference(Vector vec) {
     if (vec)
         free(vec->data);
     free(vec);
 }
 
-inline void destroy_vector(Vector vec) {
+static inline void destroy_vector(Vector vec) {
     clear_vector(vec);
     destroy_reference(vec);
 }
 
-inline int resize(Vector vec, size_t capacity) {
+static inline int resize(Vector vec, size_t capacity) {
     clear_vector_starting_from(vec, capacity);
     vec->capacity = capacity;
 
@@ -82,13 +82,13 @@ inline int resize(Vector vec, size_t capacity) {
     return 0;
 }
 
-inline int reserve(Vector vec, size_t capacity) {
+static inline int reserve(Vector vec, size_t capacity) {
     if (capacity <= vec->capacity) return 0;
 
     return resize(vec, capacity);
 }
 
-inline int push_back(Vector vec, VECTOR_ITEM value) {
+static inline int push_back(Vector vec, VECTOR_ITEM value) {
     if (vec->capacity == vec->length)
         if (reserve(vec, vec->capacity * 2 + 1)) return -1;
 
@@ -98,7 +98,7 @@ inline int push_back(Vector vec, VECTOR_ITEM value) {
     return 0;
 }
 
-inline void pop_back(Vector vec) {
+static inline void pop_back(Vector vec) {
     clear_vector_starting_from(vec, vec->length - 1);
 }
 
