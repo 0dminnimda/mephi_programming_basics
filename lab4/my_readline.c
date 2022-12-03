@@ -43,9 +43,9 @@ char *my_readline(const char *prompt) {
     return NULL;
 }
 
-int main(int argc, char *argv[]) {
-    char *line = my_readline(0);
-    printf("Returned ");
-    printf("'%s'\n", line);
-    free(line);
-}
+// int main(int argc, char *argv[]) {
+//     char *line = my_readline(0);
+//     printf("Returned ");
+//     printf("'%s'\n", line);
+//     free(line);
+// }
