@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "my_string.h"
+#include "my_readline.h"
 
 #define CHUNK_SIZE 2
 #define CHUNK_SIZED_STRING_FORMAT "%2[^\n]"
@@ -13,7 +14,6 @@ char *my_readline(const char *prompt) {
 
     int scanf_result = 0;
     while (1) {
-        printf("gg\n");
         // extend the memory by one chunk
         char *new_buf = realloc(buf, (end - buf + CHUNK_SIZE) * sizeof(char));
         if (new_buf == NULL) {
@@ -29,7 +29,6 @@ char *my_readline(const char *prompt) {
         end[CHUNK_SIZE] = '\0';
 
         size_t diff = strcspn(end, "\n");
-        printf("diff %zu, %s\n", diff, end);
         end += diff;
 
         // check if we hit the end of the line
