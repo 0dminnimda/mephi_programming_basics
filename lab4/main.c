@@ -33,6 +33,11 @@ typedef unsigned long long alphabet_sub_t;
 #define SUB_COUNT 4
 typedef alphabet_sub_t alphabet_t[SUB_COUNT];
 
+int alphabet_geq(alphabet_t alphabet1, alphabet_t alphabet2) {
+    return ((alphabet1[0] >= alphabet2[0]) && (alphabet1[1] >= alphabet2[1]) &&
+            (alphabet1[2] >= alphabet2[2]) && (alphabet1[3] >= alphabet2[3]));
+}
+
 alphabet_t *generate_alphabets(Vector words) {
     alphabet_t *alphabets = malloc(get_length(words) * sizeof(alphabet_t));
     if (get_length(words) && alphabets == NULL) {
