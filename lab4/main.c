@@ -27,9 +27,11 @@ Vector split(char *line) {
 #define BITS_IN_LL 64
 #define FIRST_CHAR 0
 
+typedef unsigned long long alphabet_sub_t;
+
 typedef struct alphabet_t {
-    long long lo;
-    long long hi;
+    alphabet_sub_t lo;
+    alphabet_sub_t hi;
 } alphabet_t;
 
 int main(int argc, char *argv[]) {
@@ -69,12 +71,10 @@ int main(int argc, char *argv[]) {
             char coded = *word - FIRST_CHAR;
             printf("%d %c %d %d\n", (int)*word, *word, coded < BITS_IN_LL, (char)(coded - BITS_IN_LL*(coded >= BITS_IN_LL)));
             if (coded < BITS_IN_LL)
-                alphabets[i].lo |= (1 << coded);
+                alphabets[i].lo |= ((alphabet_sub_t)1 << coded);
             else
-                alphabets[i].hi |= (1 << (coded - BITS_IN_LL));
+                alphabets[i].hi |= ((alphabet_sub_t)1 << (coded - BITS_IN_LL));
             word++;
-            // for ()
-            // printf();
         }
 
 #if 1
@@ -86,10 +86,10 @@ int main(int argc, char *argv[]) {
         }
         printf("\n");
         for (size_t j = '!'; j < BITS_IN_LL; j++) {
-            printf("%d", (alphabets[i].lo & (1 << j)) != 0);
+            printf("%d", (alphabets[i].lo & ((alphabet_sub_t)1 << j)) != 0);
         }
         for (size_t j = 0; j < BITS_IN_LL; j++) {
-            printf("%d", (alphabets[i].hi & (1 << j)) != 0);
+            printf("%d", (alphabets[i].hi & ((alphabet_sub_t)1 << j)) != 0);
         }
         printf("\n");
 
@@ -97,17 +97,17 @@ int main(int argc, char *argv[]) {
 
 #endif
 
-        printf("%d %d :\n", alphabets[i].lo, alphabets[i].hi);
-        for (long long j = 0; j < BITS_IN_LL; j++) {
+        printf("%llu %llu :\n", alphabets[i].lo, alphabets[i].hi);
+        for (size_t j = 0; j < BITS_IN_LL; j++) {
             char decoded = j + FIRST_CHAR;
-            if (alphabets[i].lo & (1 << j))
+            if (alphabets[i].lo & ((alphabet_sub_t)1 << j))
                 printf("%d %c %d\n", (int)decoded, decoded, (char)j);
                 // printf("%c", decoded);
         }
         printf("s\n");
-        for (long long j = 0; j < BITS_IN_LL; j++) {
+        for (size_t j = 0; j < BITS_IN_LL; j++) {
             char decoded = j + FIRST_CHAR + BITS_IN_LL;
-            if (alphabets[i].hi & (1 << j))
+            if (alphabets[i].hi & ((alphabet_sub_t)1 << j))
                 printf("%d %c %d\n", (int)decoded, decoded, (char)j);
                 // printf("%c", decoded);
         }
