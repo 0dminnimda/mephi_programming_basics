@@ -25,16 +25,13 @@ Vector split(char *line) {
     return words;
 }
 
-#define BITS_IN_LL 64
-
 typedef unsigned long long alphabet_sub_t;
 
-typedef struct alphabet_t {
-    alphabet_sub_t lo;
-    alphabet_sub_t hi;
-} alphabet_t;
-
+#define BITS_IN_SUB_T 64
 #define MASK(shift) ((alphabet_sub_t)1 << (shift))
+
+#define SUB_COUNT 2
+typedef alphabet_sub_t alphabet_t[SUB_COUNT];
 
 int main(int argc, char *argv[]) {
     printf("Input words\n");
@@ -65,25 +62,24 @@ int main(int argc, char *argv[]) {
 
     printf("Words use those alphabets:\n");
     for (size_t i = 0; i < get_length(words); i++) {
-        alphabets[i].lo = 0;
-        alphabets[i].hi = 0;
+        for (size_t j = 0; j < SUB_COUNT; j++)
+            alphabets[i][j] = 0;
 
         char *word = get_item(words, i);
         printf("'%s' uses: '", word);
 
         while (*word != '\0') {
-            if (*word < BITS_IN_LL)
-                alphabets[i].lo |= MASK(*word);
-            else
-                alphabets[i].hi |= MASK(*word - BITS_IN_LL);
+            alphabets[i][*word / BITS_IN_SUB_T] |= MASK(*word % BITS_IN_SUB_T);
             word++;
         }
 
-        for (char j = 0; j < BITS_IN_LL; j++)
-            if (alphabets[i].lo & MASK(j)) printf("%c", j);
-        for (char j = 0; j < BITS_IN_LL; j++)
-            if (alphabets[i].hi & MASK(j)) printf("%c", j + BITS_IN_LL);
-        printf("' (%llu %llu)\n", alphabets[i].lo, alphabets[i].hi);
+        for (char j = 0; j < SUB_COUNT; j++)
+            for (char bit = 0; bit < BITS_IN_SUB_T; bit++)
+                if (alphabets[i][j] & MASK(bit)) printf("%c", bit + j*BITS_IN_SUB_T);
+        printf("' (");
+        for (size_t j = 0; j < SUB_COUNT; j++)
+            printf("%c%llu", ' ' * (j != 0), alphabets[i][j]);
+        printf(")\n");
     }
 
     free(alphabets);
