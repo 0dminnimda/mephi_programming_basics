@@ -33,6 +33,44 @@ typedef unsigned long long alphabet_sub_t;
 #define SUB_COUNT 2
 typedef alphabet_sub_t alphabet_t[SUB_COUNT];
 
+alphabet_t *generate_alphabets(Vector words) {
+    alphabet_t *alphabets = malloc(get_length(words) * sizeof(alphabet_t));
+    if (get_length(words) && alphabets == NULL) {
+        printf("ERROR: could not allocate new memory\n");
+        return 0;
+    }
+
+    for (size_t i = 0; i < get_length(words); i++) {
+        for (size_t j = 0; j < SUB_COUNT; j++)
+            alphabets[i][j] = 0;
+
+        char *word = get_item(words, i);
+        while (*word != '\0') {
+            alphabets[i][*word / BITS_IN_SUB_T] |= MASK(*word % BITS_IN_SUB_T);
+            word++;
+        }
+    }
+    return alphabets;
+}
+
+void print_word_alphabets(Vector words, alphabet_t *alphabets) {
+    printf("Words use those alphabets:\n");
+    for (size_t i = 0; i < get_length(words); i++) {
+        printf("'%s' uses: ", get_item(words, i));
+
+        printf("'");
+        for (char j = 0; j < SUB_COUNT; j++)
+            for (char bit = 0; bit < BITS_IN_SUB_T; bit++)
+                if (alphabets[i][j] & MASK(bit)) printf("%c", bit + j*BITS_IN_SUB_T);
+        printf("' ");
+
+        printf("(");
+        for (size_t j = 0; j < SUB_COUNT; j++)
+            printf("%c%llu", ' ' * (j != 0), alphabets[i][j]);
+        printf(")\n");
+    }
+}
+
 int main(int argc, char *argv[]) {
     printf("Input words\n");
     char *line = my_readline(NULL);
@@ -54,33 +92,8 @@ int main(int argc, char *argv[]) {
     }
     printf("\n");
 
-    alphabet_t *alphabets = malloc(get_length(words) * sizeof(alphabet_t));
-    if (get_length(words) && alphabets == NULL) {
-        printf("ERROR: could not allocate new memory\n");
-        return 0;
-    }
-
-    printf("Words use those alphabets:\n");
-    for (size_t i = 0; i < get_length(words); i++) {
-        for (size_t j = 0; j < SUB_COUNT; j++)
-            alphabets[i][j] = 0;
-
-        char *word = get_item(words, i);
-        printf("'%s' uses: '", word);
-
-        while (*word != '\0') {
-            alphabets[i][*word / BITS_IN_SUB_T] |= MASK(*word % BITS_IN_SUB_T);
-            word++;
-        }
-
-        for (char j = 0; j < SUB_COUNT; j++)
-            for (char bit = 0; bit < BITS_IN_SUB_T; bit++)
-                if (alphabets[i][j] & MASK(bit)) printf("%c", bit + j*BITS_IN_SUB_T);
-        printf("' (");
-        for (size_t j = 0; j < SUB_COUNT; j++)
-            printf("%c%llu", ' ' * (j != 0), alphabets[i][j]);
-        printf(")\n");
-    }
+    alphabet_t *alphabets = generate_alphabets(words);
+    print_word_alphabets(words, alphabets);
 
     free(alphabets);
     free(words);
