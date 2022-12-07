@@ -44,7 +44,7 @@ alphabet_t *generate_alphabets(Vector words) {
         for (size_t j = 0; j < SUB_COUNT; j++)
             alphabets[i][j] = 0;
 
-        char *word = get_item(words, i);
+        unsigned char *word = (unsigned char *)get_item(words, i);
         while (*word != '\0') {
             if ((*word / BITS_IN_SUB_T) < SUB_COUNT)
                 alphabets[i][*word / BITS_IN_SUB_T] |= MASK(*word % BITS_IN_SUB_T);
