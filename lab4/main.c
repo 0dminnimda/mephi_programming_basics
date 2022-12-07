@@ -72,7 +72,7 @@ void print_word_alphabets(Vector words, alphabet_t *alphabets) {
     }
 }
 
-int main(int argc, char *argv[]) {
+int main(void) {
     printf("Input words\n");
     char *line = my_readline(NULL);
     if (!line) {
