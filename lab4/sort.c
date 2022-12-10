@@ -31,6 +31,24 @@ static void merge(SORT_ITEM_T *data, SORT_ITEM_T *auxiliary, size_t lo, size_t h
     memcpy(data + lo, auxiliary + lo, (hi - lo) * sizeof(SORT_ITEM_T));
 }
 
+static void merge_optimazation(SORT_ITEM_T *data, SORT_ITEM_T *auxiliary, size_t lo, size_t hi) {
+    if (lo >= hi - 1) return;
+
+    size_t mid = (lo + hi) / 2;
+    merge(data, auxiliary, lo, mid);
+    merge(data, auxiliary, mid, hi);
+
+    size_t pos = lo, lhs = lo, rhs = mid;
+    while (lhs < mid) {
+        if (rhs < hi && (SORT_GREATER_FUNC(data[lhs], data[rhs]))) {
+            auxiliary[pos++] = data[lhs++];
+        } else {
+            auxiliary[pos++] = data[rhs++];
+        }
+    }
+
+    memcpy(data + lo, auxiliary + lo, (pos - lo) * sizeof(SORT_ITEM_T));
+}
 int merge_sort(SORT_ITEM_T *data, size_t len) {
     if (len <= 1) return 0;
 
