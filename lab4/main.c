@@ -25,6 +25,15 @@ Vector split(char *line) {
     return words;
 }
 
+void print_words(Vector words) {
+    size_t shown = 0;
+    for (size_t i = 0; i < get_length(words); i++) {
+        if (*get_item(words, i))
+            printf("%c%s", ' ' * (shown++ != 0), get_item(words, i));
+    }
+    printf("\n");
+}
+
 typedef unsigned long long alphabet_sub_t;
 
 #define BITS_IN_SUB_T 64
@@ -32,20 +41,6 @@ typedef unsigned long long alphabet_sub_t;
 
 #define SUB_COUNT 4
 typedef alphabet_sub_t alphabet_t[SUB_COUNT];
-
-int alphabet_geq(alphabet_t alphabet1, alphabet_t alphabet2) {
-    return ((alphabet1[0] >= alphabet2[0]) && (alphabet1[1] >= alphabet2[1]) &&
-            (alphabet1[2] >= alphabet2[2]) && (alphabet1[3] >= alphabet2[3]));
-}
-
-int alphabet_eq(alphabet_t alphabet1, alphabet_t alphabet2) {
-    return ((alphabet1[0] == alphabet2[0]) && (alphabet1[1] == alphabet2[1]) &&
-            (alphabet1[2] == alphabet2[2]) && (alphabet1[3] == alphabet2[3]));
-}
-
-// int alphabet_cpy(alphabet_t *alphabet1, alphabet_t *alphabet2) {
-//     return memcpy(alphabet1, alphabet2, SUB_COUNT * sizeof(alphabet_sub_t));
-// }
 
 alphabet_t *generate_alphabets(Vector words) {
     alphabet_t *alphabets = malloc(get_length(words) * sizeof(alphabet_t));
@@ -65,33 +60,28 @@ alphabet_t *generate_alphabets(Vector words) {
     return alphabets;
 }
 
-void print_word_alphabets(Vector words, alphabet_t *alphabets) {
-    printf("Words use those alphabets:\n");
-    for (size_t i = 0; i < get_length(words); i++) {
-        printf("'%s' uses: ", get_item(words, i));
-
-        printf("'");
-        for (char j = 0; j < SUB_COUNT; j++)
-            for (char bit = 0; bit < BITS_IN_SUB_T; bit++)
-                if (alphabets[i][j] & MASK(bit))
-                    printf("%c", bit + j * BITS_IN_SUB_T);
-        printf("' ");
-
-        printf("(");
-        for (size_t j = 0; j < SUB_COUNT; j++)
-            printf("%c%llu", ' ' * (j != 0), alphabets[i][j]);
-        printf(")\n");
-    }
+int alphabet_eq(alphabet_t alphabet1, alphabet_t alphabet2) {
+    return ((alphabet1[0] == alphabet2[0]) && (alphabet1[1] == alphabet2[1]) &&
+            (alphabet1[2] == alphabet2[2]) && (alphabet1[3] == alphabet2[3]));
 }
 
-int remove_non_unique_words(Vector words, alphabet_t *alphabets) {
+int remove_non_unique_words(Vector words) {
+    alphabet_t *alphabets = generate_alphabets(words);
+    if (!alphabets) {
+        free(alphabets);
+        return -1;
+    }
+
     int *non_unique = malloc(get_length(words) * sizeof(int));
-    if (get_length(words) && non_unique == NULL) return -1;
+    if (get_length(words) && non_unique == NULL) {
+        free(alphabets);
+        return -1;
+    }
 
     for (size_t i = 0; i < get_length(words); i++) non_unique[i] = 0;
 
     for (size_t i = 0; i < get_length(words); i++) {
-        if (non_unique[i]) continue;        
+        if (non_unique[i]) continue;
         for (size_t j = i + 1; j < get_length(words); j++) {
             if (!non_unique[j] && alphabet_eq(alphabets[i], alphabets[j])) {
                 non_unique[i] = 1;
@@ -99,57 +89,44 @@ int remove_non_unique_words(Vector words, alphabet_t *alphabets) {
             }
         }
     }
-    for (size_t i = 0; i < get_length(words); i++) {
-        if (non_unique[i]) {
-            *get_item(words, i) = '\0';
-        }
-            // alphabet_cpy(alphabets[(*new_size)++], alphabets[i]);
-    }
+
+    for (size_t i = 0; i < get_length(words); i++)
+        if (non_unique[i]) *get_item(words, i) = '\0';
+
+    free(alphabets);
     return 0;
 }
 
 int main(void) {
-    printf("Input words\n");
-    char *line = my_readline(NULL);
-    if (!line) {
-        printf("ERROR: Could not read a line\n");
-        return 0;
-    }
-    printf("I got the string '%s'\n", line);
+    printf("Input words and I will leave only unique ones!\n");
 
-    Vector words = split(line);
-    if (!words) {
-        printf("ERROR: Could not split the line into words\n");
-        return 0;
-    }
+    char *line = NULL;
+    Vector words = NULL;
 
-    printf("The words I found:\n");
-    for (size_t i = 0; i < get_length(words); i++) {
-        printf("%c'%s'", ' ' * (i != 0), get_item(words, i));
-    }
-    printf("\n");
+    while (1) {        
+        free(words);
+        free(line);
 
-    alphabet_t *alphabets = generate_alphabets(words);
-    if (!alphabets) {
-        printf("ERROR: could not generate alphabets\n");
-        return 0;
-    }
-    print_word_alphabets(words, alphabets);
+        line = my_readline(">>> ");
+        if (!line) {
+            printf("ERROR: Could not read a line\n");
+            break;
+        }
 
-    if (remove_non_unique_words(words, alphabets)) {
-        printf("ERROR: could not remove non unique words\n");
-        return 0;
+        words = split(line);
+        if (!words) {
+            printf("ERROR: Could not split the line into words\n");
+            break;
+        }
+
+        if (remove_non_unique_words(words)) {
+            printf("ERROR: could not remove non unique words\n");
+            break;
+        }
+
+        print_words(words);
     }
 
-    printf("Result:\n");
-    size_t shown = 0;
-    for (size_t i = 0; i < get_length(words); i++) {
-        if (*get_item(words, i))
-            printf("%c%s", ' ' * (shown++ != 0), get_item(words, i));
-    }
-    printf("\n");
-
-    free(alphabets);
     free(words);
     free(line);
     return 0;
