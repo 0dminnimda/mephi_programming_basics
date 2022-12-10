@@ -6,28 +6,40 @@
 #define SORT_ITEM_T int
 #endif  // SORT_ITEM_T
 
-#ifndef SORT_GREATER_FUNC
-#define SORT_GREATER_FUNC(a, b) a > b
-#endif  // SORT_GREATER_FUNC
+#ifndef SORT_LESS_EQ_FUNC
+#define SORT_LESS_EQ_FUNC(a, b) printf("%d <= %d = %d\n", a, b, a <= b), a <= b
+#endif  // SORT_LESS_EQ_FUNC
 
 static void merge(SORT_ITEM_T *data, SORT_ITEM_T *auxiliary, size_t lo, size_t hi) {
     size_t mid = (lo + hi) / 2;
-    printf("Merge %zu %zu -> %zu\n", lo, hi, mid);
     if (lo >= hi - 1) return;
 
-    merge(auxiliary, data, lo, mid);
-    merge(auxiliary, data, mid, hi);
+    merge(data, auxiliary, lo, mid);
+    merge(data, auxiliary, mid, hi);
 
     size_t pos = lo, lhs = lo, rhs = mid;
+    printf("Merge %zu %zu -> %zu\n", lo, hi, mid);
     for (;;) {
-        if (rhs < hi && (SORT_GREATER_FUNC(auxiliary[lhs], auxiliary[rhs]))) {
-            data[pos++] = auxiliary[rhs++];
-        } else if (lhs < mid) {
-            data[pos++] = auxiliary[lhs++];
+        if (lhs < mid && (rhs >= hi || (printf("%zu %zu : ", lhs, rhs), SORT_LESS_EQ_FUNC(data[lhs], data[rhs])))) {
+            auxiliary[pos++] = data[lhs++];
+        } else if (rhs < hi) {
+            auxiliary[pos++] = data[rhs++];
         } else {
             break;
         }
     }
+
+    memcpy(data + lo, auxiliary + lo, (hi - lo) * sizeof(SORT_ITEM_T));
+
+    for (size_t i = lo; i < hi; i++) {
+        printf("%d ", data[i]);
+    }
+    printf("\n");
+    for (size_t i = lo; i < hi; i++) {
+        printf("%d ", auxiliary[i]);
+    }
+    printf("\n");
+    printf("\n");
 }
 
 int merge_sort(SORT_ITEM_T *data, size_t len) {
@@ -36,7 +48,7 @@ int merge_sort(SORT_ITEM_T *data, size_t len) {
     SORT_ITEM_T *auxiliary = malloc(len * sizeof(SORT_ITEM_T));
     if (auxiliary == NULL) return -1;
 
-    memcpy(auxiliary, data, len * sizeof(SORT_ITEM_T));
+    // memcpy(auxiliary, data, len * sizeof(SORT_ITEM_T));
     merge(data, auxiliary, 0, len);
 
     free(auxiliary);
