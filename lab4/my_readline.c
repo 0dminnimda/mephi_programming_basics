@@ -38,7 +38,9 @@ char *readline(const char *prompt) {
         end = pos;
     }
 
-    if ((end - buf) || (scanf_result != EOF)) return buf;
-    free(buf);
-    return NULL;
+    if ((end - buf == 0) && (scanf_result == EOF)) {
+        free(buf);
+        return NULL;
+    }
+    return buf;
 }
