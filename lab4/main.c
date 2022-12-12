@@ -1,8 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#if PROGRAM_ID == 1
+
+#include <readline/readline.h>
+#include <string.h>
+
+#else
+
 #include "my_readline.h"
 #include "my_string.h"
+
+#endif  // PROGRAM_ID
+
 #include "words.h"
 
 typedef unsigned long long alphabet_sub_t;
