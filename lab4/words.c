@@ -1,5 +1,7 @@
 #include "words.h"
 
+#include <stdio.h>
+
 #if PROGRAM_ID == 1
     #include <string.h>
 #else
