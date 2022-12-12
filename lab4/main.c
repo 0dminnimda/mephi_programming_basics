@@ -2,15 +2,9 @@
 #include <stdlib.h>
 
 #if PROGRAM_ID == 1
-
-#include <readline/readline.h>
-#include <string.h>
-
+    #include <readline/readline.h>
 #else
-
-#include "my_readline.h"
-#include "my_string.h"
-
+    #include "my_readline.h"
 #endif  // PROGRAM_ID
 
 #include "words.h"
