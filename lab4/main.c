@@ -39,7 +39,8 @@ typedef unsigned long long alphabet_sub_t;
 #define BITS_IN_SUB_T 64
 #define MASK(shift) ((alphabet_sub_t)1 << (shift))
 
-#define SUB_COUNT 4
+// how many llu we need to cover all char values? (usually 4)
+#define SUB_COUNT (1 << (sizeof(char) * 8)) / (sizeof(unsigned long long) * 8)
 typedef alphabet_sub_t alphabet_t[SUB_COUNT];
 
 alphabet_t *generate_alphabets(Vector words) {
