@@ -11,11 +11,12 @@
 
 typedef unsigned long long alphabet_sub_t;
 
-#define BITS_IN_SUB_T 64
+#define BITS_IN_SUB_T (sizeof(alphabet_sub_t) * 8)
 #define MASK(shift) ((alphabet_sub_t)1 << (shift))
 
 // how many llu we need to cover all char values? (usually 4)
-#define SUB_COUNT (1 << (sizeof(char) * 8)) / (sizeof(unsigned long long) * 8)
+#define SUB_COUNT ((1 << (sizeof(char) * 8)) / BITS_IN_SUB_T)
+
 typedef alphabet_sub_t alphabet_t[SUB_COUNT];
 
 alphabet_t *generate_alphabets(Words words) {
@@ -79,7 +80,7 @@ int main(void) {
     char *line = NULL;
     Words words = NULL;
 
-    while (1) {        
+    while (1) {
         free(words);
         free(line);
 
