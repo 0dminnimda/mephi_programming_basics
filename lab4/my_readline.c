@@ -2,7 +2,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 #define CHUNK_SIZE 2
 #define CHUNK_SIZED_STRING_FORMAT "%2[^\n]%n"
