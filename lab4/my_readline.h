@@ -1,1 +1,1 @@
-char *my_readline(const char *prompt);
+char *readline(const char *prompt);

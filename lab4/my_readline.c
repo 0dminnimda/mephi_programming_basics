@@ -6,7 +6,7 @@
 #define CHUNK_SIZE 2
 #define CHUNK_SIZED_STRING_FORMAT " %2[^\n]"
 
-char *my_readline(const char *prompt) {
+char *readline(const char *prompt) {
     if (prompt) printf("%s", prompt);
 
     char *buf = NULL;
@@ -42,10 +42,3 @@ char *my_readline(const char *prompt) {
     free(buf);
     return NULL;
 }
-
-// int main(int argc, char *argv[]) {
-//     char *line = my_readline(0);
-//     printf("Returned ");
-//     printf("'%s'\n", line);
-//     free(line);
-// }

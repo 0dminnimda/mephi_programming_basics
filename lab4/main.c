@@ -79,7 +79,7 @@ int main(void) {
         free(words);
         free(line);
 
-        line = my_readline(">>> ");
+        line = readline(">>> ");
         if (!line) {
             printf("ERROR: Could not read a line\n");
             break;
