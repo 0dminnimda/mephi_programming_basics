@@ -14,4 +14,4 @@ if [[ $1 == "1" ]]; then
     EXTRA_ARGS="$EXTRA_ARGS -lreadline -D PROGRAM_ID=1"
 fi
 
-$MY_CC words.c my_string.c my_readline.c main.c -o main.o -O3 -g $EXTRA_ARGS
+$MY_CC alphabet.c words.c my_string.c my_readline.c main.c -o main.o -O3 -g $EXTRA_ARGS
