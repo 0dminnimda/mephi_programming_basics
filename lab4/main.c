@@ -57,6 +57,7 @@ int main(void) {
             printf("ERROR: Could not read a line\n");
             break;
         }
+        printf("The line I got: \"%s\"\n", line);
 
         words = split(line);
         if (!words) {
