@@ -120,11 +120,15 @@ int main(void) {
             break;
         }
 
+        printf("I got those words:\n");
+        print_words(words);
+
         if (remove_non_unique_words(words)) {
             printf("ERROR: could not remove non unique words\n");
             break;
         }
 
+        printf("And after removing non-unique words we have:\n");
         print_words(words);
     }
 
