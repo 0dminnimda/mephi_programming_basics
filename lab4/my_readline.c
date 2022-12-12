@@ -5,7 +5,7 @@
 #include <string.h>
 
 #define CHUNK_SIZE 2
-#define CHUNK_SIZED_STRING_FORMAT "%2[^\n]"
+#define CHUNK_SIZED_STRING_FORMAT "%2[^\n]%n"
 
 char *readline(const char *prompt) {
     if (prompt) printf("%s", prompt);
@@ -14,12 +14,11 @@ char *readline(const char *prompt) {
     char *end = NULL;
 
     int scanf_result = 0;
-    int end_reached = 0;
 
     char new_line[2];
     if (scanf("%1[\n]", new_line) == EOF) return NULL;
 
-    while (!end_reached) {
+    while (1) {
         // extend the memory by one chunk
         char *new_buf = realloc(buf, (end - buf + CHUNK_SIZE) * sizeof(char));
         if (new_buf == NULL) {
@@ -30,17 +29,12 @@ char *readline(const char *prompt) {
         buf = new_buf;
 
         // read new chunk
-        int scanf_result = scanf(CHUNK_SIZED_STRING_FORMAT, end);
+        int offset = 0;
+        scanf_result = scanf(CHUNK_SIZED_STRING_FORMAT, end, &offset);
 
         // check if we hit the end of the line
-        char *pos;
-        for (pos = end; pos < end + CHUNK_SIZE; pos++) {
-            if (*pos == '\0' || *pos == '\n') {
-                end_reached = 1;
-                break;
-            }
-        }
-        end = pos;
+        if (scanf_result != 1 || offset == 0) break;
+        end += offset;
     }
 
     if ((end - buf == 0) && (scanf_result == EOF)) {
