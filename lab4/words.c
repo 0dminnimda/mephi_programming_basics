@@ -1,5 +1,11 @@
 #include "words.h"
 
+#if PROGRAM_ID == 1
+    #include <string.h>
+#else
+    #include "my_string.h"
+#endif  // PROGRAM_ID
+
 Words split(char *line) {
     Words words;
     if (create(&words, 0)) return NULL;
