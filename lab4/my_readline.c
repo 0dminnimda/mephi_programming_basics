@@ -5,7 +5,7 @@
 #include <string.h>
 
 #define CHUNK_SIZE 2
-#define CHUNK_SIZED_STRING_FORMAT " %2[^\n]"
+#define CHUNK_SIZED_STRING_FORMAT "%2[^\n]"
 
 char *readline(const char *prompt) {
     if (prompt) printf("%s", prompt);
@@ -15,6 +15,10 @@ char *readline(const char *prompt) {
 
     int scanf_result = 0;
     int end_reached = 0;
+
+    char new_line[2];
+    if (scanf("%1[\n]", new_line) == EOF) return NULL;
+
     while (!end_reached) {
         // extend the memory by one chunk
         char *new_buf = realloc(buf, (end - buf + CHUNK_SIZE) * sizeof(char));
