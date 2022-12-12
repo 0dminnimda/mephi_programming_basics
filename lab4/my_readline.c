@@ -43,5 +43,6 @@ char *readline(const char *prompt) {
         free(buf);
         return NULL;
     }
+    *end = '\0';
     return buf;
 }
