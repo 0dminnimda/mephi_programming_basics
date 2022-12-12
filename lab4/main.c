@@ -3,36 +3,7 @@
 
 #include "my_readline.h"
 #include "my_string.h"
-
-#define VECTOR_ITEM char *
-#define VECTOR_ITEM_DESTRUCTOR(item) free(item)
-
-#include "vector.h"
-
-Vector split(char *line) {
-    Vector words;
-    if (create(&words, 0)) return NULL;
-
-    while (1) {
-        if (*line == ' ' || *line == '\t') *line++ = '\0';
-        while ((*line != '\0') && (*line == ' ' || *line == '\t')) line++;
-        if (*line == '\0') break;
-
-        push_back(words, line);
-        line += strcspn(line, " \t");
-    }
-
-    return words;
-}
-
-void print_words(Vector words) {
-    size_t shown = 0;
-    for (size_t i = 0; i < get_length(words); i++) {
-        if (*get_item(words, i))
-            printf("%c%s", ' ' * (shown++ != 0), get_item(words, i));
-    }
-    printf("\n");
-}
+#include "words.h"
 
 typedef unsigned long long alphabet_sub_t;
 
@@ -43,7 +14,7 @@ typedef unsigned long long alphabet_sub_t;
 #define SUB_COUNT (1 << (sizeof(char) * 8)) / (sizeof(unsigned long long) * 8)
 typedef alphabet_sub_t alphabet_t[SUB_COUNT];
 
-alphabet_t *generate_alphabets(Vector words) {
+alphabet_t *generate_alphabets(Words words) {
     alphabet_t *alphabets = malloc(get_length(words) * sizeof(alphabet_t));
     if (get_length(words) && alphabets == NULL) return NULL;
 
@@ -66,7 +37,7 @@ int alphabet_eq(alphabet_t alphabet1, alphabet_t alphabet2) {
             (alphabet1[2] == alphabet2[2]) && (alphabet1[3] == alphabet2[3]));
 }
 
-int remove_non_unique_words(Vector words) {
+int remove_non_unique_words(Words words) {
     alphabet_t *alphabets = generate_alphabets(words);
     if (!alphabets) {
         free(alphabets);
@@ -102,7 +73,7 @@ int main(void) {
     printf("Input words and I will leave only unique ones!\n");
 
     char *line = NULL;
-    Vector words = NULL;
+    Words words = NULL;
 
     while (1) {        
         free(words);

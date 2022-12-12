@@ -10,4 +10,4 @@ if [[ $? != "0" ]]; then
     EXTRA_ARGS="-Wno-deprecated-declarations"
 fi
 
-$MY_CC my_string.c my_readline.c main.c -o main.o -O3 -g $EXTRA_ARGS
+$MY_CC words.c my_string.c my_readline.c main.c -o main.o -O3 -g $EXTRA_ARGS
