@@ -57,7 +57,7 @@ int main(void) {
             printf("ERROR: Could not read a line\n");
             break;
         }
-        printf("The line I got: \"%s\"\n", line);
+        printf("\nThe line I got: \"%s\"\n", line);
 
         words = split(line);
         if (!words) {
@@ -65,7 +65,7 @@ int main(void) {
             break;
         }
 
-        printf("I got those words:\n");
+        printf("\nI got those words:\n");
         print_words(words);
 
         if (remove_non_unique_words(words)) {
@@ -73,7 +73,7 @@ int main(void) {
             break;
         }
 
-        printf("And after removing non-unique words we have:\n");
+        printf("\nAnd after removing non-unique words we have:\n");
         print_words(words);
     }
 
