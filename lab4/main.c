@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #if PROGRAM_ID == 1
     #include <readline/readline.h>
@@ -9,6 +10,18 @@
 
 #include "alphabet.h"
 #include "words.h"
+
+double current_time() {
+#if __STDC_VERSION__ >= 201112L  // C11
+    struct timespec ts;
+    timespec_get(&ts, TIME_UTC);
+    return (double)ts.tv_sec + (double)ts.tv_nsec / 1e+9;
+#else
+    return clock() / CLOCKS_PER_SEC;
+#endif
+}
+
+#define TIMEIT(timing) ;(timing += current_time() - begin, begin = current_time())
 
 int remove_non_unique_words(Words words) {
     alphabet_t *alphabets = generate_alphabets(words);
@@ -52,14 +65,18 @@ int main(void) {
         free(words);
         free(line);
 
-        line = readline(">>> ");
+        double read_time = 0;
+        double work_time = 0;
+        double begin = current_time();
+
+        line = readline(">>> ") TIMEIT(read_time);
         if (!line) {
             printf("ERROR: Could not read a line\n");
             break;
         }
         printf("\nThe line I got: \"%s\"\n", line);
 
-        words = split(line);
+        words = split(line) TIMEIT(work_time);
         if (!words) {
             printf("ERROR: Could not split the line into words\n");
             break;
@@ -72,14 +89,18 @@ int main(void) {
             printf("ERROR: could not remove non unique words\n");
             break;
         }
+        TIMEIT(work_time);
 
         printf("\nAnd after removing non-unique words we have:\n");
         print_words(words);
+
+        printf(
+            "\n%.10lf seconds was spent reading the input "
+            "and %.10lf seconds working on the actual task\n",
+            read_time, work_time);
     }
 
     free(words);
     free(line);
     return 0;
 }
-
-// abs absb absbsbsbsbsb aabssbsbasbab absfg none one neon gg erloftkes;f k'pwae;3 r3k
