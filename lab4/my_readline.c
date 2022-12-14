@@ -9,15 +9,19 @@
 char *readline(const char *prompt) {
     if (prompt) printf("%s", prompt);
 
-    char *buf = NULL;
-    char *end = NULL;
+    char *buf = malloc(2 * sizeof(char)), *end = buf;
+    if (buf == NULL) return NULL;
 
-    int scanf_result = 0;
+    // read at most one symbol to set offset and result - representing state
+    // current state can be eof, \n, normal input or nothing
+    int offset = 0;
+    int scanf_result = scanf("%1[\n]", end);
+    if (scanf_result != 1) scanf_result = scanf("%1[^\n]%n", end, &offset);
 
-    char new_line[2];
-    if (scanf("%1[\n]", new_line) == EOF) return NULL;
+    // check if we hit the end of the line
+    while (scanf_result == 1 && offset != 0) {
+        end += offset;
 
-    while (1) {
         // extend the memory by one chunk
         char *new_buf = realloc(buf, (end - buf + CHUNK_SIZE) * sizeof(char));
         if (new_buf == NULL) {
@@ -28,12 +32,14 @@ char *readline(const char *prompt) {
         buf = new_buf;
 
         // read new chunk
-        int offset = 0;
+        offset = 0;
         scanf_result = scanf(CHUNK_SIZED_STRING_FORMAT, end, &offset);
+    }
 
-        // check if we hit the end of the line
-        if (scanf_result != 1 || offset == 0) break;
-        end += offset;
+    // consume the potential \n if we have read at least something non-\n
+    if (*end != '\n') {
+        char junk[2];
+        scanf("%1[\n]", junk);
     }
 
     if ((end - buf == 0) && (scanf_result == EOF)) {
