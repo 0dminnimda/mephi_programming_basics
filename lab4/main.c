@@ -51,6 +51,7 @@ int remove_non_unique_words(Words words) {
     for (size_t i = 0; i < get_length(words); i++)
         if (non_unique[i]) *get_item(words, i) = '\0';
 
+    free(non_unique);
     free(alphabets);
     return 0;
 }
@@ -62,7 +63,7 @@ int main(void) {
     Words words = NULL;
 
     while (1) {
-        free(words);
+        destroy_vector(words);
         free(line);
 
         double read_time = 0;
@@ -100,7 +101,7 @@ int main(void) {
             read_time, work_time);
     }
 
-    free(words);
+    destroy_vector(words);
     free(line);
     return 0;
 }
