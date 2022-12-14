@@ -1,5 +1,4 @@
 #define VECTOR_ITEM char *
-#define VECTOR_ITEM_DESTRUCTOR(item) free(item)
 
 #include "vector.h"
 
