@@ -76,7 +76,8 @@ static inline void destroy_reference(Vector vec) {
 }
 
 static inline void destroy_vector(Vector vec) {
-    clear_vector(vec);
+    if (vec)
+        clear_vector(vec);
     destroy_reference(vec);
 }
 
