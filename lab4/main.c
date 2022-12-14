@@ -104,10 +104,5 @@ int main(void) {
     destroy_vector(words);
     free(line);
 
-    // To eliminate the "still reachable" leaks
-    // Useless? - Yes! Then why? - 'coz!
-    fclose(stdout);
-    fclose(stderr);
-
     return 0;
 }
