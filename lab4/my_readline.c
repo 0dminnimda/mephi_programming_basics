@@ -37,7 +37,7 @@ char *readline(const char *prompt) {
     }
 
     // consume the potential \n if we have read at least something non-\n
-    if (*end != '\n') {
+    if (end && *end != '\n') {
         char junk[2];
         scanf("%1[\n]", junk);
     }
