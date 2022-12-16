@@ -63,9 +63,6 @@ int main(void) {
     Words words = NULL;
 
     while (1) {
-        destroy_vector(words);
-        free(line);
-
         double read_time = 0;
         double work_time = 0;
         double begin = current_time();
@@ -99,6 +96,11 @@ int main(void) {
             "\n%.10lf seconds was spent reading the input "
             "and %.10lf seconds working on the actual task\n",
             read_time, work_time);
+
+        destroy_vector(words);
+        words = NULL;
+        free(line);
+        line = NULL;
     }
 
     destroy_vector(words);
