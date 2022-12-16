@@ -6,6 +6,7 @@ EXTRA_ARGS=""
 which cc &> /dev/null
 
 if [[ $? != "0" ]]; then
+    echo "I did not find 'cc', so using 'clang' instead"
     MY_CC="clang"
     EXTRA_ARGS="$EXTRA_ARGS -Wno-deprecated-declarations"
 fi
@@ -18,6 +19,6 @@ fi
 
 COMMAND="$MY_CC alphabet.c words.c main.c -o main.o -O3 -g $EXTRA_ARGS"
 
-echo "Running '$COMMAND'"
+printf "Running '$COMMAND'\n\n"
 
 $COMMAND
