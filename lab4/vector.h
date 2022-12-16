@@ -70,7 +70,7 @@ static inline void clear_vector_starting_from(Vector vec, size_t index) {
 static inline void clear_vector(Vector vec) { clear_vector_starting_from(vec, 0); }
 
 static inline void destroy_reference(Vector vec) {
-    if (vec && vec->data)
+    if (vec)
         free(vec->data);
     free(vec);
 }
