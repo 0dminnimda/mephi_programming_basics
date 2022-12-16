@@ -1,6 +1,46 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+
+typedef int sort_id;
+
+sort_id str_to_sort(char *in) {
+    return 0;
+}
+
+// typedef struct Atom {
+//     int field1;
+//     char *field2;
+//     long long field3;
+// } Atom;
+
+// typedef size_t atom_field_offset;
+
+// atom_field_offset str_to_atom_field(char *in) {
+//     return 0;
+// }
+
+typedef struct Atom {
+    void *data;
+    int greater(void *a, void *b);
+    void print(void *it);
+} Atom;
+
+#define DEFINE_ATOM(name, type, greater, format) \
+int name##_greater(void *a_ptr, void *b_ptr) { \
+    type a = *(type *)a, b = *(type *)b; \
+    return (greater); \
+} \
+void name##_print(void *it) { \
+    printf(format, *(type *)it); \
+} \
+Item name##_atom(type it) { \
+    return .{it, name##_greater, name##_print}; \
+}
+
+DEFINE_ATOM(int, int, a > b, "%d")
+DEFINE_ATOM(str, char *, strmp(a, b) > 0, "%d")
 
 /*
 # 1
@@ -15,33 +55,16 @@
     -s --sort - what sorting algorithm to use
 */
 
-typedef int sort_id;
-
-sort_id str_to_sort(char *in) {
-    return 0;
-}
-
-typedef struct Atom {
-    int field1;
-    char *field2;
-    long long field3;
-} Atom;
-
-typedef size_t atom_field_offset;
-
-atom_field_offset str_to_atom_field(char *in) {
-    return 0;
-}
-
 typedef struct Options {
-    FILE *file_in;
-    FILE *file_out;
+    char *file_in;
+    char *file_out;
 
     size_t array_length;
     size_t array_count;
 
     int reserve;
-    atom_field_offset key;
+    // atom_field_offset key;
+    size_t atom_index;
     sort_id sort;
 } Options;
 
