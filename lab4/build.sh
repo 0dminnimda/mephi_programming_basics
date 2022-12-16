@@ -16,4 +16,8 @@ else
     EXTRA_ARGS="$EXTRA_ARGS my_string.c my_readline.c"
 fi
 
-$MY_CC alphabet.c words.c main.c -o main.o -O3 -g $EXTRA_ARGS
+COMMAND="$MY_CC alphabet.c words.c main.c -o main.o -O3 -g $EXTRA_ARGS"
+
+echo "Running '$COMMAND'"
+
+$COMMAND
