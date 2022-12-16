@@ -48,7 +48,7 @@ DEFINE_ATOM(str, char *, strmp(a, b) > 0, "%d")
     file_out - program will write the data to this file
 # 2
     array_length - number of elements in the generated array
-    array_count - number of generated array
+    array_count - number of arrays to generate
 # options
     -r --reserve - reverse the sorting direction (form ascending to descending)
     -k --key - which field to use as a sorting key
