@@ -57,7 +57,13 @@ int remove_non_unique_words(Words words) {
 }
 
 int main(void) {
-    printf("Input words and I will leave only unique ones!\n");
+#if PROGRAM_ID == 1
+    printf("I am using standard GNU readline 0-0\n");
+#else
+    printf("I am using custom-written readline ^-^\n");
+#endif  // PROGRAM_ID
+
+    printf("Input words and I will leave only unique ones!\n\n");
 
     char *line = NULL;
     Words words = NULL;
@@ -79,7 +85,7 @@ int main(void) {
             break;
         }
 
-        printf("\nWords found: ");
+        printf("Words found: ");
         print_words(words);
 
         if (remove_non_unique_words(words)) {
