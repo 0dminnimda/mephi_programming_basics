@@ -72,7 +72,6 @@ int main(void) {
             printf("ERROR: Could not read a line\n");
             break;
         }
-        printf("\nThe line I got: \"%s\"\n", line);
 
         words = split(line) TIMEIT(work_time);
         if (!words) {
@@ -80,7 +79,7 @@ int main(void) {
             break;
         }
 
-        printf("\nI got those words:\n");
+        printf("\nWords found: ");
         print_words(words);
 
         if (remove_non_unique_words(words)) {
@@ -89,13 +88,15 @@ int main(void) {
         }
         TIMEIT(work_time);
 
-        printf("\nAnd after removing non-unique words we have:\n");
+        printf("Only-unique words: ");
         print_words(words);
 
         printf(
-            "\n%.10lf seconds was spent reading the input "
-            "and %.10lf seconds working on the actual task\n",
-            read_time, work_time);
+            "\n"
+            "Reading the input: %.10lf seconds\n"
+            "The actual task: %.10lf seconds\n"
+            "Total: %.10lf seconds\n\n",
+            read_time, work_time, read_time + work_time);
 
         destroy_vector(words);
         words = NULL;
