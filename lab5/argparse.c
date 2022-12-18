@@ -10,16 +10,6 @@
 #define big_help(...) (error(__VA_ARGS__), help())
 #define smol_help(...) (error(__VA_ARGS__), error("Run %s -h for more informaiton\n", argv[0]))
 
-void print_getopt_state(int opt) {
-    printf(
-        "optind: %d\t"
-        "opterr: %d\t"
-        "optopt: %c (%d)\t"
-        "opt: %c (%d)\t"
-        "\n",
-        optind, opterr, optopt, optopt, opt, (char)opt);
-}
-
 Options default_options() {
     return (Options){.input_file = NULL,
                      .output_file = NULL,
@@ -32,14 +22,15 @@ Options default_options() {
 
 void print_options(Options options) {
     if (options.input_file) printf("  input file: '%s'\n", options.input_file);
-    if (options.output_file) printf("  output file: '%s'\n", options.output_file);
+    if (options.output_file)
+        printf("  output file: '%s'\n", options.output_file);
 
 #if !(PROGRAM_ID == 1)
     printf("  array length: %zu\n", options.array_length);
     printf("  array count: %zu\n", options.array_count);
 #endif  // PROGRAM_ID
 
-    printf("  reserved order: %s\n", options.reserve? "Yes" : "No");
+    printf("  reserved order: %s\n", options.reserve ? "Yes" : "No");
     printf("  field_offset: %zu\n", options.field_offset);
     printf("  sort: %s\n", sort2str(options.sort));
 }
@@ -69,12 +60,9 @@ int parse(int argc, char *argv[], Options *options) {
     *options = default_options();
 
     while ((opt = getopt(argc, argv, ":hrn:s:")) != -1) {
-        print_getopt_state(opt);
-
         switch (opt) {
             case 'h':
                 return help();
-                break;
             case 'r':
                 options->reserve = 1;
                 break;
@@ -96,18 +84,20 @@ int parse(int argc, char *argv[], Options *options) {
 
     if (optind + 1 >= argc)
         return big_help("Expected 2 positional arguments, found %d\n\n",
-                    argc - optind);
+                        argc - optind);
 
 #if PROGRAM_ID == 1
     options->input_file = argv[optind];
     options->output_file = argv[optind + 1];
 #else
     if (strspn(argv[optind], "0123456789") != strlen(argv[optind]))
-        return smol_help("Invalid array_length '%s', must be an integer\n\n", argv[optind]);
+        return smol_help("Invalid array_length '%s', must be an integer\n\n",
+                         argv[optind]);
     options->array_length = atoi(argv[optind]);
 
     if (strspn(argv[optind + 1], "0123456789") != strlen(argv[optind + 1]))
-        return smol_help("Invalid array_count '%s', must be an integer\n\n", argv[optind + 1]);
+        return smol_help("Invalid array_count '%s', must be an integer\n\n",
+                         argv[optind + 1]);
     options->array_count = atoi(argv[optind + 1]);
 #endif  // PROGRAM_ID
 
