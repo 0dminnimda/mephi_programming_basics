@@ -7,9 +7,11 @@
 #define STR(x) #x
 
 voter_field str2field(char *str) {
-    if (strcmp(str, STR(voter_full_name) + 2) == 0) return voter_full_name;
-    if (strcmp(str, STR(voter_station_id) + 2) == 0) return voter_station_id;
-    if (strcmp(str, STR(voter_age) + 2) == 0) return voter_age;
+    if (strcmp(str, "full_name") == 0) return voter_full_name;
+    if (strcmp(str, "name") == 0) return voter_full_name;
+    if (strcmp(str, "station_id") == 0) return voter_station_id;
+    if (strcmp(str, "station") == 0) return voter_station_id;
+    if (strcmp(str, "age") == 0) return voter_age;
     return voter_field_count;
 }
 
