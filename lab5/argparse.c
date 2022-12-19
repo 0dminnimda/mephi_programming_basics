@@ -35,7 +35,7 @@ void print_options(Options options) {
 #endif  // PROGRAM_ID
 
     printf("  reversed order: %s\n", options.reverse ? "Yes" : "No");
-    printf("  field_offset: %zu\n", options.field_offset);
+    printf("  field: %s\n", field2str(options.field));
     printf("  sort: %s\n", sort2str(options.sort));
 }
 
