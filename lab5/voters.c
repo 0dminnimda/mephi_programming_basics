@@ -16,12 +16,11 @@ voter_field str2field(char *str) {
 #define VOTER_FORMAT "%s, %7s, %d"
 
 void fprint_voter(FILE *const stream, Voter voter) {
-    fprint(stream, VOTER_FORMAT, voter.full_name, voter.station_id, voter.age);
+    fprintf(stream, VOTER_FORMAT, voter.name, voter.station, voter.age);
 }
 
 int sscanf_voter(char *str, Voter *voter) {
-    return sscanf(str, VOTER_FORMAT, &voter->full_name, &voter->station_id,
-                  &voter->age);
+    return sscanf(str, VOTER_FORMAT, voter->name, voter->station, &voter->age);
 }
 
 #define STRUCT_CMP(structure, name) structure##_##name##_cmp
