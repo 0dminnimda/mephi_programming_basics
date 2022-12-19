@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "sort_type.h"
+#include "voters.h"
 
 typedef struct Options {
     char *input_file;
@@ -10,7 +10,7 @@ typedef struct Options {
     size_t array_count;
 
     int reverse;
-    size_t field_offset;
+    voter_field field;
     sort_id sort;
 } Options;
 

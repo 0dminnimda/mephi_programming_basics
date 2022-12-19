@@ -5,10 +5,14 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "sort_type.h"
+#include "voters.h"
+
 #define error(...) (fprintf(stderr, __VA_ARGS__), 1)
 #define help() error(usage, argv[0])
 #define big_help(...) (error(__VA_ARGS__), help())
-#define smol_help(...) (error(__VA_ARGS__), error("Run %s -h for more informaiton\n", argv[0]))
+#define smol_help(...) \
+    (error(__VA_ARGS__), error("Run %s -h for more informaiton\n", argv[0]))
 
 Options default_options() {
     return (Options){.input_file = NULL,
@@ -16,7 +20,7 @@ Options default_options() {
                      .array_length = 0,
                      .array_count = 0,
                      .reverse = 0,
-                     .field_offset = 0,
+                     .field_offset = voter_full_name,
                      .sort = QuickSort};
 }
 
@@ -49,11 +53,14 @@ int parse(int argc, char *argv[], Options *options) {
         "\nOptions:\n\
   -h             Show help.\n\
   -r             Reverse the sorting direction.\n\
-  -n field       Field which will be used as a sorting key.\n\
+  -n field       Field which will be used as a sorting key (name by default).\n\
+                     name    - Full name of the voter\n\
+                     station - Identifier of the polling station\n\
+                     age     - Age of the voter\n\
   -s sort        What sorting algorithm to use (Q by default).\n\
-                   B - BubbleSort\n\
-                   D - DoubleSelectionSort\n\
-                   Q - QuickSort\n\
+                     B       - BubbleSort\n\
+                     D       - DoubleSelectionSort\n\
+                     Q       - QuickSort\n\
 \n ";
 
     int opt;
@@ -67,6 +74,9 @@ int parse(int argc, char *argv[], Options *options) {
                 options->reverse = 1;
                 break;
             case 'n':
+                options->field = str2field(optarg);
+                if (options->field >= voter_field_count)
+                    return smol_help("Invalid field '%s'\n\n", optarg);
                 break;
             case 's':
                 options->sort = char2sort(*optarg);
