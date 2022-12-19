@@ -1,5 +1,6 @@
 #include <stdlib.h>
 
+#include "sort_type.h"
 #include "voters.h"
 
 typedef struct Options {
