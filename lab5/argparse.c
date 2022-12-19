@@ -15,7 +15,7 @@ Options default_options() {
                      .output_file = NULL,
                      .array_length = 0,
                      .array_count = 0,
-                     .reserve = 0,
+                     .reverse = 0,
                      .field_offset = 0,
                      .sort = QuickSort};
 }
@@ -30,7 +30,7 @@ void print_options(Options options) {
     printf("  array count: %zu\n", options.array_count);
 #endif  // PROGRAM_ID
 
-    printf("  reserved order: %s\n", options.reserve ? "Yes" : "No");
+    printf("  reversed order: %s\n", options.reverse ? "Yes" : "No");
     printf("  field_offset: %zu\n", options.field_offset);
     printf("  sort: %s\n", sort2str(options.sort));
 }
@@ -64,7 +64,7 @@ int parse(int argc, char *argv[], Options *options) {
             case 'h':
                 return help();
             case 'r':
-                options->reserve = 1;
+                options->reverse = 1;
                 break;
             case 'n':
                 break;

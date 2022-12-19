@@ -9,7 +9,7 @@ typedef struct Options {
     size_t array_length;
     size_t array_count;
 
-    int reserve;
+    int reverse;
     size_t field_offset;
     sort_id sort;
 } Options;
