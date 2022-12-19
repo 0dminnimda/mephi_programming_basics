@@ -57,7 +57,7 @@ typedef struct Options {
 #define VECTOR_ITEM void
 #define VECTOR_ITEM_DESTRUCTOR(item) do { \
     for (size_t i = index; i < vec->length; i++) \
-        VECTOR_ITEM_DESTRUCTOR(get_item(vec, i)); \
+        VECTOR_ITEM_DESTRUCTOR(vec_get(vec, i)); \
     free(item); \
 } while (0)
 
@@ -74,7 +74,7 @@ int create_multi_array(MultiArray *mar, size_t capacity, size_t row_count) {
     mar = malloc(sizeof(MultiArray));
     if (mar == NULL) return -1;
 
-    if (create(&mar->vector, capacity)) return -1;
+    if (create_vector(&mar->vector, capacity)) return -1;
 
     data = malloc(row_count * sizeof(VECTOR_ITEM));
     if (capacity && data == NULL) return -1;
