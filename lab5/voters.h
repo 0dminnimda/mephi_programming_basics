@@ -18,6 +18,7 @@ typedef enum {
 } voter_field;
 
 voter_field str2field(char *str);
+char *field2str(voter_field field);
 
 typedef int cmp_func_t(Voter *, Voter *);
 cmp_func_t *field2cmp(voter_field field);

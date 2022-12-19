@@ -13,6 +13,13 @@ voter_field str2field(char *str) {
     return voter_field_count;
 }
 
+char *field2str(voter_field field) {
+    if (field == voter_name) return "name";
+    if (field == voter_station) return "station";
+    if (field == voter_age) return "age";
+    return "invalid-field";
+}
+
 #define VOTER_FORMAT "%s, %7s, %d"
 
 void fprint_voter(FILE *const stream, Voter voter) {
