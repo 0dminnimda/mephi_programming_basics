@@ -6,14 +6,14 @@
 
 #define STR(x) #x
 
-voter_field str2field(char *str) {
+field_t str2field(char *str) {
     if (strcmp(str, "name") == 0) return voter_name;
     if (strcmp(str, "station") == 0) return voter_station;
     if (strcmp(str, "age") == 0) return voter_age;
     return voter_field_count;
 }
 
-char *field2str(voter_field field) {
+char *field2str(field_t field) {
     if (field == voter_name) return "name";
     if (field == voter_station) return "station";
     if (field == voter_age) return "age";
@@ -43,7 +43,7 @@ MAKE_STRUCT_CMP(Voter, name, strcmp)
 MAKE_STRUCT_CMP(Voter, station, strcmp)
 MAKE_STRUCT_CMP(Voter, age, DEFAULT_CMP)
 
-cmp_func_t *field2cmp(voter_field field) {
+cmp_func_t *field2cmp(field_t field) {
     if (field == voter_name) return STRUCT_CMP(Voter, name);
     if (field == voter_station) return STRUCT_CMP(Voter, station);
     return STRUCT_CMP(Voter, age);

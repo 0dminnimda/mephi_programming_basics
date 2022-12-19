@@ -15,13 +15,13 @@ typedef enum {
     voter_station,
     voter_age,
     voter_field_count
-} voter_field;
+} field_t;
 
-voter_field str2field(char *str);
-char *field2str(voter_field field);
+field_t str2field(char *str);
+char *field2str(field_t field);
 
 typedef int cmp_func_t(Voter *, Voter *);
-cmp_func_t *field2cmp(voter_field field);
+cmp_func_t *field2cmp(field_t field);
 
 #define VECTOR_ITEM Voter
 #define VECTOR_ITEM_DESTRUCTOR(item) free(item.name)

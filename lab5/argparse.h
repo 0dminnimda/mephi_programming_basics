@@ -11,8 +11,8 @@ typedef struct Options {
     size_t array_count;
 
     int reverse;
-    voter_field field;
-    sort_id sort;
+    field_t field;
+    sort_t sort;
 } Options;
 
 Options default_options();
