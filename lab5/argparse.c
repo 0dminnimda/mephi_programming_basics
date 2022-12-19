@@ -49,7 +49,7 @@ int parse(int argc, char *argv[], Options *options) {
         "\nOptions:\n\
   -h             Show help.\n\
   -r             Reverse the sorting direction.\n\
-  -n field       Field which will be used as a sorting key (name by default).\n\
+  -f field       Field which will be used as a sorting key (name by default).\n\
                      name    - Full name of the voter\n\
                      station - Identifier of the polling station\n\
                      age     - Age of the voter\n\
@@ -57,19 +57,19 @@ int parse(int argc, char *argv[], Options *options) {
                      B       - BubbleSort\n\
                      D       - DoubleSelectionSort\n\
                      Q       - QuickSort\n\
-\n ";
+\n";
 
     int opt;
     *options = default_options();
 
-    while ((opt = getopt(argc, argv, ":hrn:s:")) != -1) {
+    while ((opt = getopt(argc, argv, ":hrf:s:")) != -1) {
         switch (opt) {
             case 'h':
                 return help();
             case 'r':
                 options->reverse = 1;
                 break;
-            case 'n':
+            case 'f':
                 options->field = str2field(optarg);
                 if (options->field >= voter_field_count)
                     return smol_help("Invalid field '%s'\n\n", optarg);
