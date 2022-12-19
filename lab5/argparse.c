@@ -1,12 +1,8 @@
 #include "argparse.h"
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-
-#include "sort_type.h"
-#include "voters.h"
 
 #define error(...) (fprintf(stderr, __VA_ARGS__), 1)
 #define help() error(usage, argv[0])
