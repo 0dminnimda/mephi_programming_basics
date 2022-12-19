@@ -20,7 +20,7 @@ Options default_options() {
                      .array_length = 0,
                      .array_count = 0,
                      .reverse = 0,
-                     .field_offset = voter_full_name,
+                     .field = voter_name,
                      .sort = QuickSort};
 }
 

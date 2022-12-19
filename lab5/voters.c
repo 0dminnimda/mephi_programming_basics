@@ -7,10 +7,8 @@
 #define STR(x) #x
 
 voter_field str2field(char *str) {
-    if (strcmp(str, "full_name") == 0) return voter_full_name;
-    if (strcmp(str, "name") == 0) return voter_full_name;
-    if (strcmp(str, "station_id") == 0) return voter_station_id;
-    if (strcmp(str, "station") == 0) return voter_station_id;
+    if (strcmp(str, "name") == 0) return voter_name;
+    if (strcmp(str, "station") == 0) return voter_station;
     if (strcmp(str, "age") == 0) return voter_age;
     return voter_field_count;
 }
@@ -36,12 +34,12 @@ int sscanf_voter(char *str, Voter *voter) {
         return greater_expr;                                    \
     }
 
-MAKE_STRUCT_CMP(Voter, char *, full_name, strcmp(l, r) > 0)
-MAKE_STRUCT_CMP(Voter, station_t, station_id, strcmp(l, r) > 0)
+MAKE_STRUCT_CMP(Voter, char *, name, strcmp(l, r) > 0)
+MAKE_STRUCT_CMP(Voter, station_t, station, strcmp(l, r) > 0)
 MAKE_STRUCT_CMP(Voter, int, age, l > r)
 
 cmp_func_t *field2cmp(voter_field field) {
-    if (field == voter_full_name) return STRUCT_CMP(Voter, full_name);
-    if (field == voter_station_id) return STRUCT_CMP(Voter, station_id);
+    if (field == voter_name) return STRUCT_CMP(Voter, name);
+    if (field == voter_station) return STRUCT_CMP(Voter, station);
     return STRUCT_CMP(Voter, age);
 }
