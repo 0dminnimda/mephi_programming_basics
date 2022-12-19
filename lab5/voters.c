@@ -31,18 +31,17 @@ int sscanf_voter(char *str, Voter *voter) {
 }
 
 #define STRUCT_CMP(structure, name) structure##_##name##_cmp
-
-#define MAKE_STRUCT_CMP(structure, type, name, greater_expr)    \
+#define MAKE_STRUCT_CMP(structure, name, cmp)                   \
     static int STRUCT_CMP(structure, name)(structure * l_ptr,   \
                                            structure * r_ptr) { \
-        type l = l_ptr->name;                                   \
-        type r = r_ptr->name;                                   \
-        return greater_expr;                                    \
+        return cmp(l_ptr->name, r_ptr->name);                   \
     }
 
-MAKE_STRUCT_CMP(Voter, char *, name, strcmp(l, r) > 0)
-MAKE_STRUCT_CMP(Voter, station_t, station, strcmp(l, r) > 0)
-MAKE_STRUCT_CMP(Voter, int, age, l > r)
+#define DEFAULT_CMP(l, r) ((l > r) - (l < r))
+
+MAKE_STRUCT_CMP(Voter, name, strcmp)
+MAKE_STRUCT_CMP(Voter, station, strcmp)
+MAKE_STRUCT_CMP(Voter, age, DEFAULT_CMP)
 
 cmp_func_t *field2cmp(voter_field field) {
     if (field == voter_name) return STRUCT_CMP(Voter, name);
