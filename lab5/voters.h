@@ -8,7 +8,7 @@ typedef struct {
 } Voter;
 
 void fprint_voter(FILE *const stream, Voter voter);
-int fscanf_voter(FILE *const stream, Voter *voter);
+int sscanf_voter(char *str, Voter *voter);
 
 typedef enum {
     voter_full_name,

@@ -19,8 +19,8 @@ void fprint_voter(FILE *const stream, Voter voter) {
     fprint(stream, VOTER_FORMAT, voter.full_name, voter.station_id, voter.age);
 }
 
-int fscanf_voter(FILE *const stream, Voter *voter) {
-    return fscanf(stream, VOTER_FORMAT, &voter->full_name, &voter->station_id,
+int sscanf_voter(char *str, Voter *voter) {
+    return sscanf(str, VOTER_FORMAT, &voter->full_name, &voter->station_id,
                   &voter->age);
 }
 
