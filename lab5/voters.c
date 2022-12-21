@@ -20,14 +20,26 @@ char *field2str(field_t field) {
     return "invalid-field";
 }
 
-#define VOTER_FORMAT "%s, %7s, %d"
+#define MAX_NAME_LENGTH 256
+#define VOTER_SCAN "%255[^,], %7s, %d"
+#define VOTER_PRINT "%s, %s, %d"
 
 void fprint_voter(FILE *const stream, Voter voter) {
-    fprintf(stream, VOTER_FORMAT, voter.name, voter.station, voter.age);
+    fprintf(stream, VOTER_PRINT, voter.name, voter.station, voter.age);
 }
 
-int sscanf_voter(char *str, Voter *voter) {
-    return sscanf(str, VOTER_FORMAT, voter->name, voter->station, &voter->age);
+#define MAX_LINE_LENGTH (MAX_NAME_LENGTH + 64)
+
+int fscanf_voter(FILE *const stream, Voter *voter) {
+    voter->name = malloc(MAX_LINE_LENGTH * sizeof(char));
+    if (voter->name == NULL) return 1;
+
+    char line[MAX_LINE_LENGTH];
+    if (fgets(line, MAX_LINE_LENGTH, stream) == NULL) return 1;
+
+    int res =
+        sscanf(line, VOTER_SCAN, voter->name, voter->station, &voter->age);
+    return res != 3;
 }
 
 #define STRUCT_CMP(structure, name) structure##_##name##_cmp
