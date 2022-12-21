@@ -46,4 +46,15 @@ int main(int argc, char *argv[]) {
     Options options;
     if (parse(argc, argv, &options)) return -1;
 
+    Voters voters = get_data(options);
+    if (!voters) return -1;
+
+    if (options.verbose) {
+        for (size_t i = 0; i < vec_length(voters); i++) {
+            fprint_voter(stdout, vec_get(voters, i));
+            printf("\n");
+        }
+    }
+
+    destroy_vector(voters);
 }
