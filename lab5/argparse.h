@@ -13,6 +13,8 @@ typedef struct Options {
     int reverse;
     field_t field;
     sort_t sort;
+
+    int verbose;
 } Options;
 
 Options default_options();

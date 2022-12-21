@@ -17,7 +17,8 @@ Options default_options() {
                      .array_count = 0,
                      .reverse = 0,
                      .field = voter_name,
-                     .sort = QuickSort};
+                     .sort = QuickSort,
+                     .verbose = 0};
 }
 
 void print_options(Options options) {
@@ -48,6 +49,7 @@ int parse(int argc, char *argv[], Options *options) {
 #endif  // PROGRAM_ID
         "\nOptions:\n\
   -h             Show help.\n\
+  -v             Give more output, make it verbose.\n\
   -r             Reverse the sorting direction.\n\
   -f field       Field which will be used as a sorting key (name by default).\n\
                      name    - Full name of the voter\n\
@@ -62,12 +64,15 @@ int parse(int argc, char *argv[], Options *options) {
     int opt;
     *options = default_options();
 
-    while ((opt = getopt(argc, argv, ":hrf:s:")) != -1) {
+    while ((opt = getopt(argc, argv, ":hrvf:s:")) != -1) {
         switch (opt) {
             case 'h':
                 return help();
             case 'r':
                 options->reverse = 1;
+                break;
+            case 'v':
+                options->verbose = 1;
                 break;
             case 'f':
                 options->field = str2field(optarg);
@@ -107,8 +112,11 @@ int parse(int argc, char *argv[], Options *options) {
     options->array_count = atoi(argv[optind + 1]);
 #endif  // PROGRAM_ID
 
-    printf("Using these options:\n");
-    print_options(*options);
+    if (options->verbose) {
+        printf("Using these options:\n");
+        print_options(*options);
+        printf("\n");
+    }
 
     return 0;
 }
