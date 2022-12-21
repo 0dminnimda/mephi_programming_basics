@@ -46,15 +46,23 @@ int main(int argc, char *argv[]) {
     Options options;
     if (parse(argc, argv, &options)) return -1;
 
-    Voters voters = get_data(options);
-    if (!voters) return -1;
+    Voters voters = NULL;
 
-    if (options.verbose) {
-        for (size_t i = 0; i < vec_length(voters); i++) {
-            fprint_voter(stdout, vec_get(voters, i));
-            printf("\n");
+    for (int iter = 0; iter < options.n_iterations; iter++) {
+        if (options.n_iterations > 1) printf("\nIteration %d\n", iter + 1);
+
+        voters = get_data(options);
+        if (voters == NULL) break;
+
+        if (options.verbose) {
+            for (size_t i = 0; i < vec_length(voters); i++) {
+                fprint_voter(stdout, vec_get(voters, i));
+                printf("\n");
+            }
         }
+
+        destroy_vector(voters);
     }
 
-    destroy_vector(voters);
+    return 0;
 }
