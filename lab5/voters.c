@@ -62,7 +62,7 @@ int make_fake_voter(Voter *voter) {
     voter->name = malloc(MAX_LINE_LENGTH * sizeof(char));
     if (voter->name == NULL) return 1;
 
-    int len = rand() % MAX_LINE_LENGTH / 3;
+    int len = rand() % (MAX_LINE_LENGTH / 4);
     rand_string(voter->name, len, ALPHABET(LETTERS DIGITS ".-#'?! "));
     rand_string(voter->station, 3, ALPHABET(LETTERS));
     voter->station[3] = '-';
