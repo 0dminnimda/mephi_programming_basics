@@ -14,7 +14,7 @@ Options default_options() {
     return (Options){.input_file = NULL,
                      .output_file = NULL,
                      .array_length = 0,
-                     .array_count = 0,
+                     .n_iterations = 1,
                      .reverse = 0,
                      .field = voter_name,
                      .sort = QuickSort,
@@ -28,7 +28,7 @@ void print_options(Options options) {
 
 #if !(PROGRAM_ID == 1)
     printf("  array length: %zu\n", options.array_length);
-    printf("  array count: %zu\n", options.array_count);
+    printf("  n_iterations: %zu\n", options.n_iterations);
 #endif  // PROGRAM_ID
 
     printf("  reversed order: %s\n", options.reverse ? "Yes" : "No");
@@ -42,10 +42,10 @@ int parse(int argc, char *argv[], Options *options) {
 #if PROGRAM_ID == 1
         "<input_file> <output_file>\n"
 #else
-        "<array_length> <array_count>\n\
+        "<array_length> <n_iterations>\n\
 \n\
   array_length   Number of elements in the generated array.\n\
-  array_count    Number of arrays to generate.\n"
+  n_iterations   Number of iterations for generating an array and measuring it sorting time.\n"
 #endif  // PROGRAM_ID
         "\nOptions:\n\
   -h             Show help.\n\
@@ -107,9 +107,9 @@ int parse(int argc, char *argv[], Options *options) {
     options->array_length = atoi(argv[optind]);
 
     if (strspn(argv[optind + 1], "0123456789") != strlen(argv[optind + 1]))
-        return smol_help("Invalid array_count '%s', must be an integer\n\n",
+        return smol_help("Invalid n_iterations '%s', must be an integer\n\n",
                          argv[optind + 1]);
-    options->array_count = atoi(argv[optind + 1]);
+    options->n_iterations = atoi(argv[optind + 1]);
 #endif  // PROGRAM_ID
 
     if (options->verbose) {

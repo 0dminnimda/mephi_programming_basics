@@ -8,7 +8,7 @@ typedef struct Options {
     char *output_file;
 
     size_t array_length;
-    size_t array_count;
+    size_t n_iterations;
 
     int reverse;
     field_t field;
