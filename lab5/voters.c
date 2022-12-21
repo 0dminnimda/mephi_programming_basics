@@ -21,8 +21,8 @@ char *field2str(field_t field) {
 }
 
 #define MAX_NAME_LENGTH 256
-#define VOTER_SCAN "%255[^,], %7s, %d"
-#define VOTER_PRINT "%s, %s, %d"
+#define VOTER_SCAN "%255[^,], %7c, %d"
+#define VOTER_PRINT "%s, %.7s, %d"
 
 void fprint_voter(FILE *const stream, Voter voter) {
     fprintf(stream, VOTER_PRINT, voter.name, voter.station, voter.age);
