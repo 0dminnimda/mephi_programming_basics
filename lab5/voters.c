@@ -42,6 +42,37 @@ int fscanf_voter(FILE *const stream, Voter *voter) {
     return res != 3;
 }
 
+#define NELEMS(x) (sizeof(x) / sizeof((x)[0]))
+
+#define ALPHABET(x) x, NELEMS(x)
+
+char *rand_string(char *str, size_t size, const char *alphabet,
+                  size_t alphabet_size) {
+    while (size--) {
+        int key = rand() % (int)(alphabet_size - 1);
+        str[size] = alphabet[key];
+    }
+    return str;
+}
+
+#define LETTERS "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#define DIGITS "0123456789"
+
+int make_fake_voter(Voter *voter) {
+    voter->name = malloc(MAX_LINE_LENGTH * sizeof(char));
+    if (voter->name == NULL) return 1;
+
+    int len = rand() % MAX_LINE_LENGTH / 3;
+    rand_string(voter->name, len, ALPHABET(LETTERS DIGITS ".-#'?! "));
+    rand_string(voter->station, 3, ALPHABET(LETTERS));
+    voter->station[3] = '-';
+    rand_string(voter->station + 4, 3, ALPHABET(DIGITS));
+
+    voter->age = rand() % 200;
+
+    return 0;
+}
+
 #define STRUCT_CMP(structure, name) structure##_##name##_cmp
 #define MAKE_STRUCT_CMP(structure, name, cmp)                   \
     static int STRUCT_CMP(structure, name)(structure * l_ptr,   \
