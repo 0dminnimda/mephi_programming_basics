@@ -13,7 +13,9 @@ int read_file_data(Voters voters, Options options) {
     vec_clear(voters);
 
     Voter voter;
-    while (fscanf_voter(file, &voter) == 0) vec_push_back(voters, voter);
+    while (fscanf_voter(file, &voter) == 0) {
+        if (vec_push_back(voters, voter)) return -1;
+    }
 
     fclose(file);
     return 0;
