@@ -56,6 +56,23 @@ void put_data(Voters voters, Options options) {
     fclose(file);
 }
 
+double current_time() {
+#if __STDC_VERSION__ >= 201112L  // C11
+    struct timespec ts;
+    timespec_get(&ts, TIME_UTC);
+    return (double)ts.tv_sec + (double)ts.tv_nsec / 1e+9;
+#else
+    return clock() / CLOCKS_PER_SEC;
+#endif
+}
+
+#define TIMEIT(timing, code)              \
+    do {                                  \
+        double begin = current_time();    \
+        code;                             \
+        timing += current_time() - begin; \
+    } while (0)
+
 int main(int argc, char *argv[]) {
     srand(time(NULL));
 
@@ -64,7 +81,9 @@ int main(int argc, char *argv[]) {
 
     Voters voters = NULL;
 
-    for (int iter = 0; iter < options.n_iterations; iter++) {
+    double time = 0;
+    size_t iter;
+    for (iter = 0; iter < options.n_iterations; iter++) {
         if (options.n_iterations > 1) printf("\nIteration %d\n", iter + 1);
 
         voters = get_data(options);
@@ -78,7 +97,7 @@ int main(int argc, char *argv[]) {
         }
 
         if (options.verbose) printf("\nSorting ...\n");
-        sort(voters, options);
+        TIMEIT(time, sort(voters, options));
         if (options.verbose) printf("\n");
 
         if (options.verbose) {
@@ -92,6 +111,13 @@ int main(int argc, char *argv[]) {
 
         destroy_vector(voters);
     }
+
+#if !(PROGRAM_ID == 1)
+    printf("\n");
+    printf("On average %.10lf seconds was spent on sorting one array\n",
+           time / iter);
+    printf("Total work time: %.10lf seconds for %zu iterations\n", time, iter);
+#endif  // PROGRAM_ID
 
     return 0;
 }
