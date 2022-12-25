@@ -6,36 +6,34 @@
 #define VECTOR_PRINT_ERROR(message) fprintf(stderr, "ERROR: %s\n", message)
 #include "sort.h"
 
-Voters read_file_data(Options options) {
-    Voters voters;
-    if (create_vector(&voters, 0)) return NULL;
-
+int read_file_data(Voters voters, Options options) {
     FILE *file = fopen(options.input_file, "r");
-    if (file == NULL) return NULL;
+    if (file == NULL) return -1;
+
+    vec_clear(voters);
 
     Voter voter;
     while (fscanf_voter(file, &voter) == 0) vec_push_back(voters, voter);
 
     fclose(file);
-    return voters;
+    return 0;
 }
 
-Voters generate_data(Options options) {
-    Voters voters;
-    if (create_vector(&voters, 0)) return NULL;
+int generate_data(Voters voters, Options options) {
+    if (vec_resize(voters, options.array_length)) return -1;
 
     Voter voter;
     for (size_t i = 0; i < options.array_length; i++) {
         make_fake_voter(&voter);
-        vec_push_back(voters, voter);
+        vec_set(voters, i, voter);
     }
 
-    return voters;
+    return 0;
 }
 
-Voters get_data(Options options) {
-    if (options.input_file == NULL) return generate_data(options);
-    return read_file_data(options);
+int get_data(Voters voters, Options options) {
+    if (options.input_file == NULL) return generate_data(voters, options);
+    return read_file_data(voters, options);
 }
 
 void put_data(Voters voters, Options options) {
@@ -79,15 +77,18 @@ int main(int argc, char *argv[]) {
     Options options;
     if (parse(argc, argv, &options)) return -1;
 
-    Voters voters = NULL;
+    Voters voters;
+    if (create_vector(&voters, 0)) return 0;
 
     double time = 0;
     size_t iter;
     for (iter = 0; iter < options.n_iterations; iter++) {
         if (options.n_iterations > 1) printf("\nIteration %d\n", iter + 1);
 
-        voters = get_data(options);
-        if (voters == NULL) break;
+        if (get_data(voters, options)) {
+            fprintf(stderr, "ERROR: Could not read or generate data\n");
+            return 0;
+        }
 
         if (options.verbose) {
             for (size_t i = 0; i < vec_length(voters); i++) {
@@ -108,9 +109,9 @@ int main(int argc, char *argv[]) {
         }
 
         put_data(voters, options);
-
-        destroy_vector(voters);
     }
+
+    destroy_vector(voters);
 
 #if !(PROGRAM_ID == 1)
     printf("\n");
