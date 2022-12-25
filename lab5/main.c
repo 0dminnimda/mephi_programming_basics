@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 
-#define VECTOR_PRINT_ERROR(message) printf("ERROR: %s\n", message)
+#define VECTOR_PRINT_ERROR(message) fprintf(stderr, "ERROR: %s\n", message)
 #include "sort.h"
 
 Voters read_file_data(Options options) {
