@@ -86,6 +86,8 @@ static inline void destroy_vector(Vector vec) {
 }
 
 static inline int vec_resize(Vector vec, size_t capacity) {
+    if (capacity == vec->capacity) return 0;
+
     vec_clear_starting_from(vec, capacity);
     vec->capacity = capacity;
 
