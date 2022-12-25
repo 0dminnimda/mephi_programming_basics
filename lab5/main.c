@@ -36,8 +36,26 @@ Voters generate_data(Options options) {
 }
 
 Voters get_data(Options options) {
-    if (options.input_file) return read_file_data(options);
-    return generate_data(options);
+    if (options.input_file == NULL) return generate_data(options);
+    return read_file_data(options);
+}
+
+void put_data(Voters voters, Options options) {
+    if (options.output_file == NULL) return;
+
+    FILE *file = fopen(options.output_file, "w");
+
+    if (file == NULL) {
+        fprintf(stderr, "ERROR: Could not open output file\n");
+        return;
+    }
+
+    for (size_t i = 0; i < vec_length(voters); i++) {
+        fprint_voter(file, vec_get(voters, i));
+        fprintf(file, "\n");
+    }
+
+    fclose(file);
 }
 
 int main(int argc, char *argv[]) {
@@ -71,6 +89,8 @@ int main(int argc, char *argv[]) {
                 printf("\n");
             }
         }
+
+        put_data(voters, options);
 
         destroy_vector(voters);
     }
