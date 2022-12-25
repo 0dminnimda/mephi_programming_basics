@@ -80,10 +80,13 @@ int main(int argc, char *argv[]) {
     Voters voters;
     if (create_vector(&voters, 0)) return 0;
 
+    char *iter_format =
+        options.verbose ? "\nIteration %zu\n" : "Iteration %zu\r";
+
     double time = 0;
     size_t iter;
     for (iter = 0; iter < options.n_iterations; iter++) {
-        if (options.n_iterations > 1) printf("\nIteration %d\n", iter + 1);
+        if (options.n_iterations > 1) printf(iter_format, iter + 1);
 
         if (get_data(voters, options)) {
             fprintf(stderr, "ERROR: Could not read or generate data\n");
