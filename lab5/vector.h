@@ -37,6 +37,8 @@ static inline void vec_set(Vector vec, size_t index, VECTOR_ITEM value) {
     vec->data[index] = value;
 }
 
+static inline VECTOR_ITEM *vec_data(Vector vec) { return vec->data; }
+
 static inline size_t vec_capacity(Vector vec) { return vec->capacity; }
 
 static inline size_t vec_length(Vector vec) { return vec->length; }
