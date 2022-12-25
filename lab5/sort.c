@@ -26,8 +26,30 @@ void bubble_sort(Voters voters, cmp_func_t *cmp) {
     }
 }
 
+void minmax(Voter *start, Voter *end, cmp_func_t *cmp, Voter **min_v,
+            Voter **max_v) {
+    while (start <= end) {
+        if (cmp(start, *min_v) < 0)
+            *min_v = start;
+        else if (cmp(start, *max_v) > 0)
+            *max_v = start;
+        start++;
+    }
+}
+
 void double_selection_sort(Voters voters, cmp_func_t *cmp) {
-    printf("DoubleSelectionSort is not implemented yet\n");
+    Voter *start = vec_at(voters, 0),
+          *end = vec_at(voters, vec_length(voters) - 1);
+
+    while (start < end) {
+        Voter *min = start;
+        Voter *max = end;
+        minmax(start, end, cmp, &min, &max);
+
+        if (min != start) swap(min, start);
+        if (max != end) swap(max == start ? min : max, end);
+        start++, end--;
+    }
 }
 
 void sort(Voters voters, Options options) {
