@@ -2,17 +2,23 @@
 
 #include <stdlib.h>
 
+void swap(Voter *a, Voter *b) {
+    Voter temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
 void bubble_sort(Voters voters, cmp_func_t *cmp) {
     for (size_t i = 0; i < vec_length(voters) - 1; i++) {
         int swapped = 0;
+
         for (size_t j = 0; j < vec_length(voters) - i - 1; j++) {
             Voter *a = vec_at(voters, j);
             Voter *b = vec_at(voters, j + 1);
+
             if (cmp(a, b) > 0) {
+                swap(a, b);
                 swapped = 1;
-                Voter tmp = *a;
-                *a = *b;
-                *b = tmp;
             }
         }
 
