@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cp main.o ~/main.o
-chmod +x ~/main.o
+cp main ~/main
+chmod +x ~/main
 
-(cd ~/ ; ./main.o)
+(cd ~/ ; ./main)
