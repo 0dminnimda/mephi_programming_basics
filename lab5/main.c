@@ -10,15 +10,13 @@ Voters read_file_data(Options options) {
     Voters voters;
     if (create_vector(&voters, 0)) return NULL;
 
-    FILE *input_file;
-    input_file = fopen(options.input_file, "r");
-
-    if (input_file == NULL) return NULL;
+    FILE *file = fopen(options.input_file, "r");
+    if (file == NULL) return NULL;
 
     Voter voter;
-    while (fscanf_voter(input_file, &voter) == 0) vec_push_back(voters, voter);
+    while (fscanf_voter(file, &voter) == 0) vec_push_back(voters, voter);
 
-    fclose(input_file);
+    fclose(file);
     return voters;
 }
 
