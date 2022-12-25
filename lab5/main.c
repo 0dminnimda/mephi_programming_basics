@@ -21,11 +21,12 @@ int read_file_data(Voters voters, Options options) {
 
 int generate_data(Voters voters, Options options) {
     if (vec_resize(voters, options.array_length)) return -1;
+    vec_clear(voters);
 
     Voter voter;
     for (size_t i = 0; i < options.array_length; i++) {
         make_fake_voter(&voter);
-        vec_set(voters, i, voter);
+        vec_push_back(voters, voter);
     }
 
     return 0;
