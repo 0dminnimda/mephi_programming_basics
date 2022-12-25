@@ -4,7 +4,7 @@
 #include <time.h>
 
 #define VECTOR_PRINT_ERROR(message) printf("ERROR: %s\n", message)
-#include "argparse.h"
+#include "sort.h"
 
 Voters read_file_data(Options options) {
     Voters voters;
@@ -53,6 +53,17 @@ int main(int argc, char *argv[]) {
 
         voters = get_data(options);
         if (voters == NULL) break;
+
+        if (options.verbose) {
+            for (size_t i = 0; i < vec_length(voters); i++) {
+                fprint_voter(stdout, vec_get(voters, i));
+                printf("\n");
+            }
+        }
+
+        if (options.verbose) printf("\nSorting ...\n");
+        sort(voters, options);
+        if (options.verbose) printf("\n");
 
         if (options.verbose) {
             for (size_t i = 0; i < vec_length(voters); i++) {
