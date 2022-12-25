@@ -29,8 +29,12 @@ static inline void swap_vectors(Vector a, Vector b) {
     *b = tmp;
 }
 
+static inline VECTOR_ITEM *vec_at(Vector vec, size_t index) {
+    return vec->data + index;
+}
+
 static inline VECTOR_ITEM vec_get(Vector vec, size_t index) {
-    return vec->data[index];
+    return *vec_at(vec, index);
 }
 
 static inline void vec_set(Vector vec, size_t index, VECTOR_ITEM value) {
