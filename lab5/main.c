@@ -35,7 +35,7 @@ int read_file_data(Voters voters, Options options) {
             } else {
                 succ = 1;
             }
-        } else if (strspn(line, SPACES) != strlen(line)) {
+        } else if (options.warn && strspn(line, SPACES) != strlen(line)) {
             fprintf(stderr, "WARNING: Ignoring invalid data \"%s\" at %s:%zu\n",
                     line, options.input_file, lineno);
         }
