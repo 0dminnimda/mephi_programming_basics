@@ -15,6 +15,7 @@ typedef struct Options {
     sort_t sort;
 
     int verbose;
+    int warn;
 } Options;
 
 Options default_options();

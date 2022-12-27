@@ -18,7 +18,8 @@ Options default_options() {
                      .reverse = 0,
                      .field = voter_name,
                      .sort = QuickSort,
-                     .verbose = 0};
+                     .verbose = 0,
+                     .warn = 1};
 }
 
 void print_options(Options options) {
@@ -50,6 +51,7 @@ int parse(int argc, char *argv[], Options *options) {
         "\nOptions:\n\
   -h             Show help.\n\
   -v             Give more output, make it verbose.\n\
+  -w             Don't show warnings.\n\
   -r             Reverse the sorting direction.\n\
   -f field       Field which will be used as a sorting key (name by default).\n\
                      name    - Full name of the voter\n\
@@ -64,7 +66,7 @@ int parse(int argc, char *argv[], Options *options) {
     int opt;
     *options = default_options();
 
-    while ((opt = getopt(argc, argv, ":hrvf:s:")) != -1) {
+    while ((opt = getopt(argc, argv, ":hrvwf:s:")) != -1) {
         switch (opt) {
             case 'h':
                 return help();
@@ -73,6 +75,9 @@ int parse(int argc, char *argv[], Options *options) {
                 break;
             case 'v':
                 options->verbose = 1;
+                break;
+            case 'w':
+                options->warn = 0;
                 break;
             case 'f':
                 options->field = str2field(optarg);
