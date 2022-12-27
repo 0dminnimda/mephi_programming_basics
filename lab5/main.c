@@ -8,7 +8,11 @@
 
 int read_file_data(Voters voters, Options options) {
     FILE *file = fopen(options.input_file, "r");
-    if (file == NULL) return -1;
+    if (file == NULL) {
+        fprintf(stderr, "ERROR: Could not open input file (%s)\n",
+                options.input_file);
+        return -1;
+    }
 
     vec_clear(voters);
 
@@ -22,7 +26,10 @@ int read_file_data(Voters voters, Options options) {
 }
 
 int generate_data(Voters voters, Options options) {
-    if (vec_resize(voters, options.array_length)) return -1;
+    if (vec_resize(voters, options.array_length)) {
+        fprintf(stderr, "ERROR: generate data\n");
+        return -1;
+    }
     vec_clear(voters);
 
     Voter voter;
@@ -45,7 +52,8 @@ void put_data(Voters voters, Options options) {
     FILE *file = fopen(options.output_file, "w");
 
     if (file == NULL) {
-        fprintf(stderr, "ERROR: Could not open output file\n");
+        fprintf(stderr, "ERROR: Could not open output file (%s)\n",
+                options.output_file);
         return;
     }
 
@@ -93,7 +101,6 @@ int main(int argc, char *argv[]) {
         if (options.n_iterations > 1) printf(iter_format, iter + 1);
 
         if (get_data(voters, options)) {
-            fprintf(stderr, "ERROR: Could not read or generate data\n");
             return_code = -1;
             break;
         }
