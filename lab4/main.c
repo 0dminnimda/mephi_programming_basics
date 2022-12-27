@@ -4,8 +4,10 @@
 
 #if PROGRAM_ID == 1
     #include <readline/readline.h>
+    #include <string.h>
 #else
     #include "my_readline.h"
+    #include "my_string.h"
 #endif  // PROGRAM_ID
 
 #include "alphabet.h"
@@ -79,14 +81,17 @@ int main(void) {
             break;
         }
 
+        size_t line_len = strlen(line) + 1;
+
         words = split(line) TIMEIT(work_time);
         if (!words) {
             printf("ERROR: Could not split the line into words\n");
             break;
         }
 
-        printf("Words found: ");
-        print_words(words);
+        char *new_line = sprint_words(words, line_len);
+        printf("Words found: \"%s\"\n", new_line);
+        free(new_line);
 
         if (remove_non_unique_words(words)) {
             printf("ERROR: could not remove non unique words\n");
@@ -94,8 +99,9 @@ int main(void) {
         }
         TIMEIT(work_time);
 
-        printf("Only-unique words: ");
-        print_words(words);
+        new_line = sprint_words(words, line_len);
+        printf("Only-unique words: \"%s\"\n", new_line);
+        free(new_line);
 
         printf(
             "\n"
