@@ -120,7 +120,10 @@ int main(int argc, char *argv[]) {
     double time = 0;
     size_t iter;
     for (iter = 0; iter < options.n_iterations; iter++) {
-        if (options.n_iterations > 1) printf(iter_format, iter + 1);
+        if (options.n_iterations > 1) {
+            printf(iter_format, iter + 1);
+            fflush(stdout);
+        }
 
         if (get_data(voters, options)) {
             return_code = -1;
