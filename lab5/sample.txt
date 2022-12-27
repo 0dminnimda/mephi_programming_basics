@@ -4,3 +4,24 @@ Magnus"Adonisss, TOP-001, 25
 Elon Musk, TOP-001, 51
 Infirmi-Jeffrey, HID-798, 30
 Xi Jinping, TOP-999, 69
+    Mr. White Space, BOO-321, 4
+Steven Smith, NAN-000, 0
+Mr. Lower Case, boo-654, 4
+
+      
+!!! Invalid Test !!!, ABC- 123, 1
+!!! Invalid Test !!!, ABC -123, 1
+!!! Invalid Test !!!, ABC - 123, 1
+!!! Invalid Test !!!, AB-123, 1
+!!! Invalid Test !!!, ABС-12, 1
+!!! Invalid Test !!!, ABС-123, -1
+!!! Invalid Test !!!, ABС-123, -1
+!!! Invalid Test !!!, ABС-123 1
+!!! Invalid Test !!! ABС-123, 1
+!!! Invalid Test !!! ABС-123 1
+!!! Invalid Test !!!, ABС0123, 1
+!!! Invalid Test !!!, ABС123, 1
+!!! Invalid, Test !!!, ABС-123, 1
+!!! Invalid Test !!!, AB0-123, 1
+!!! Invalid Test !!!, ABC-A23, 1
+!!! Invalid Test !!!, ABC-123, two
