@@ -7,6 +7,11 @@ typedef struct {
     int age;
 } Voter;
 
+#define STATION_NAME(station) station
+#define STATION_SEPARATOR(station) (station + 3)
+#define STATION_NUMBER(station) (station + 4)
+#define STATION_END(station) (station + 7)
+
 void fprint_voter(FILE *const stream, Voter voter);
 int fscanf_voter(FILE *const stream, Voter *voter);
 int make_fake_voter(Voter *voter);
