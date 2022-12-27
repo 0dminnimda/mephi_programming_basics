@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-typedef char station_t[7];
+typedef char station_t[8];
 typedef struct {
     char *name;
     station_t station;
