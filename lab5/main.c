@@ -30,6 +30,7 @@ int read_file_data(Voters voters, Options options) {
         int succ = 0;
         if (sscanf_voter(line, &voter) == 0) {
             if (vec_push_back(voters, voter)) {
+                fprintf(stderr, "ERROR: Could not read data\n");
                 return_code = -1;
                 break;
             } else {
@@ -48,7 +49,7 @@ int read_file_data(Voters voters, Options options) {
 
 int generate_data(Voters voters, Options options) {
     if (vec_resize(voters, options.array_length)) {
-        fprintf(stderr, "ERROR: generate data\n");
+        fprintf(stderr, "ERROR: Could not generate data\n");
         return -1;
     }
     vec_clear(voters);
