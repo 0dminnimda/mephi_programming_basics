@@ -12,7 +12,7 @@ if [[ $? != "0" ]]; then
 fi
 
 if [[ $1 == "1" ]]; then
-    ARGS="$ARGS -lreadline -D PROGRAM_ID=1"
+    ARGS="$ARGS -D PROGRAM_ID=1"
 fi
 
 COMMAND="$MY_CC $ARGS"
