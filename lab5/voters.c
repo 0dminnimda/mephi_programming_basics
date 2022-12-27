@@ -21,7 +21,7 @@ char *field2str(field_t field) {
 }
 
 #define MAX_NAME_LENGTH 256
-#define VOTER_SCAN "%255[^,], %7c, %d"
+#define VOTER_SCAN "%255[^,], %3[a-zA-Z]%1[-]%3[0-9], %d"
 #define VOTER_PRINT "%s, %.7s, %d"
 
 void fprint_voter(FILE *const stream, Voter voter) {
@@ -31,15 +31,26 @@ void fprint_voter(FILE *const stream, Voter voter) {
 #define MAX_LINE_LENGTH (MAX_NAME_LENGTH + 64)
 
 int fscanf_voter(FILE *const stream, Voter *voter) {
+    char line[MAX_LINE_LENGTH];
+    if (fgets(line, MAX_LINE_LENGTH, stream) == NULL) return 1;
+    return sscanf_voter(line, voter);
+}
+
+#define LETTERS "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+#define DIGITS "0123456789"
+// #define IS_LETTER(x) ('a' <= x && x <= 'z') || ('A' <= x && x <= 'Z')
+
+int sscanf_voter(char *str, Voter *voter) {
     voter->name = malloc(MAX_LINE_LENGTH * sizeof(char));
     if (voter->name == NULL) return 1;
 
-    char line[MAX_LINE_LENGTH];
-    if (fgets(line, MAX_LINE_LENGTH, stream) == NULL) return 1;
-
-    int res =
-        sscanf(line, VOTER_SCAN, voter->name, voter->station, &voter->age);
-    return res != 3;
+    int ok = sscanf(str, VOTER_SCAN, voter->name, STATION_NAME(voter->station),
+                    STATION_SEPARATOR(voter->station),
+                    STATION_NUMBER(voter->station), &voter->age) == 5;
+    *STATION_END(voter->station) = '\0';
+    ok = ok && strspn(STATION_NAME(voter->station), LETTERS) == 3;
+    ok = ok && strspn(STATION_NUMBER(voter->station), DIGITS) == 3;
+    return !ok;
 }
 
 #define NELEMS(x) (sizeof(x) / sizeof((x)[0]))
@@ -54,9 +65,6 @@ char *rand_string(char *str, size_t size, const char *alphabet,
     }
     return str;
 }
-
-#define LETTERS "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-#define DIGITS "0123456789"
 
 int make_fake_voter(Voter *voter) {
     voter->name = malloc(MAX_LINE_LENGTH * sizeof(char));
