@@ -3,7 +3,6 @@
 #include <string.h>
 #include <time.h>
 
-#define VECTOR_PRINT_ERROR(message) fprintf(stderr, "ERROR: %s\n", message)
 #include "sort.h"
 
 #define SPACES " \t"
