@@ -4,10 +4,8 @@
 
 #if PROGRAM_ID == 1
     #include <readline/readline.h>
-    #include <string.h>
 #else
     #include "my_readline.h"
-    #include "my_string.h"
 #endif  // PROGRAM_ID
 
 #include "alphabet.h"
@@ -81,15 +79,13 @@ int main(void) {
             break;
         }
 
-        size_t line_len = strlen(line) + 1;
-
         words = split(line) TIMEIT(work_time);
         if (!words) {
             printf("ERROR: Could not split the line into words\n");
             break;
         }
 
-        char *new_line = sprint_words(words, line_len);
+        char *new_line = sprint_words(words);
         printf("Words found: \"%s\"\n", new_line);
         free(new_line);
 
@@ -99,7 +95,7 @@ int main(void) {
         }
         TIMEIT(work_time);
 
-        new_line = sprint_words(words, line_len);
+        new_line = sprint_words(words);
         printf("Only-unique words: \"%s\"\n", new_line);
         free(new_line);
 
