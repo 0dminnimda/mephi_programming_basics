@@ -7,6 +7,12 @@ typedef struct {
     int age;
 } Voter;
 
+#define MAX_NAME_LENGTH 256
+#define MAX_VOTER_LINE_LENGTH (MAX_NAME_LENGTH + 64)
+
+#define VOTER_SCAN "%255[^,], %3[a-zA-Z]%1[-]%3[0-9], %d"
+#define VOTER_PRINT "%s, %.7s, %d"
+
 #define STATION_NAME(station) station
 #define STATION_SEPARATOR(station) (station + 3)
 #define STATION_NUMBER(station) (station + 4)

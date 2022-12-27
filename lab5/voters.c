@@ -20,19 +20,13 @@ char *field2str(field_t field) {
     return "invalid-field";
 }
 
-#define MAX_NAME_LENGTH 256
-#define VOTER_SCAN "%255[^,], %3[a-zA-Z]%1[-]%3[0-9], %d"
-#define VOTER_PRINT "%s, %.7s, %d"
-
 void fprint_voter(FILE *const stream, Voter voter) {
     fprintf(stream, VOTER_PRINT, voter.name, voter.station, voter.age);
 }
 
-#define MAX_LINE_LENGTH (MAX_NAME_LENGTH + 64)
-
 int fscanf_voter(FILE *const stream, Voter *voter) {
-    char line[MAX_LINE_LENGTH];
-    if (fgets(line, MAX_LINE_LENGTH, stream) == NULL) return 1;
+    char line[MAX_VOTER_LINE_LENGTH];
+    if (fgets(line, MAX_VOTER_LINE_LENGTH, stream) == NULL) return 1;
     return sscanf_voter(line, voter);
 }
 
@@ -41,7 +35,7 @@ int fscanf_voter(FILE *const stream, Voter *voter) {
 // #define IS_LETTER(x) ('a' <= x && x <= 'z') || ('A' <= x && x <= 'Z')
 
 int sscanf_voter(char *str, Voter *voter) {
-    voter->name = malloc(MAX_LINE_LENGTH * sizeof(char));
+    voter->name = malloc(MAX_VOTER_LINE_LENGTH * sizeof(char));
     if (voter->name == NULL) return 1;
 
     int ok = sscanf(str, VOTER_SCAN, voter->name, STATION_NAME(voter->station),
@@ -67,10 +61,10 @@ char *rand_string(char *str, size_t size, const char *alphabet,
 }
 
 int make_fake_voter(Voter *voter) {
-    voter->name = malloc(MAX_LINE_LENGTH * sizeof(char));
+    voter->name = malloc(MAX_VOTER_LINE_LENGTH * sizeof(char));
     if (voter->name == NULL) return 1;
 
-    int len = rand() % (MAX_LINE_LENGTH / 4);
+    int len = rand() % (MAX_VOTER_LINE_LENGTH / 4);
     rand_string(voter->name, len, ALPHABET(LETTERS DIGITS ".-#'?! "));
     rand_string(voter->station, 3, ALPHABET(LETTERS));
     voter->station[3] = '-';
