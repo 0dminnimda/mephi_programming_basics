@@ -24,12 +24,20 @@ Words split(char *line) {
     return words;
 }
 
-void print_words(Words words) {
-    size_t shown = 0;
-    printf("\"");
+int maxi(int a, int b) { return (a > b) ? a : b; }
+#define STR_PRINT(...) maxi(sprintf(__VA_ARGS__), 0)
+
+char *sprint_words(Words words, size_t len) {
+    char *result = malloc(len * sizeof(char));
+    if (result == NULL) return NULL;
+    *result = '\0';
+
+    char *builder = result;
     for (size_t i = 0; i < get_length(words); i++) {
-        if (*get_item(words, i))
-            printf("%c%s", ' ' * (shown++ != 0), get_item(words, i));
+        if (*get_item(words, i) != '\0') {
+            if (builder - result) sprintf(builder++, " ");
+            builder += STR_PRINT(builder, "%s", get_item(words, i));
+        }
     }
-    printf("\"\n");
+    return result;
 }

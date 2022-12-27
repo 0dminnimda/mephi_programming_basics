@@ -5,4 +5,4 @@
 #define Words Vector
 
 Words split(char *line);
-void print_words(Words words);
+char *sprint_words(Words words, size_t len);
