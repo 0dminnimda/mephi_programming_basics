@@ -66,9 +66,10 @@ int make_fake_voter(Voter *voter) {
 
     int len = rand() % (MAX_VOTER_LINE_LENGTH / 4);
     rand_string(voter->name, len, ALPHABET(LETTERS DIGITS ".-#'?! "));
-    rand_string(voter->station, 3, ALPHABET(LETTERS));
-    voter->station[3] = '-';
-    rand_string(voter->station + 4, 3, ALPHABET(DIGITS));
+    rand_string(STATION_NAME(voter->station), 3, ALPHABET(LETTERS));
+    *STATION_SEPARATOR(voter->station) = '-';
+    rand_string(STATION_NUMBER(voter->station), 3, ALPHABET(DIGITS));
+    *STATION_END(voter->station) = '\0';
 
     voter->age = rand() % 200;
 
