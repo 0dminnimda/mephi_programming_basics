@@ -6,6 +6,8 @@
 #define VECTOR_PRINT_ERROR(message) fprintf(stderr, "ERROR: %s\n", message)
 #include "sort.h"
 
+#define SPACES " \t"
+
 int read_file_data(Voters voters, Options options) {
     FILE *file = fopen(options.input_file, "r");
     if (file == NULL) {
@@ -16,13 +18,32 @@ int read_file_data(Voters voters, Options options) {
 
     vec_clear(voters);
 
+    int return_code = 0;
+    size_t lineno = 0;
     Voter voter;
-    while (fscanf_voter(file, &voter) == 0) {
-        if (vec_push_back(voters, voter)) return -1;
+
+    char line[MAX_VOTER_LINE_LENGTH];
+    while (fgets(line, MAX_VOTER_LINE_LENGTH, file) != NULL) {
+        line[strcspn(line, "\r\n")] = '\0';
+        lineno++;
+
+        int succ = 0;
+        if (sscanf_voter(line, &voter) == 0) {
+            if (vec_push_back(voters, voter)) {
+                return_code = -1;
+                break;
+            } else {
+                succ = 1;
+            }
+        } else if (strspn(line, SPACES) != strlen(line)) {
+            fprintf(stderr, "WARNING: Ignoring invalid data \"%s\" at %s:%zu\n",
+                    line, options.input_file, lineno);
+        }
+        if (!succ) free(voter.name);
     }
 
     fclose(file);
-    return 0;
+    return return_code;
 }
 
 int generate_data(Voters voters, Options options) {
