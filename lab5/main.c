@@ -86,6 +86,7 @@ int main(int argc, char *argv[]) {
     char *iter_format =
         options.verbose ? "\nIteration %zu\n" : "Iteration %zu\r";
 
+    int return_code = 0;
     double time = 0;
     size_t iter;
     for (iter = 0; iter < options.n_iterations; iter++) {
@@ -93,7 +94,8 @@ int main(int argc, char *argv[]) {
 
         if (get_data(voters, options)) {
             fprintf(stderr, "ERROR: Could not read or generate data\n");
-            return 0;
+            return_code = -1;
+            break;
         }
 
         if (options.verbose) {
@@ -118,6 +120,8 @@ int main(int argc, char *argv[]) {
     }
 
     destroy_vector(voters);
+
+    if (return_code) return return_code;
 
 #if !(PROGRAM_ID == 1)
     printf("\n");
