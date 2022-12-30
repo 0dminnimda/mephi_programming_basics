@@ -7,6 +7,13 @@ typedef struct {
     size_t unoccupied;
 } CharNodeArena;
 
+void initialize_char_arena(CharNodeArena *arena) {
+    arena->unoccupied = 0;
+    for (size_t i = 0; i < ARENA_SIZE; i++) {
+        arena->items[i] = (CharNode){.value=(char)0, .next=NULL, .prev=NULL};
+    }
+}
+
 CharNode *node_malloc(CharNodeArena *arena) {
     return &arena->items[arena->unoccupied++];
 }

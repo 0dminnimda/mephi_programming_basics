@@ -16,7 +16,6 @@ void read_line(CharNodeArena *arena, CharList *list) {
 
         CharNode *cur = node_malloc(arena);
         cur->value = value;
-        cur->next = NULL;
 
         if (tail == NULL)
             list->head = cur;
@@ -48,8 +47,9 @@ void remove_excess_spaces(CharList *list) {
     printf(suffix)
 
 int main() {
-    CharNodeArena arena = {.unoccupied = 0};
     CharList list;
+    CharNodeArena arena;
+    initialize_char_arena(&arena);
 
     read_line(&arena, &list);
     PRINT_NODES("Read: '", list.head, "'\n");
