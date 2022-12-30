@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -38,6 +39,30 @@ void remove_excess_spaces(CharList *list) {
     }
 }
 
+void dup_all_vowels(CharNodeArena *arena, CharList *list) {
+    const char vowels[] =
+        "aeiou"
+        "AEIOU"
+        "ауоиэыяюеё"
+        "АУОИЭЫЯЮЕЁ";
+
+    ITERATE_NODES(node, list->head) {
+        bool vowel = false;
+        for (const char *c = vowels; *c != '\0'; c++)
+            if (node->value == *c) {
+                vowel = true;
+                break;
+            }
+
+        if (vowel) {
+            CharNode *dup = node_malloc(arena);
+            dup->value = node->value;
+            link(node->prev, dup);
+            link(dup, node);
+        }
+    }
+}
+
 #define PRINT_NODES(prefix, nodes, suffix) \
     printf(prefix);                        \
     print_nodes(nodes);                    \
@@ -56,4 +81,7 @@ int main() {
 
     remove_excess_spaces(&list);
     PRINT_NODES("remove_excess_spaces: '", list.head, "'\n");
+
+    dup_all_vowels(&arena, &list);
+    PRINT_NODES("dup_all_vowels: '", list.head, "'\n");
 }
