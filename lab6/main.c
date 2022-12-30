@@ -7,14 +7,14 @@
 
 #define MAX_LINE_LENGTH ARENA_SIZE / 2
 
-void read_line(CharNodeArena *arena, CharList *list) {
+bool read_line(CharNodeArena *arena, CharList *list) {
     CharNode *tail = NULL;
     list->head = NULL;
 
     char value;
     for (size_t i = 0; i < MAX_LINE_LENGTH; i++) {
         value = getchar();
-        if (value == '\n' || value == EOF) break;
+        if (value == '\n' || value == EOF) return value == EOF;
 
         CharNode *cur = node_malloc(arena);
         cur->value = value;
@@ -25,6 +25,7 @@ void read_line(CharNodeArena *arena, CharList *list) {
     }
 
     while (!(value == '\n' || value == EOF)) value = getchar();
+    return false;
 }
 
 void remove_excess_spaces(CharList *list) {
