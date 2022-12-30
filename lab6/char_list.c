@@ -4,6 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void update_head(CharList *list) {
+    if (list->head == NULL) return;
+    while (list->head->prev != NULL) list->head = list->head->prev;
+}
+
 void link(CharNode *a, CharNode *b) {
     if (a != NULL) a->next = b;
     if (b != NULL) b->prev = a;

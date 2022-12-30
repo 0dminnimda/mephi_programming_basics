@@ -14,6 +14,7 @@ typedef struct {
 #define ITERATE_NODES(node, head) \
     for (CharNode *node = head; node != NULL; node = node->next)
 
+void update_head(CharList *list);
 void link(CharNode *a, CharNode *b);
 void print_nodes(CharNode *start);
 CharNode *node_span(CharNode *start, char *allowed);

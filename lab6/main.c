@@ -61,6 +61,8 @@ void dup_all_vowels(CharNodeArena *arena, CharList *list) {
             link(dup, node);
         }
     }
+
+    update_head(list);
 }
 
 #define PRINT_NODES(prefix, nodes, suffix) \
