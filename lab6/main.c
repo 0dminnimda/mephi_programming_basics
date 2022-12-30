@@ -27,6 +27,7 @@ void read_line(CharNodeArena *arena, CharList *list) {
 void remove_excess_spaces(CharList *list) {
     CharNode *word = node_span(list->head, " \t");
     list->head = word;
+    link(NULL, list->head);
 
     CharNode *space;
     while ((space = node_anti_span(word, " \t")) != NULL) {
