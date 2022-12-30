@@ -48,5 +48,15 @@ void remove_excess_spaces(CharList *list) {
     printf(suffix)
 
 int main() {
-    printf("Hello world!\n");
+    CharNodeArena arena = {.unoccupied = 0};
+    CharList list;
+
+    read_line(&arena, &list);
+    PRINT_NODES("Read: '", list.head, "'\n");
+
+    PRINT_NODES("Word: '", node_span(list.head, " \t"), "'\n");
+    PRINT_NODES("Space: '", node_anti_span(list.head, " \t"), "'\n");
+
+    remove_excess_spaces(&list);
+    PRINT_NODES("remove_excess_spaces: '", list.head, "'\n");
 }
