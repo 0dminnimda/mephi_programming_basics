@@ -11,8 +11,9 @@ void read_line(CharNodeArena *arena, CharList *list) {
     CharNode *tail = NULL;
     list->head = NULL;
 
+    char value;
     for (size_t i = 0; i < MAX_LINE_LENGTH; i++) {
-        char value = getchar();
+        value = getchar();
         if (value == '\n' || value == EOF) break;
 
         CharNode *cur = node_malloc(arena);
@@ -22,6 +23,8 @@ void read_line(CharNodeArena *arena, CharList *list) {
         link(tail, cur);
         tail = cur;
     }
+
+    while (!(value == '\n' || value == EOF)) value = getchar();
 }
 
 void remove_excess_spaces(CharList *list) {
