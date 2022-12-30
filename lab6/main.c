@@ -47,9 +47,10 @@ void remove_excess_spaces(CharList *list) {
 void dup_all_vowels(CharNodeArena *arena, CharList *list) {
     const char vowels[] =
         "aeiou"
-        "AEIOU"
-        "ауоиэыяюеё"
-        "АУОИЭЫЯЮЕЁ";
+        "AEIOU";
+        // those don't work, on goh encodings are hell
+        // "ауоиэыяюеё"
+        // "АУОИЭЫЯЮЕЁ";
 
     ITERATE_NODES(node, list->head) {
         bool vowel = false;
