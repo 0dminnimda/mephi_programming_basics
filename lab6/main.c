@@ -78,17 +78,19 @@ void dup_all_vowels(CharNodeArena *arena, CharList *list) {
 int main() {
     CharList list;
     CharNodeArena arena;
-    initialize_char_arena(&arena);
 
-    read_line(&arena, &list);
-    PRINT_NODES("Read: '", list.head, "'\n");
+    while (1) {
+        initialize_char_arena(&arena);
 
-    PRINT_NODES("Word: '", node_span(list.head, " \t"), "'\n");
-    PRINT_NODES("Space: '", node_anti_span(list.head, " \t"), "'\n");
+        printf(">>> ");
+        if (read_line(&arena, &list)) {
+            printf("Encountered EOF while reading a line, exiting ...\n");
+            break;
+        }
+        PRINT_NODES("Input: \"", list.head, "\"\n");
 
-    remove_excess_spaces(&list);
-    PRINT_NODES("remove_excess_spaces: '", list.head, "'\n");
-
-    dup_all_vowels(&arena, &list);
-    PRINT_NODES("dup_all_vowels: '", list.head, "'\n");
+        remove_excess_spaces(&list);
+        dup_all_vowels(&arena, &list);
+        PRINT_NODES("Output: \"", list.head, "\"\n");
+    }
 }
