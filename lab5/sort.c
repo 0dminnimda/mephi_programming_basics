@@ -6,6 +6,20 @@ void swap(Voter *a, Voter *b) {
     Voter temp = *a;
     *a = *b;
     *b = temp;
+typedef int void_cmp(const void *, const void *);
+
+void *void_add(void *ptr, long long offset, size_t size) {
+    return (char *)ptr + offset * (long long)size;
+}
+
+void *void_inc(void **ptr, size_t size) {
+    return *ptr = void_add(*ptr, 1, size);
+}
+
+void *void_dec(void **ptr, size_t size) {
+    return *ptr = void_add(*ptr, -1, size);
+}
+
 }
 
 void bubble_sort(Voters voters, cmp_func_t *cmp) {
