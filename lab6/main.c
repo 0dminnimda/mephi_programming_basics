@@ -17,11 +17,8 @@ void read_line(CharNodeArena *arena, CharList *list) {
         CharNode *cur = node_malloc(arena);
         cur->value = value;
 
-        if (tail == NULL)
-            list->head = cur;
-        else
-            tail->next = cur;
-        cur->prev = tail;
+        if (tail == NULL) list->head = cur;
+        link(tail, cur);
         tail = cur;
     }
 }
@@ -33,11 +30,11 @@ void remove_excess_spaces(CharList *list) {
     CharNode *space;
     while ((space = node_anti_span(word, " \t")) != NULL) {
         if ((word = node_span(space, " \t")) == NULL) {
-            space->prev->next = NULL;
+            link(space->prev, NULL);
             break;
         }
-        space->next = word;
         space->value = ' ';
+        link(space, word);
     }
 }
 

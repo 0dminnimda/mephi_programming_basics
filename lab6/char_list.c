@@ -4,6 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void link(CharNode *a, CharNode *b) {
+    if (a != NULL) a->next = b;
+    if (b != NULL) b->prev = a;
+}
+
 void print_nodes(CharNode *start) {
     ITERATE_NODES(node, start) putchar(node->value);
 }
