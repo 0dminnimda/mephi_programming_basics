@@ -85,7 +85,7 @@ int main() {
 
         printf(">>> ");
         if (read_line(&arena, &list)) {
-            printf("Encountered EOF while reading a line, exiting ...\n");
+            printf("\nEncountered EOF while reading a line, exiting ...\n");
             break;
         }
         PRINT_NODES("Input: \"", list.head, "\"\n");
