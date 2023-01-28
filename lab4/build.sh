@@ -14,7 +14,7 @@ fi
 if [[ $1 == "1" ]]; then
     ARGS="$ARGS -lreadline -D PROGRAM_ID=1"
 else
-    ARGS="my_string.c my_readline.c $ARGS"
+    ARGS="my_string.c my_readline.c $ARGS -Wno-unused-result"
 fi
 
 COMMAND="$MY_CC $ARGS"
