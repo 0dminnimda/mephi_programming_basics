@@ -72,7 +72,7 @@ def create_cases() -> str:
     for _ in range(50):
         cases += (random_string(1, 50) + " ") * random.randint(1, 5) + "\n"
 
-    return cases + "=)"
+    return cases
 
 
 def run(cases: str) -> Tuple[str, str]:
