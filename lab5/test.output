@@ -1,0 +1,182 @@
+
+Running $ cat sample.txt
+Saddam Hussein, HID-420, 69
+Sussus Amogus, SUS-666, 13
+Magnus"Adonisss, TOP-001, 25
+Elon Musk, TOP-001, 51
+Infirmi-Jeffrey, HID-798, 30
+Xi Jinping, TOP-999, 69
+    Mr. White Space, BOO-321, 4
+Steven Smith, NAN-000, 0
+Mr. Lower Case, boo-654, 4
+
+      
+!!! Invalid Test !!!, ABC- 123, 1
+!!! Invalid Test !!!, ABC -123, 1
+!!! Invalid Test !!!, ABC - 123, 1
+!!! Invalid Test !!!, AB-123, 1
+!!! Invalid Test !!!, ABС-12, 1
+!!! Invalid Test !!!, ABС-123, -1
+!!! Invalid Test !!!, ABС-123, -1
+!!! Invalid Test !!!, ABС-123 1
+!!! Invalid Test !!! ABС-123, 1
+!!! Invalid Test !!! ABС-123 1
+!!! Invalid Test !!!, ABС0123, 1
+!!! Invalid Test !!!, ABС123, 1
+!!! Invalid, Test !!!, ABС-123, 1
+!!! Invalid Test !!!, AB0-123, 1
+!!! Invalid Test !!!, ABC-A23, 1
+!!! Invalid Test !!!, ABC-123, two
+
+Running $ ./main  -h
+Usage: ./main [options] <input_file> <output_file>
+
+Options:
+  -h             Show help.
+  -v             Give more output, make it verbose.
+  -w             Don't show warnings.
+  -r             Reverse the sorting direction.
+  -f field       Field which will be used as a sorting key (name by default).
+                     name    - Full name of the voter
+                     station - Identifier of the polling station
+                     age     - Age of the voter
+  -s sort        What sorting algorithm to use (Q by default).
+                     B       - BubbleSort
+                     D       - DoubleSelectionSort
+                     Q       - QuickSort
+
+
+Running $ ./main  sample.txt out.txt
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABC- 123, 1" at sample.txt:12
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABC -123, 1" at sample.txt:13
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABC - 123, 1" at sample.txt:14
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, AB-123, 1" at sample.txt:15
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABС-12, 1" at sample.txt:16
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABС-123, -1" at sample.txt:17
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABС-123, -1" at sample.txt:18
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABС-123 1" at sample.txt:19
+WARNING: Ignoring invalid data "!!! Invalid Test !!! ABС-123, 1" at sample.txt:20
+WARNING: Ignoring invalid data "!!! Invalid Test !!! ABС-123 1" at sample.txt:21
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABС0123, 1" at sample.txt:22
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABС123, 1" at sample.txt:23
+WARNING: Ignoring invalid data "!!! Invalid, Test !!!, ABС-123, 1" at sample.txt:24
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, AB0-123, 1" at sample.txt:25
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABC-A23, 1" at sample.txt:26
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABC-123, two" at sample.txt:27
+
+Running $ ./main  sample.txt out.txt -w -f age -s B
+
+Running $ cat out.txt
+Steven Smith, NAN-000, 0
+    Mr. White Space, BOO-321, 4
+Mr. Lower Case, boo-654, 4
+Sussus Amogus, SUS-666, 13
+Magnus"Adonisss, TOP-001, 25
+Infirmi-Jeffrey, HID-798, 30
+Elon Musk, TOP-001, 51
+Saddam Hussein, HID-420, 69
+Xi Jinping, TOP-999, 69
+
+Running $ ./main  sample.txt out.txt -w -f age -s D
+
+Running $ cat out.txt
+Steven Smith, NAN-000, 0
+    Mr. White Space, BOO-321, 4
+Mr. Lower Case, boo-654, 4
+Sussus Amogus, SUS-666, 13
+Magnus"Adonisss, TOP-001, 25
+Infirmi-Jeffrey, HID-798, 30
+Elon Musk, TOP-001, 51
+Xi Jinping, TOP-999, 69
+Saddam Hussein, HID-420, 69
+
+Running $ ./main  sample.txt out.txt -w -f age -s Q
+
+Running $ cat out.txt
+Steven Smith, NAN-000, 0
+    Mr. White Space, BOO-321, 4
+Mr. Lower Case, boo-654, 4
+Sussus Amogus, SUS-666, 13
+Magnus"Adonisss, TOP-001, 25
+Infirmi-Jeffrey, HID-798, 30
+Elon Musk, TOP-001, 51
+Saddam Hussein, HID-420, 69
+Xi Jinping, TOP-999, 69
+
+Running $ ./main  sample.txt out.txt -w -f name -s B
+
+Running $ cat out.txt
+    Mr. White Space, BOO-321, 4
+Elon Musk, TOP-001, 51
+Infirmi-Jeffrey, HID-798, 30
+Magnus"Adonisss, TOP-001, 25
+Mr. Lower Case, boo-654, 4
+Saddam Hussein, HID-420, 69
+Steven Smith, NAN-000, 0
+Sussus Amogus, SUS-666, 13
+Xi Jinping, TOP-999, 69
+
+Running $ ./main  sample.txt out.txt -w -f name -s D
+
+Running $ cat out.txt
+    Mr. White Space, BOO-321, 4
+Elon Musk, TOP-001, 51
+Infirmi-Jeffrey, HID-798, 30
+Magnus"Adonisss, TOP-001, 25
+Mr. Lower Case, boo-654, 4
+Saddam Hussein, HID-420, 69
+Steven Smith, NAN-000, 0
+Sussus Amogus, SUS-666, 13
+Xi Jinping, TOP-999, 69
+
+Running $ ./main  sample.txt out.txt -w -f name -s Q
+
+Running $ cat out.txt
+    Mr. White Space, BOO-321, 4
+Elon Musk, TOP-001, 51
+Infirmi-Jeffrey, HID-798, 30
+Magnus"Adonisss, TOP-001, 25
+Mr. Lower Case, boo-654, 4
+Saddam Hussein, HID-420, 69
+Steven Smith, NAN-000, 0
+Sussus Amogus, SUS-666, 13
+Xi Jinping, TOP-999, 69
+
+Running $ ./main  sample.txt out.txt -w -f station -s B
+
+Running $ cat out.txt
+    Mr. White Space, BOO-321, 4
+Saddam Hussein, HID-420, 69
+Infirmi-Jeffrey, HID-798, 30
+Steven Smith, NAN-000, 0
+Sussus Amogus, SUS-666, 13
+Magnus"Adonisss, TOP-001, 25
+Elon Musk, TOP-001, 51
+Xi Jinping, TOP-999, 69
+Mr. Lower Case, boo-654, 4
+
+Running $ ./main  sample.txt out.txt -w -f station -s D
+
+Running $ cat out.txt
+    Mr. White Space, BOO-321, 4
+Saddam Hussein, HID-420, 69
+Infirmi-Jeffrey, HID-798, 30
+Steven Smith, NAN-000, 0
+Sussus Amogus, SUS-666, 13
+Elon Musk, TOP-001, 51
+Magnus"Adonisss, TOP-001, 25
+Xi Jinping, TOP-999, 69
+Mr. Lower Case, boo-654, 4
+
+Running $ ./main  sample.txt out.txt -w -f station -s Q
+
+Running $ cat out.txt
+    Mr. White Space, BOO-321, 4
+Saddam Hussein, HID-420, 69
+Infirmi-Jeffrey, HID-798, 30
+Steven Smith, NAN-000, 0
+Sussus Amogus, SUS-666, 13
+Magnus"Adonisss, TOP-001, 25
+Elon Musk, TOP-001, 51
+Xi Jinping, TOP-999, 69
+Mr. Lower Case, boo-654, 4
