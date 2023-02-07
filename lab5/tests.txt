@@ -1,0 +1,359 @@
+/projects/mephi_labs/lab5$ ./build.sh
+Running 'cc sort.c voters.c sort_type.c argparse.c main.c -o main -O3 -g'
+
+/projects/mephi_labs/lab5$ valgrind ./main -h
+==702== Memcheck, a memory error detector
+==702== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==702== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==702== Command: ./main -h
+==702==
+==702== error calling PR_SET_PTRACER, vgdb might block
+Usage: ./main [options] <array_length> <n_iterations>
+
+  array_length   Number of elements in the generated array.
+  n_iterations   Number of iterations for generating an array and measuring it sorting time.
+
+Options:
+  -h             Show help.
+  -v             Give more output, make it verbose.
+  -w             Don't show warnings.
+  -r             Reverse the sorting direction.
+  -f field       Field which will be used as a sorting key (name by default).
+                     name    - Full name of the voter
+                     station - Identifier of the polling station
+                     age     - Age of the voter
+  -s sort        What sorting algorithm to use (Q by default).
+                     B       - BubbleSort
+                     D       - DoubleSelectionSort
+                     Q       - QuickSort
+
+==702==
+==702== HEAP SUMMARY:
+==702==     in use at exit: 0 bytes in 0 blocks
+==702==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==702==
+==702== All heap blocks were freed -- no leaks are possible
+==702==
+==702== For counts of detected and suppressed errors, rerun with: -v
+==702== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+/projects/mephi_labs/lab5$ valgrind ./main 3 4 -v
+==703== Memcheck, a memory error detector
+==703== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==703== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==703== Command: ./main 3 4 -v
+==703==
+==703== error calling PR_SET_PTRACER, vgdb might block
+Using these options:
+  array length: 3
+  n_iterations: 4
+  reversed order: No
+  field: name
+  sort: QuickSort
+
+
+Iteration 1
+l66tSmUhAqP8.-qH4-I D, DIC-847, 91
+haYHC?MBaDNLa#?0BJWjgRQh!z0IzgCQP1ybzjrG6e qKFHV5IK TU1G UJmISVO4om.Xn, gIO-685, 109
+bR2Fz4YVMXTQwmsRd.1iPlH!Nk6B16Q!VBYVsbE'4HyWjytyYPedPxMm3ao2OSrajXqYo?P, NRs-776, 193
+
+Sorting ...
+
+bR2Fz4YVMXTQwmsRd.1iPlH!Nk6B16Q!VBYVsbE'4HyWjytyYPedPxMm3ao2OSrajXqYo?P, NRs-776, 193
+haYHC?MBaDNLa#?0BJWjgRQh!z0IzgCQP1ybzjrG6e qKFHV5IK TU1G UJmISVO4om.Xn, gIO-685, 109
+l66tSmUhAqP8.-qH4-I D, DIC-847, 91
+
+Iteration 2
+I6PiHMY9yyE ?iv4Ceofvz8sGhN, oNB-576, 9
+Ug5ol.1m'e8Lf3xa, MPe-297, 158
+lvbDgGZDd?Vkn#oMegGVm90o1h, pqV-503, 17
+
+Sorting ...
+
+I6PiHMY9yyE ?iv4Ceofvz8sGhN, oNB-576, 9
+Ug5ol.1m'e8Lf3xa, MPe-297, 158
+lvbDgGZDd?Vkn#oMegGVm90o1h, pqV-503, 17
+
+Iteration 3
+cFheLzBR8wWC#46 RYBS q3EMg0cWh#B.kgx-H#GBvMzniPClO5?VjVK4TKYnnuNqc5FgRwcL71, gow-342, 38
+eTF6VBSX!OXmJ'1dvG-i69E2xH4jQ.ER!doBDHao, Fqk-432, 181
+.5r7j6-ARaJGP0YSE1c0RNWALtWjRCOdWC'mRw8O50, Tmu-607, 29
+
+Sorting ...
+
+.5r7j6-ARaJGP0YSE1c0RNWALtWjRCOdWC'mRw8O50, Tmu-607, 29
+cFheLzBR8wWC#46 RYBS q3EMg0cWh#B.kgx-H#GBvMzniPClO5?VjVK4TKYnnuNqc5FgRwcL71, gow-342, 38
+eTF6VBSX!OXmJ'1dvG-i69E2xH4jQ.ER!doBDHao, Fqk-432, 181
+
+Iteration 4
+l-u7stgqJ, LUn-959, 110
+S!aLbo9JVJhATZ0m9rr6lpowdi.ANiXK'3TJ'A5XtzdGtIyGJFSs, zcx-073, 175
+P9ZAzR.HkZ4#IJu'Jlyut5Q0kqKC.yKSKh, lLi-209, 36
+
+Sorting ...
+
+P9ZAzR.HkZ4#IJu'Jlyut5Q0kqKC.yKSKh, lLi-209, 36
+S!aLbo9JVJhATZ0m9rr6lpowdi.ANiXK'3TJ'A5XtzdGtIyGJFSs, zcx-073, 175
+l-u7stgqJ, LUn-959, 110
+
+On average 0.0010064244 seconds was spent on sorting one array
+Total work time: 0.0040256977 seconds for 4 iterations
+==703==
+==703== HEAP SUMMARY:
+==703==     in use at exit: 0 bytes in 0 blocks
+==703==   total heap usage: 16 allocs, 16 frees, 8,032 bytes allocated
+==703==
+==703== All heap blocks were freed -- no leaks are possible
+==703==
+==703== For counts of detected and suppressed errors, rerun with: -v
+==703== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+/projects/mephi_labs/lab5$ valgrind ./main 1000 100 -f station -s B
+==704== Memcheck, a memory error detector
+==704== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==704== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==704== Command: ./main 1000 100 -f station -s B
+==704==
+==704== error calling PR_SET_PTRACER, vgdb might block
+Iteration 100
+On average 0.1326049185 seconds was spent on sorting one array
+Total work time: 13.2604918480 seconds for 100 iterations
+==704==
+==704== HEAP SUMMARY:
+==704==     in use at exit: 0 bytes in 0 blocks
+==704==   total heap usage: 100,004 allocs, 100,004 frees, 32,028,120 bytes allocated
+==704==
+==704== All heap blocks were freed -- no leaks are possible
+==704==
+==704== For counts of detected and suppressed errors, rerun with: -v
+==704== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+/projects/mephi_labs/lab5$ valgrind ./main 1000 100 -f age -s B
+==705== Memcheck, a memory error detector
+==705== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==705== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==705== Command: ./main 1000 100 -f age -s B
+==705==
+==705== error calling PR_SET_PTRACER, vgdb might block
+Iteration 100
+On average 0.1053577828 seconds was spent on sorting one array
+Total work time: 10.5357782841 seconds for 100 iterations
+==705==
+==705== HEAP SUMMARY:
+==705==     in use at exit: 0 bytes in 0 blocks
+==705==   total heap usage: 100,004 allocs, 100,004 frees, 32,028,120 bytes allocated
+==705==
+==705== All heap blocks were freed -- no leaks are possible
+==705==
+==705== For counts of detected and suppressed errors, rerun with: -v
+==705== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+/projects/mephi_labs/lab5$ valgrind ./main 1000 100 -f age -s D
+==706== Memcheck, a memory error detector
+==706== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==706== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==706== Command: ./main 1000 100 -f age -s D
+==706==
+==706== error calling PR_SET_PTRACER, vgdb might block
+Iteration 100
+On average 0.0251862454 seconds was spent on sorting one array
+Total work time: 2.5186245441 seconds for 100 iterations
+==706==
+==706== HEAP SUMMARY:
+==706==     in use at exit: 0 bytes in 0 blocks
+==706==   total heap usage: 100,004 allocs, 100,004 frees, 32,028,120 bytes allocated
+==706==
+==706== All heap blocks were freed -- no leaks are possible
+==706==
+==706== For counts of detected and suppressed errors, rerun with: -v
+==706== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+/projects/mephi_labs/lab5$ valgrind ./main 1000 100 -f age -s Q
+==707== Memcheck, a memory error detector
+==707== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==707== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==707== Command: ./main 1000 100 -f age -s Q
+==707==
+==707== error calling PR_SET_PTRACER, vgdb might block
+Iteration 100
+On average 0.0031534314 seconds was spent on sorting one array
+Total work time: 0.3153431416 seconds for 100 iterations
+==707==
+==707== HEAP SUMMARY:
+==707==     in use at exit: 0 bytes in 0 blocks
+==707==   total heap usage: 100,104 allocs, 100,104 frees, 34,428,120 bytes allocated
+==707==
+==707== All heap blocks were freed -- no leaks are possible
+==707==
+==707== For counts of detected and suppressed errors, rerun with: -v
+==707== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+/projects/mephi_labs/lab5$ ./build.sh 1
+Running 'cc sort.c voters.c sort_type.c argparse.c main.c -o main -O3 -g -D PROGRAM_ID=1'
+
+/projects/mephi_labs/lab5$ valgrind ./main -h
+==743== Memcheck, a memory error detector
+==743== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==743== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==743== Command: ./main -h
+==743==
+==743== error calling PR_SET_PTRACER, vgdb might block
+Usage: ./main [options] <input_file> <output_file>
+
+Options:
+  -h             Show help.
+  -v             Give more output, make it verbose.
+  -w             Don't show warnings.
+  -r             Reverse the sorting direction.
+  -f field       Field which will be used as a sorting key (name by default).
+                     name    - Full name of the voter
+                     station - Identifier of the polling station
+                     age     - Age of the voter
+  -s sort        What sorting algorithm to use (Q by default).
+                     B       - BubbleSort
+                     D       - DoubleSelectionSort
+                     Q       - QuickSort
+
+==743==
+==743== HEAP SUMMARY:
+==743==     in use at exit: 0 bytes in 0 blocks
+==743==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==743==
+==743== All heap blocks were freed -- no leaks are possible
+==743==
+==743== For counts of detected and suppressed errors, rerun with: -v
+==743== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+/projects/mephi_labs/lab5$ cat sample.txt
+Saddam Hussein, HID-420, 69
+Sussus Amogus, SUS-666, 13
+Magnus"Adonisss, TOP-001, 25
+Elon Musk, TOP-001, 51
+Infirmi-Jeffrey, HID-798, 30
+Xi Jinping, TOP-999, 69
+    Mr. White Space, BOO-321, 4
+Steven Smith, NAN-000, 0
+Mr. Lower Case, boo-654, 4
+
+
+!!! Invalid Test !!!, ABC- 123, 1
+!!! Invalid Test !!!, ABC -123, 1
+!!! Invalid Test !!!, ABC - 123, 1
+!!! Invalid Test !!!, AB-123, 1
+!!! Invalid Test !!!, ABС-12, 1
+!!! Invalid Test !!!, ABС-123, -1
+!!! Invalid Test !!!, ABС-123, -1
+!!! Invalid Test !!!, ABС-123 1
+!!! Invalid Test !!! ABС-123, 1
+!!! Invalid Test !!! ABС-123 1
+!!! Invalid Test !!!, ABС0123, 1
+!!! Invalid Test !!!, ABС123, 1
+!!! Invalid, Test !!!, ABС-123, 1
+!!! Invalid Test !!!, AB0-123, 1
+!!! Invalid Test !!!, ABC-A23, 1
+!!! Invalid Test !!!, ABC-123, two
+/projects/mephi_labs/lab5$ valgrind ./main sample.txt out.txt
+==739== Memcheck, a memory error detector
+==739== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==739== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==739== Command: ./main sample.txt out.txt
+==739==
+==739== error calling PR_SET_PTRACER, vgdb might block
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABC- 123, 1" at sample.txt:12
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABC -123, 1" at sample.txt:13
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABC - 123, 1" at sample.txt:14
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, AB-123, 1" at sample.txt:15
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABС-12, 1" at sample.txt:16
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABС-123, -1" at sample.txt:17
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABС-123, -1" at sample.txt:18
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABС-123 1" at sample.txt:19
+WARNING: Ignoring invalid data "!!! Invalid Test !!! ABС-123, 1" at sample.txt:20
+WARNING: Ignoring invalid data "!!! Invalid Test !!! ABС-123 1" at sample.txt:21
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABС0123, 1" at sample.txt:22
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABС123, 1" at sample.txt:23
+WARNING: Ignoring invalid data "!!! Invalid, Test !!!, ABС-123, 1" at sample.txt:24
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, AB0-123, 1" at sample.txt:25
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABC-A23, 1" at sample.txt:26
+WARNING: Ignoring invalid data "!!! Invalid Test !!!, ABC-123, two" at sample.txt:27
+==739==
+==739== HEAP SUMMARY:
+==739==     in use at exit: 0 bytes in 0 blocks
+==739==   total heap usage: 37 allocs, 37 frees, 18,584 bytes allocated
+==739==
+==739== All heap blocks were freed -- no leaks are possible
+==739==
+==739== For counts of detected and suppressed errors, rerun with: -v
+==739== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+/projects/mephi_labs/lab5$ cat out.txt
+    Mr. White Space, BOO-321, 4
+Elon Musk, TOP-001, 51
+Infirmi-Jeffrey, HID-798, 30
+Magnus"Adonisss, TOP-001, 25
+Mr. Lower Case, boo-654, 4
+Saddam Hussein, HID-420, 69
+Steven Smith, NAN-000, 0
+Sussus Amogus, SUS-666, 13
+Xi Jinping, TOP-999, 69
+/projects/mephi_labs/lab5$ valgrind ./main sample.txt out.txt -w -r
+==741== Memcheck, a memory error detector
+==741== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==741== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==741== Command: ./main sample.txt out.txt -w -r
+==741==
+==741== error calling PR_SET_PTRACER, vgdb might block
+==741==
+==741== HEAP SUMMARY:
+==741==     in use at exit: 0 bytes in 0 blocks
+==741==   total heap usage: 37 allocs, 37 frees, 18,584 bytes allocated
+==741==
+==741== All heap blocks were freed -- no leaks are possible
+==741==
+==741== For counts of detected and suppressed errors, rerun with: -v
+==741== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+/projects/mephi_labs/lab5$ cat out.txt
+Xi Jinping, TOP-999, 69
+Sussus Amogus, SUS-666, 13
+Steven Smith, NAN-000, 0
+Saddam Hussein, HID-420, 69
+Mr. Lower Case, boo-654, 4
+Magnus"Adonisss, TOP-001, 25
+Infirmi-Jeffrey, HID-798, 30
+Elon Musk, TOP-001, 51
+    Mr. White Space, BOO-321, 4
+/projects/mephi_labs/lab5$ valgrind ./main sample.txt out.txt -w -f age -v
+==744== Memcheck, a memory error detector
+==744== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==744== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==744== Command: ./main sample.txt out.txt -w -f age -v
+==744==
+==744== error calling PR_SET_PTRACER, vgdb might block
+Using these options:
+  input file: 'sample.txt'
+  output file: 'out.txt'
+  reversed order: No
+  field: age
+  sort: QuickSort
+
+Saddam Hussein, HID-420, 69
+Sussus Amogus, SUS-666, 13
+Magnus"Adonisss, TOP-001, 25
+Elon Musk, TOP-001, 51
+Infirmi-Jeffrey, HID-798, 30
+Xi Jinping, TOP-999, 69
+    Mr. White Space, BOO-321, 4
+Steven Smith, NAN-000, 0
+Mr. Lower Case, boo-654, 4
+
+Sorting ...
+
+Steven Smith, NAN-000, 0
+    Mr. White Space, BOO-321, 4
+Mr. Lower Case, boo-654, 4
+Sussus Amogus, SUS-666, 13
+Magnus"Adonisss, TOP-001, 25
+Infirmi-Jeffrey, HID-798, 30
+Elon Musk, TOP-001, 51
+Saddam Hussein, HID-420, 69
+Xi Jinping, TOP-999, 69
+==744==
+==744== HEAP SUMMARY:
+==744==     in use at exit: 0 bytes in 0 blocks
+==744==   total heap usage: 38 allocs, 38 frees, 22,680 bytes allocated
+==744==
+==744== All heap blocks were freed -- no leaks are possible
+==744==
+==744== For counts of detected and suppressed errors, rerun with: -v
+==744== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
