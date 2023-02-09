@@ -8,3 +8,5 @@
 *.pdb
 *.ilk
 /secret
+
+/*/lab*/main
