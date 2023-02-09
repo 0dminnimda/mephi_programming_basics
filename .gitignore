@@ -4,6 +4,7 @@
 /.bash_history
 /.gitconfig
 *.o
+*.out
 *.pdb
 *.ilk
 /secret
