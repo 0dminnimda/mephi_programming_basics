@@ -1,0 +1,15 @@
+/.lesshst
+/.python_history
+
+/.ssh/
+/.config/
+/.vscode/
+/.bash_history
+/.gitconfig
+*.o
+*.out
+*.pdb
+*.ilk
+/secret
+
+/**/lab*/main
